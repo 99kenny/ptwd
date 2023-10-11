@@ -338,28 +338,28 @@ class VisionTransformer(nn.Module):
             top_k=None, batchwise_prompt=False, prompt_key_init='uniform', head_type='token', use_prompt_mask=False,):
         """
         Args:
-            img_size (int, tuple): input image size
-            patch_size (int, tuple): patch size
-            in_chans (int): number of input channels
-            num_classes (int): number of classes for classification head
-            global_pool (str): type of global pooling for final sequence (default: 'token')
-            embed_dim (int): embedding dimension
-            depth (int): depth of transformer
-            num_heads (int): number of attention heads
-            mlp_ratio (int): ratio of mlp hidden dim to embedding dim
-            qkv_bias (bool): enable bias for qkv if True
-            init_values: (float): layer-scale init values
-            class_token (bool): use class token
-            fc_norm (Optional[bool]): pre-fc norm after pool, set if global_pool == 'avg' if None (default: None)
-            drop_rate (float): dropout rate
-            attn_drop_rate (float): attention dropout rate
-            drop_path_rate (float): stochastic depth rate
-            weight_init (str): weight init scheme
-            embed_layer (nn.Module): patch embedding layer
-            norm_layer: (nn.Module): normalization layer
-            act_layer: (nn.Module): MLP activation layer
-            block_fn: (nn.Module): transformer block
-            prompt_pool (bool): use prompt pool or not
+            img_size (int, tuple): input image size (32)
+            patch_size (int, tuple): patch size (16)
+            in_chans (int): number of input channels (3)
+            num_classes (int): number of classes for classification head (100)
+            global_pool (str): type of global pooling for final sequence (default: 'token') 
+            embed_dim (int): embedding dimension (768)
+            depth (int): depth of transformer (12)
+            num_heads (int): number of attention heads (12)
+            mlp_ratio (int): ratio of mlp hidden dim to embedding dim (4.0?)
+            qkv_bias (bool): enable bias for qkv if True (True)
+            init_values: (float): layer-scale init values (None?)
+            class_token (bool): use class token (True)
+            fc_norm (Optional[bool]): pre-fc norm after pool, set if global_pool == 'avg' if None (default: None) ?
+            drop_rate (float): dropout rate (0.)
+            attn_drop_rate (float): attention dropout rate (0.)
+            drop_path_rate (float): stochastic depth rate (0.)
+            weight_init (str): weight init scheme ()
+            embed_layer (nn.Module): patch embedding layer (PatchEmbed)
+            norm_layer: (nn.Module): normalization layer (None)
+            act_layer: (nn.Module): MLP activation layer (None)
+            block_fn: (nn.Module): transformer block (Block)
+            prompt_pool (bool): use prompt pool or not (False)
         """
         super().__init__()
         assert global_pool in ('', 'avg', 'token')
@@ -376,14 +376,14 @@ class VisionTransformer(nn.Module):
         self.num_prefix_tokens = 1 if class_token else 0
         self.no_embed_class = no_embed_class
         self.grad_checkpointing = False
-
+        # img [128,3,32,32] -> [128,4,768]
         self.patch_embed = embed_layer(
             img_size=img_size, patch_size=patch_size, in_chans=in_chans, embed_dim=embed_dim)
-        num_patches = self.patch_embed.num_patches
+        num_patches = self.patch_embed.num_patches # 4
 
         self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim)) if class_token else None
-        embed_len = num_patches if no_embed_class else num_patches + self.num_prefix_tokens
-        if prompt_length is not None and pool_size is not None and prompt_pool:
+        embed_len = num_patches if no_embed_class else num_patches + self.num_prefix_tokens # for class token
+        if prompt_length is not None and pool_size is not None and prompt_pool: # add for prompt 
             embed_len += prompt_length * top_k
         self.pos_embed = nn.Parameter(torch.randn(1, embed_len, embed_dim) * .02)
         self.pos_drop = nn.Dropout(p=drop_rate)
@@ -455,13 +455,15 @@ class VisionTransformer(nn.Module):
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
     def forward_features(self, x, task_id=-1, cls_features=None, train=False):
+        # (128,3,32,32) -> (128,4,768)
         x = self.patch_embed(x)
-
+        # if use prompt
         if hasattr(self, 'prompt'):
+            # if use prompt mask (select prompt)
             if self.use_prompt_mask and train:
-                start = task_id * self.prompt.top_k
-                end = (task_id + 1) * self.prompt.top_k
-                single_prompt_mask = torch.arange(start, end).to(x.device)
+                start = task_id * self.prompt.top_k # task1 : 0, task2: 1*5
+                end = (task_id + 1) * self.prompt.top_k # task1: 1*5, task2: 2*5
+                single_prompt_mask = torch.arange(start, end).to(x.device) #  
                 prompt_mask = single_prompt_mask.unsqueeze(0).expand(x.shape[0], -1)
                 if end > self.prompt.pool_size:
                     prompt_mask = None
@@ -469,6 +471,7 @@ class VisionTransformer(nn.Module):
                 prompt_mask = None
             res = self.prompt(x, prompt_mask=prompt_mask, cls_features=cls_features)
             self.total_prompt_len = res['total_prompt_len']
+            # prompt + embedding
             x = res['prompted_embedding']
         else:
             res=dict()
@@ -724,7 +727,7 @@ def _create_vision_transformer(variant, pretrained=False, **kwargs):
         **kwargs)
     return model
 
-
+# registe model to registry
 @register_model
 def vit_tiny_patch16_224(pretrained=False, **kwargs):
     """ ViT-Tiny (Vit-Ti/16)

@@ -31,18 +31,29 @@ def target_transform(x, nb_classes):
     return x + nb_classes
 
 def build_continual_dataloader(args):
+    """build dataloader for continual learning from args.dataset 
+    (Split-CIFAR100 or 5-datasets or specify dataset with ,)
+
+    Args:
+        args (namesapce): arg parser  
+
+    Returns:
+        list: dataloader - [{'train' : train_loader, 'val' : val_loader},...]
+        list: class_mask - [[1,2,3],[4,5,6]]
+    """
     dataloader = list()
     class_mask = list() if args.task_inc or args.train_mask else None
-
+    
     transform_train = build_transform(True, args)
     transform_val = build_transform(False, args)
-
+    # args (SPLIT CIFAR)
     if args.dataset.startswith('Split-'):
         dataset_train, dataset_val = get_dataset(args.dataset.replace('Split-',''), transform_train, transform_val, args)
 
         args.nb_classes = len(dataset_val.classes)
-
+        
         splited_dataset, class_mask = split_single_dataset(dataset_train, dataset_val, args)
+    # or 5-datasets or others 
     else:
         if args.dataset == '5-datasets':
             dataset_list = ['SVHN', 'MNIST', 'CIFAR10', 'NotMNIST', 'FashionMNIST']
@@ -54,7 +65,7 @@ def build_continual_dataloader(args):
         print(dataset_list)
     
         args.nb_classes = 0
-
+    # for each task i
     for i in range(args.num_tasks):
         if args.dataset.startswith('Split-'):
             dataset_train, dataset_val = splited_dataset[i]
@@ -63,7 +74,7 @@ def build_continual_dataloader(args):
             dataset_train, dataset_val = get_dataset(dataset_list[i], transform_train, transform_val, args)
 
             transform_target = Lambda(target_transform, args.nb_classes)
-
+            # if not Split-CIFAR100 set targets [0,1,2], [0,1,2] -> [0,1,2], [3,4,5] 
             if class_mask is not None:
                 class_mask.append([i + args.nb_classes for i in range(len(dataset_val.classes))])
                 args.nb_classes += len(dataset_val.classes)
@@ -157,10 +168,15 @@ def get_dataset(dataset, transform_train, transform_val, args,):
     return dataset_train, dataset_val
 
 def split_single_dataset(dataset_train, dataset_val, args):
+    '''Splits datset into (num_classes // args.num_tasks) classes per task
+    Returns:
+    list:split_datasets [[task1_train, task1_test], [task2_train, task2_test], ... ]
+    list:mask [[1,4,5,...], [2,9,3,...]] list of targets for each task 
+    '''
     nb_classes = len(dataset_val.classes)
     assert nb_classes % args.num_tasks == 0
     classes_per_task = nb_classes // args.num_tasks
-
+    
     labels = [i for i in range(nb_classes)]
     
     split_datasets = list()
@@ -168,26 +184,27 @@ def split_single_dataset(dataset_train, dataset_val, args):
 
     if args.shuffle:
         random.shuffle(labels)
-
+    # split task  
     for _ in range(args.num_tasks):
         train_split_indices = []
         test_split_indices = []
-        
+        # current task
         scope = labels[:classes_per_task]
+        # remaining tasks
         labels = labels[classes_per_task:]
 
         mask.append(scope)
-
+        # current task index
         for k in range(len(dataset_train.targets)):
             if int(dataset_train.targets[k]) in scope:
                 train_split_indices.append(k)
-                
+        
         for h in range(len(dataset_val.targets)):
             if int(dataset_val.targets[h]) in scope:
                 test_split_indices.append(h)
-        
+        # subset datasets
         subset_train, subset_val =  Subset(dataset_train, train_split_indices), Subset(dataset_val, test_split_indices)
-
+        
         split_datasets.append([subset_train, subset_val])
     
     return split_datasets, mask

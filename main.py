@@ -31,7 +31,7 @@ warnings.filterwarnings('ignore', 'Argument interpolation should be of type Inte
 
 def main(args):
     utils.init_distributed_mode(args)
-
+    
     device = torch.device(args.device)
 
     # fix the seed for reproducibility
@@ -41,7 +41,7 @@ def main(args):
     random.seed(seed)
 
     cudnn.benchmark = True
-
+    
     data_loader, class_mask = build_continual_dataloader(args)
 
     print(f"Creating original model: {args.model}")
@@ -91,7 +91,7 @@ def main(args):
 
     if args.eval:
         acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
-
+        # validate for each task
         for task_id in range(args.num_tasks):
             checkpoint_path = os.path.join(args.output_dir, 'checkpoint/task{}_checkpoint.pth'.format(task_id+1))
             if os.path.exists(checkpoint_path):
@@ -105,7 +105,7 @@ def main(args):
                                             task_id, class_mask, acc_matrix, args,)
         
         return
-
+    
     model_without_ddp = model
     if args.distributed:
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])

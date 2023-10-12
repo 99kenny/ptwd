@@ -178,7 +178,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
     
     for epoch in range(args.epochs):
         train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion,
-                    data_loader=data_loader['train'], optimizer=optimizer,
+                    data_loader=data_loader[0]['train'], optimizer=optimizer,
                     device=device, epoch=epoch, max_norm=args.clip_grad,
                     set_training_mode=True, task_id=-1, class_mask=None, args=args,)
         if lr_scheduler:

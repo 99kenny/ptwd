@@ -34,7 +34,8 @@ def build_dataloader(args):
     train_transform = build_transform(True, args)
     val_transform = build_transform(False, args)
     dataset_train, dataset_val = get_dataset('CIFAR100', train_transform, val_transform, args)
-
+    args.nb_classes = len(dataset_val.classes)
+    
     dataloader = list()
 
     sampler_train = torch.utils.data.RandomSampler(dataset_train)

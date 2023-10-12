@@ -175,7 +175,6 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module,
                        criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device,
                        args = None,):
-    acc = np.zeros(1)
     
     for epoch in range(args.epochs):
         train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion,

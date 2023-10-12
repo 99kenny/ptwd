@@ -18,12 +18,13 @@ class Prompt(nn.Module):
 
         if self.prompt_pool:
             prompt_pool_shape = (pool_size, length, embed_dim)
+ 
             if prompt_init == 'zero':
                 self.prompt = nn.Parameter(torch.zeros(prompt_pool_shape))
             elif prompt_init == 'uniform':
                 self.prompt = nn.Parameter(torch.randn(prompt_pool_shape))
                 nn.init.uniform_(self.prompt, -1, 1)
-        
+            
         # if using learnable prompt keys
         if prompt_key:
             key_shape = (pool_size, embed_dim)

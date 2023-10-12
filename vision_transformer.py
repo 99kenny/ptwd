@@ -282,7 +282,6 @@ class ResPostBlock(nn.Module):
         x = x + self.drop_path2(self.norm2(self.mlp(x)))
         return x
 
-
 class ParallelBlock(nn.Module):
 
     def __init__(

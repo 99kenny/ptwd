@@ -172,7 +172,18 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 
     return test_stats
 
-def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
+def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module,
+                       criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device,
+                       args = None,):
+    acc = np.zeros(1)
+    
+    if args.prompt_pool and args.shared_prompt_pool:
+        with torch.no_grad():
+            if args.distributed:
+                model.module.prompt.prompt.grad.zero_()
+                model.module.prompt.prompt[]
+
+def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
                     class_mask=None, args = None,):
 
@@ -182,13 +193,17 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
     for task_id in range(args.num_tasks):
        # Transfer previous learned prompt params to the new prompt
         if args.prompt_pool and args.shared_prompt_pool:
+            # starting from second task
             if task_id > 0:
+                # 0, 5, 10, ...
                 prev_start = (task_id - 1) * args.top_k
+                # 5, 10, 15, ...
                 prev_end = task_id * args.top_k
-
+                # 5, 10, 15, ...
                 cur_start = prev_end
+                # 10, 15, 20, ...
                 cur_end = (task_id + 1) * args.top_k
-
+                        
                 if (prev_end > args.size) or (cur_end > args.size):
                     pass
                 else:

@@ -30,6 +30,35 @@ class Lambda(transforms.Lambda):
 def target_transform(x, nb_classes):
     return x + nb_classes
 
+def build_dataloader(args):
+    train_transform = build_transform(True, args)
+    val_transform = build_transform(False, args)
+    dataset_train, dataset_val = get_dataset('CIFAR100', train_transform, val_transform, args)
+
+    dataloader = list()
+
+    sampler_train = torch.utils.data.RandomSampler(dataset_train)
+    sampler_val = torch.utils.data.SequentialSampler(dataset_val)
+        
+    data_loader_train = torch.utils.data.DataLoader(
+        dataset_train, sampler=sampler_train,
+        batch_size=args.batch_size,
+        num_workers=args.num_workers,
+        pin_memory=args.pin_mem,
+    )
+
+    data_loader_val = torch.utils.data.DataLoader(
+        dataset_val, sampler=sampler_val,
+        batch_size=args.batch_size,
+        num_workers=args.num_workers,
+        pin_memory=args.pin_mem,
+    )
+
+    dataloader.append({'train': data_loader_train, 'val': data_loader_val})
+    class_mask = None
+    return dataloader, class_mask 
+
+
 def build_continual_dataloader(args):
     """build dataloader for continual learning from args.dataset 
     (Split-CIFAR100 or 5-datasets or specify dataset with ,)

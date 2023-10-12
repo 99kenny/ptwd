@@ -45,7 +45,9 @@ class Prompt(nn.Module):
         return x * x_inv_norm
     
     def forward(self, x_embed, prompt_mask=None, cls_features=None):
+        # x_embed (128, 4, 768)
         out = dict()
+        # embedding key 
         if self.prompt_pool:
             if self.embedding_key == 'mean':
                 x_embed_mean = torch.mean(x_embed, dim=1)
@@ -60,7 +62,7 @@ class Prompt(nn.Module):
                     x_embed_mean = cls_features
             else:
                 raise NotImplementedError("Not supported way of calculating embedding keys!")
-
+            
             prompt_norm = self.l2_normalize(self.prompt_key, dim=1) # Pool_size, C
             x_embed_norm = self.l2_normalize(x_embed_mean, dim=1) # B, C
 

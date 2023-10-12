@@ -13,6 +13,7 @@ import random
 import numpy as np
 import time
 import torch
+from torch.utils.data import DataLoader 
 import torch.backends.cudnn as cudnn
 
 from pathlib import Path
@@ -21,7 +22,7 @@ from timm.models import create_model
 from timm.scheduler import create_scheduler
 from timm.optim import create_optimizer
 
-from datasets import build_continual_dataloader
+from datasets import build_continual_dataloader, build_dataloader
 from engine import *
 import models
 import utils
@@ -42,8 +43,10 @@ def main(args):
 
     cudnn.benchmark = True
     
-    data_loader, class_mask = build_continual_dataloader(args)
-
+    #data_loader, class_mask = build_continual_dataloader(args)
+    data_loader, class_mask = build_dataloader(args)
+    # normal dataloader for prompt tuning 
+         
     print(f"Creating original model: {args.model}")
     original_model = create_model(
         args.model,
@@ -90,10 +93,25 @@ def main(args):
     print(args)
 
     if args.eval:
-        acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
-        # validate for each task
-        for task_id in range(args.num_tasks):
-            checkpoint_path = os.path.join(args.output_dir, 'checkpoint/task{}_checkpoint.pth'.format(task_id+1))
+        if args.continual:
+            acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
+            # validate for each task
+            for task_id in range(args.num_tasks):
+                checkpoint_path = os.path.join(args.output_dir, 'checkpoint/task{}_checkpoint.pth'.format(task_id+1))
+                if os.path.exists(checkpoint_path):
+                    print('Loading checkpoint from:', checkpoint_path)
+                    checkpoint = torch.load(checkpoint_path)
+                    model.load_state_dict(checkpoint['model'])
+                else:
+                    print('No checkpoint found at:', checkpoint_path)
+                    return
+                _ = evaluate_till_now(model, original_model, data_loader, device, 
+                                                task_id, class_mask, acc_matrix, args,)
+            
+            return
+        else:
+            acc_matrix = np.zeros(1)
+            checkpoint_path = os.path.join(args.output_dir, 'checkpoint/checkpoint.pth')
             if os.path.exists(checkpoint_path):
                 print('Loading checkpoint from:', checkpoint_path)
                 checkpoint = torch.load(checkpoint_path)
@@ -101,11 +119,8 @@ def main(args):
             else:
                 print('No checkpoint found at:', checkpoint_path)
                 return
-            _ = evaluate_till_now(model, original_model, data_loader, device, 
-                                            task_id, class_mask, acc_matrix, args,)
+            _ = evaluate(model, original_model, data_loader, device, acc_matrix, args,)
         
-        return
-    
     model_without_ddp = model
     if args.distributed:
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])
@@ -119,9 +134,9 @@ def main(args):
     else:
         global_batch_size = args.batch_size * args.world_size
     args.lr = args.lr * global_batch_size / 256.0
-
+    
     optimizer = create_optimizer(args, model_without_ddp)
-
+    
     if args.sched != 'constant':
         lr_scheduler, _ = create_scheduler(args, optimizer)
     elif args.sched == 'constant':
@@ -131,19 +146,23 @@ def main(args):
 
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
-
-    train_and_evaluate(model, model_without_ddp, original_model,
+    if args.continual:
+        y(model, model_without_ddp, original_model,
                     criterion, data_loader, optimizer, lr_scheduler,
                     device, class_mask, args)
-
+    else:
+        train_and_evaluate(model, model_without_ddp, original_model,
+                                  criterion, data_loader, optimizer, lr_scheduler,
+                                  device, args)
     total_time = time.time() - start_time
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))
     print(f"Total training time: {total_time_str}")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
+    parser.add_argument('--continual', action='store_true', help='activate continual learning setting')
     config = parser.parse_known_args()[-1][0]
-
+    
     subparser = parser.add_subparsers(dest='subparser_name')
 
     if config == 'cifar100_l2p':

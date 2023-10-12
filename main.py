@@ -7,6 +7,7 @@
 # -- Jaeho Lee, dlwogh9344@khu.ac.kr
 # ------------------------------------------
 import sys
+import os
 import argparse
 import datetime
 import random
@@ -147,7 +148,7 @@ def main(args):
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
     if args.continual:
-        y(model, model_without_ddp, original_model,
+        train_and_evaluate_continual(model, model_without_ddp, original_model,
                     criterion, data_loader, optimizer, lr_scheduler,
                     device, class_mask, args)
     else:

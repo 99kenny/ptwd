@@ -177,16 +177,43 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
                        args = None,):
     acc = np.zeros(1)
     
-    if args.prompt_pool and args.shared_prompt_pool:
-        with torch.no_grad():
-            if args.distributed:
-                model.module.prompt.prompt.grad.zero_()
-                model.module.prompt.prompt[]
+    for epoch in range(args.epochs):
+        train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion,
+                    data_loader=data_loader['train'], optimizer=optimizer,
+                    device=device, epoch=epoch, max_norm=args.clip_grad,
+                    set_training_mode=True, task_id=-1, class_mask=None, args=args,)
+        if lr_scheduler:
+            lr_scheduler.step(epoch)
+    
+        test_stats = evaluate(model=model, original_model=original_model, data_loader=data_loader, device=device, 
+                                   task_id=-1, class_mask=None, args=args)
+        if args.output_dir and utils.is_main_process():
+            Path(os.path.join(args.output_dir, 'checkpoint')).mkdir(parents=True, exist_ok=True)
+            
+            checkpoint_path = os.path.join(args.output_dir, 'checkpoint/checkpoint.pth')
+            state_dict = {
+                    'model': model_without_ddp.state_dict(),
+                    'optimizer': optimizer.state_dict(),
+                    'epoch': epoch,
+                    'args': args,
+                }
+            if args.sched is not None and args.sched != 'constant':
+                state_dict['lr_scheduler'] = lr_scheduler.state_dict()
+            
+            utils.save_on_master(state_dict, checkpoint_path)
+
+        log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
+            **{f'test_{k}': v for k, v in test_stats.items()},
+            'epoch': epoch,}
+
+        if args.output_dir and utils.is_main_process():
+            with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
+                f.write(json.dumps(log_stats) + '\n')
 
 def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
                     class_mask=None, args = None,):
-
+    
     # create matrix to save end-of-task accuracies 
     acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
 

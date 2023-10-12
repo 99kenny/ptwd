@@ -70,6 +70,7 @@ class Prompt(nn.Module):
             
             if prompt_mask is None:
                 _, idx = torch.topk(similarity, k=self.top_k, dim=1) # B, top_k
+                # use same prompts for the whole batch
                 if self.batchwise_prompt:
                     prompt_id, id_counts = torch.unique(idx, return_counts=True, sorted=True)
                     # In jnp.unique, when the 'size' is specified and there are fewer than the indicated number of elements,
@@ -80,7 +81,7 @@ class Prompt(nn.Module):
                         id_counts = torch.cat([id_counts, torch.full((self.pool_size - id_counts.shape[0],), 0, device=id_counts.device)])
                     _, major_idx = torch.topk(id_counts, k=self.top_k) # top_k
                     major_prompt_id = prompt_id[major_idx] # top_k
-                    # expand to batch
+                    # expand to batch (same prompts for all batch)
                     idx = major_prompt_id.expand(x_embed.shape[0], -1) # B, top_k
             else:
                 idx = prompt_mask # B, top_k

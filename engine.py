@@ -184,7 +184,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
         if lr_scheduler:
             lr_scheduler.step(epoch)
     
-        test_stats = evaluate(model=model, original_model=original_model, data_loader=data_loader[0]['test'], device=device, 
+        test_stats = evaluate(model=model, original_model=original_model, data_loader=data_loader[0]['val'], device=device, 
                                    task_id=-1, class_mask=None, args=args)
         if args.output_dir and utils.is_main_process():
             Path(os.path.join(args.output_dir, 'checkpoint')).mkdir(parents=True, exist_ok=True)

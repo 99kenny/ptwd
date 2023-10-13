@@ -475,6 +475,7 @@ class VisionTransformer(nn.Module):
                     prompt_mask = None
             else:
                 prompt_mask = None
+            # prompt_embed + x_embed
             res = self.prompt(x, prompt_mask=prompt_mask, cls_features=cls_features)
             self.total_prompt_len = res['total_prompt_len']
             # prompt + embedding

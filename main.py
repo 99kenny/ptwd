@@ -142,7 +142,7 @@ def main(args):
         lr_scheduler, _ = create_scheduler(args, optimizer)
     elif args.sched == 'constant':
         lr_scheduler = None
-
+    
     criterion = torch.nn.CrossEntropyLoss().to(device)
 
     print(f"Start training for {args.epochs} epochs")
@@ -162,6 +162,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
     parser.add_argument('--continual', action='store_true', help='activate continual learning setting')
+    parser.add_argument('--prompt_type', type=str, default='ImagePrompt')
     config = parser.parse_known_args()[-1][0]
     
     subparser = parser.add_subparsers(dest='subparser_name')

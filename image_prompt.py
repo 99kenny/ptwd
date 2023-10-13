@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torchvision import transforms
 
 class ImagePrompt(nn.Module):
     def __init__(self, patch_embed,embed_dim=768, size=32, embedding_key='mean', prompt_init='uniform', prompt_pool=False,
@@ -45,7 +46,10 @@ class ImagePrompt(nn.Module):
     def forward(self, x_embed, prompt_mask=None, cls_features=None):
         out = dict()
         # ps, c, s, s -> ps, n, 768
-        prompt_embed = self.patch_embed(self.prompt)
+        scale = (0.05, 1.0)
+        ratio = (3. / 4., 4. / 3.)
+        resized_prompt = transforms.RandomResizedCrop(224, scale=scale, ratio=ratio)(self.prompt)
+        prompt_embed = self.patch_embed(resized_prompt)
         if self.prompt_pool:
             if self.embedding_key == 'mean':
                 x_embed_mean = torch.mean(x_embed, dim=1)

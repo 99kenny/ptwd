@@ -383,7 +383,10 @@ class VisionTransformer(nn.Module):
         self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim)) if class_token else None
         embed_len = num_patches if no_embed_class else num_patches + self.num_prefix_tokens # for class token
         if prompt_length is not None and pool_size is not None and prompt_pool: # add for prompt 
-            embed_len += prompt_length * top_k
+            if prompt_type == 'ImagePrompt':
+                embed_len += (img_size // patch_size) ** 2
+            else:
+                embed_len += prompt_length * top_k
         self.pos_embed = nn.Parameter(torch.randn(1, embed_len, embed_dim) * .02)
         self.pos_drop = nn.Dropout(p=drop_rate)
 

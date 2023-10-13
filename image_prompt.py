@@ -31,7 +31,7 @@ class ImagePrompt(nn.Module):
             if prompt_key_init == 'zero':
                 self.prompt_key = nn.Parameter(torch.zeros(key_shape))
             if prompt_key_init == 'uniform':
-                self.prompt_key == nn.Parameter(torch.randn(key_shape))
+                self.prompt_key = nn.Parameter(torch.randn(key_shape))
                 nn.init.uniform_(self.prompt_key, -1, 1)
         else:
             # if not use prompt_key, use image prompt embedding as prompt key

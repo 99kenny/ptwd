@@ -45,11 +45,13 @@ class ImagePrompt(nn.Module):
     
     def forward(self, x_embed, prompt_mask=None, cls_features=None):
         out = dict()
-        # ps, c, s, s -> ps, n, 768
+
         scale = (0.05, 1.0)
         ratio = (3. / 4., 4. / 3.)
-        resized_prompt = transforms.RandomResizedCrop(224, scale=scale, ratio=ratio)(self.prompt)
-        prompt_embed = self.patch_embed(resized_prompt)
+        # x_embed (batch, patch_num, dim)
+        # TODO: 224 should be changed to img size
+        resized_prompt = transforms.RandomResizedCrop(224, scale=scale, ratio=ratio)(self.prompt) # (pool_size, channel, 224, 224)
+        prompt_embed = self.patch_embed(resized_prompt) # (pool_size, patch_num dim)
         if self.prompt_pool:
             if self.embedding_key == 'mean':
                 x_embed_mean = torch.mean(x_embed, dim=1)
@@ -84,8 +86,10 @@ class ImagePrompt(nn.Module):
                     idx = major_prompt_id.expand(x_embed.shape[0], -1)
             else:
                 idx = prompt_mask
-            
-            batched_prompt_embed = prompt_embed[idx] # batch_size, n, 768  
+            # idx (batch_size, topk)
+            batched_prompt_embed = prompt_embed[idx] # batch, top_k, patch_num, 768  
+            # image prompt uses one prompt per image
+            batched_prompt_embed = batched_prompt_embed.squeeze(dim=1) # batch, patch_num, 768
             #batched_prompt = batched_prompt_raw.reshape(batch_size, top_k * length, c)
             
             out['prompt_image'] = self.prompt[idx]

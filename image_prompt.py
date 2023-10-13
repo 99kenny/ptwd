@@ -7,7 +7,7 @@ class ImagePrompt(nn.Module):
         super().__init__()
         
         self.size = size
-        self.patch_emebd = patch_embed
+        self.patch_emebed = patch_embed
         self.embed_dim = embed_dim
         self.prompt_pool = prompt_pool
         self.embedding_key = embedding_key

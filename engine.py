@@ -239,7 +239,7 @@ def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torc
     acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
 
     for task_id in range(args.num_tasks):
-       # Transfer previous learned prompt params to the new prompt
+        # Transfer previous learned prompt params to the new prompt
         if args.prompt_pool and args.shared_prompt_pool:
             # starting from second task
             if task_id > 0:
@@ -302,6 +302,7 @@ def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torc
 
         test_stats = evaluate_till_now(model=model, original_model=original_model, data_loader=data_loader, device=device, 
                                     task_id=task_id, class_mask=class_mask, acc_matrix=acc_matrix, args=args)
+        
         if args.output_dir and utils.is_main_process():
             Path(os.path.join(args.output_dir, 'checkpoint')).mkdir(parents=True, exist_ok=True)
             
@@ -324,3 +325,9 @@ def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torc
         if args.output_dir and utils.is_main_process():
             with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
                 f.write(json.dumps(log_stats) + '\n')
+        
+        if args.prompt_type == 'ImagePrompt':
+            batch_imgs = model.prompt.prompt # pool_size, channel, size, size
+            for idx,img in enumerate(batch_imgs):
+                save_image(img,f'{args.output_dir}/{task_id}task_{idx}th_prompt.jpg')
+         

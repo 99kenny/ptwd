@@ -8,7 +8,10 @@ def main(args):
     writer = SummaryWriter(log_dir=dir)
     
     for filename in os.listdir(dir):
+        if filename.endswith(".jpg"):
+            continue
         f = os.path.join(dir, filename)
+        
         # checking if it is a file
         if os.path.isfile(f):
             print(f)

@@ -18,12 +18,13 @@ from typing import Iterable
 from pathlib import Path
 
 import torch
-
+from torchvision.utils import save_image
 import numpy as np
 
 from timm.utils import accuracy
 from timm.optim import create_optimizer
 
+from image_prompt_loss import ImagePromptLoss
 import utils
 
 def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module, 
@@ -40,6 +41,8 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
     metric_logger = utils.MetricLogger(delimiter="  ")
     metric_logger.add_meter('Lr', utils.SmoothedValue(window_size=1, fmt='{value:.6f}'))
     metric_logger.add_meter('Loss', utils.SmoothedValue(window_size=1, fmt='{value:.4f}'))
+    if args.prompt_type == 'ImagePrompt':
+        metric_logger.add_meter('Prompt_Loss', utils.SmoothedValue(window_size=1, fmt='{value:.4f}'))
     header = f'Train: Epoch[{epoch+1:{int(math.log10(args.epochs))+1}}/{args.epochs}]'
     
     for input, target in metric_logger.log_every(data_loader, args.print_freq, header):
@@ -62,12 +65,13 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
             not_mask = np.setdiff1d(np.arange(args.nb_classes), mask)
             not_mask = torch.tensor(not_mask, dtype=torch.int64).to(device)
             logits = logits.index_fill(dim=1, index=not_mask, value=float('-inf'))
-
+    
         loss = criterion(logits, target) # base criterion (CrossEntropyLoss)
         if args.pull_constraint and 'reduce_sim' in output:
             loss = loss - args.pull_constraint_coeff * output['reduce_sim']
         if args.prompt_type == 'ImagePrompt':
             image_prompt_loss = prompt_criterion.calc_loss(input, logits, target)
+            
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
 
         if not math.isfinite(loss.item()):
@@ -94,6 +98,8 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         metric_logger.update(Lr=optimizer.param_groups[0]["lr"])
         metric_logger.meters['Acc@1'].update(acc1.item(), n=input.shape[0])
         metric_logger.meters['Acc@5'].update(acc5.item(), n=input.shape[0])
+        if args.prompt_type == 'ImagePrompt':
+            metric_logger.update(Prompt_Loss= image_prompt_loss.item())
         
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
@@ -105,7 +111,7 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
 def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loader, 
             device, task_id=-1, class_mask=None, args=None,):
     criterion = torch.nn.CrossEntropyLoss()
-
+    prompt_criterion = ImagePromptLoss(model)
     metric_logger = utils.MetricLogger(delimiter="  ")
     header = 'Test: [Task {}]'.format(task_id + 1)
 
@@ -119,7 +125,6 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
             target = target.to(device, non_blocking=True)
 
             # compute output
-
             if original_model is not None:
                 output = original_model(input)
                 cls_features = output['pre_logits']
@@ -138,13 +143,14 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
                 logits = logits + logits_mask
 
             loss = criterion(logits, target)
-
+            prompt_loss = prompt_criterion.calc_loss(input, logits, target)
             acc1, acc5 = accuracy(logits, target, topk=(1, 5))
-
+                
             metric_logger.meters['Loss'].update(loss.item())
             metric_logger.meters['Acc@1'].update(acc1.item(), n=input.shape[0])
             metric_logger.meters['Acc@5'].update(acc5.item(), n=input.shape[0])
-
+            if args.prompt_type == 'ImagePrompt':
+                metric_logger.meters['Prompt_Loss'].update(prompt_loss.item())
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
     print('* Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'
@@ -186,7 +192,7 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module,
                        criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device,
                        args = None,):
-    
+    save_every = 1
     for epoch in range(args.epochs):
         train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion, prompt_criterion=prompt_criterion,
                     data_loader=data_loader[0]['train'], optimizer=optimizer,
@@ -194,7 +200,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
                     set_training_mode=True, task_id=-1, class_mask=None, args=args,)
         if lr_scheduler:
             lr_scheduler.step(epoch)
-    
+        
         test_stats = evaluate(model=model, original_model=original_model, data_loader=data_loader[0]['val'], device=device, 
                                    task_id=-1, class_mask=None, args=args)
         if args.output_dir and utils.is_main_process():
@@ -219,7 +225,12 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
         if args.output_dir and utils.is_main_process():
             with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
                 f.write(json.dumps(log_stats) + '\n')
-
+        
+        if args.prompt_type == 'ImagePrompt' and epoch % save_every == 0:
+            batch_imgs = model.prompt.prompt # pool_size, channel, size, size
+            for idx,img in enumerate(batch_imgs):
+                save_image(img,f'{args.output_dir}/{epoch}epoch_{idx}th_prompt.jpg')
+            
 def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
                     class_mask=None, args = None,):

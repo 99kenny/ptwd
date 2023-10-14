@@ -149,7 +149,7 @@ def main(args):
     prompt_criterion = None
     if args.prompt_type == 'ImagePrompt':
         prompt_criterion = ImagePromptLoss(model=model)
-    # 
+    
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
     if args.continual:

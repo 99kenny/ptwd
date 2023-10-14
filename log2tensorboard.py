@@ -17,7 +17,7 @@ def main(args):
             print(f)
         stat_dict = open(f, 'r')
         res = json.loads(stat_dict)
-        
+        print(f"epoch:{res['epoch']}")
         writer.add_scalar('train_loss', res['train_Loss'],res['epoch'])
         writer.add_scalar('train_Prompt_Loss', res['train_Prompt_Loss'],res['epoch'])
         writer.add_scalar('LR', res['train_Lr'],res['epoch'])

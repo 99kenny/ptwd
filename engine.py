@@ -70,7 +70,7 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         if args.pull_constraint and 'reduce_sim' in output:
             loss = loss - args.pull_constraint_coeff * output['reduce_sim']
         if args.prompt_type == 'ImagePrompt':
-            image_prompt_loss = prompt_criterion.calc_loss(input, logits, target)
+            image_prompt_loss = prompt_criterion.calc_loss(model.prompt.prompt, logits, target)
             
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
 

@@ -27,7 +27,7 @@ class ImagePromptLoss(object):
         self.r_feature_layers = list()
         
         for module in self.model.modules():
-            if isinstance(module, nn.BatchNorm2d):
+            if isinstance(module, nn.LayerNorm):
                 self.r_feature_layers.append(DeepInversionFeatureHooK(module))
         
     def r_prior(self, inputs):

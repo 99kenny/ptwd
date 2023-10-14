@@ -26,9 +26,9 @@ class ImagePromptLoss(object):
         self.alpha_f = alpha_f
         self.r_feature_layers = list()
         
-        for module in self.model.modules():
-            if isinstance(module, nn.LayerNorm):
-                self.r_feature_layers.append(DeepInversionFeatureHooK(module))
+        # for module in self.model.modules():
+        #     if isinstance(module, nn.LayerNorm):
+        #         self.r_feature_layers.append(DeepInversionFeatureHooK(module))
         
     def r_prior(self, inputs):
         # COMPUTE total variation regularization loss
@@ -49,7 +49,7 @@ class ImagePromptLoss(object):
     def r_l2(self, inputs):
         return torch.norm(inputs)
     
-    def calc_loss(self, inputs, outputs, targets):
+    def calc_loss(self, inputs):
         loss_var_l1, loss_var_l2 = self.r_prior(inputs)
         loss = self.alpha_tv_l2 * loss_var_l2 + self.alpha_tv_l1 * loss_var_l1 + \
                self.alpha_l2 * self.r_l2(inputs)

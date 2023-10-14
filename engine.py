@@ -70,7 +70,7 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         if args.pull_constraint and 'reduce_sim' in output:
             loss = loss - args.pull_constraint_coeff * output['reduce_sim']
         if args.prompt_type == 'ImagePrompt':
-            image_prompt_loss = prompt_criterion.calc_loss(model.prompt.prompt, logits, target)
+            image_prompt_loss = prompt_criterion.calc_loss(model.prompt.prompt)
             
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
 
@@ -83,13 +83,13 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
         if args.prompt_type == 'ImagePrompt':
             # head fix
-            for n, p in model.named_parameters():
-                if n.startswith('head'):
-                    p.requires_grad = False
+            # for n, p in model.named_parameters():
+            #     if n.startswith('head'):
+            #         p.requires_grad = False
             image_prompt_loss.backward()
-            for n, p in model.named_parameters():
-                if n.startswith('head'):
-                    p.requires_grad = True
+            # for n, p in model.named_parameters():
+            #     if n.startswith('head'):
+            #         p.requires_grad = True
 
         optimizer.step()
 

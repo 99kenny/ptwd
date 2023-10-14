@@ -143,7 +143,7 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
                 logits = logits + logits_mask
 
             loss = criterion(logits, target)
-            prompt_loss = prompt_criterion.calc_loss(input, logits, target)
+            prompt_loss = prompt_criterion.calc_loss(model.prompt.prompt)
             acc1, acc5 = accuracy(logits, target, topk=(1, 5))
                 
             metric_logger.meters['Loss'].update(loss.item())

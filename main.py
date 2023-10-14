@@ -27,6 +27,7 @@ from datasets import build_continual_dataloader, build_dataloader
 from engine import *
 import models
 import utils
+from image_prompt_loss import ImagePromptLoss
 
 import warnings
 warnings.filterwarnings('ignore', 'Argument interpolation should be of type InterpolationMode instead of int')
@@ -144,16 +145,20 @@ def main(args):
         lr_scheduler = None
     
     criterion = torch.nn.CrossEntropyLoss().to(device)
-
+    # Image prompt loss
+    prompt_criterion = None
+    if args.prompt_type == 'ImagePrompt':
+        prompt_criterion = ImagePromptLoss(model=model)
+    # 
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
     if args.continual:
         train_and_evaluate_continual(model, model_without_ddp, original_model,
-                    criterion, data_loader, optimizer, lr_scheduler,
+                    criterion, prompt_criterion, data_loader, optimizer, lr_scheduler,
                     device, class_mask, args)
     else:
         train_and_evaluate(model, model_without_ddp, original_model,
-                                  criterion, data_loader, optimizer, lr_scheduler,
+                                  criterion, prompt_criterion, data_loader, optimizer, lr_scheduler,
                                   device, args)
     total_time = time.time() - start_time
     total_time_str = str(datetime.timedelta(seconds=int(total_time)))

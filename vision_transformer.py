@@ -337,7 +337,7 @@ class VisionTransformer(nn.Module):
             top_k=None, batchwise_prompt=False, prompt_key_init='uniform', head_type='token', use_prompt_mask=False, prompt_type='ImagePrompt'):
         """
         Args:
-            img_size (int, tuple): input image size (32)
+            img_size (int, tuple): input image size (224)
             patch_size (int, tuple): patch size (16)
             in_chans (int): number of input channels (3)
             num_classes (int): number of classes for classification head (100)
@@ -384,7 +384,8 @@ class VisionTransformer(nn.Module):
         embed_len = num_patches if no_embed_class else num_patches + self.num_prefix_tokens # for class token
         if prompt_length is not None and pool_size is not None and prompt_pool: # add for prompt 
             if prompt_type == 'ImagePrompt':
-                embed_len += (img_size // patch_size) ** 2
+                # TODO : 224 should be changed to img_size
+                embed_len += (224 // patch_size) ** 2
             else:
                 embed_len += prompt_length * top_k
         self.pos_embed = nn.Parameter(torch.randn(1, embed_len, embed_dim) * .02)

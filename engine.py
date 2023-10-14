@@ -27,7 +27,7 @@ from timm.optim import create_optimizer
 import utils
 
 def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module, 
-                    criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer,
+                    criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer,
                     device: torch.device, epoch: int, max_norm: float = 0,
                     set_training_mode=True, task_id=-1, class_mask=None, args = None,):
 
@@ -66,7 +66,8 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         loss = criterion(logits, target) # base criterion (CrossEntropyLoss)
         if args.pull_constraint and 'reduce_sim' in output:
             loss = loss - args.pull_constraint_coeff * output['reduce_sim']
-
+        if args.prompt_type == 'ImagePrompt':
+            image_prompt_loss = prompt_criterion.calc_loss(input, logits, target)
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
 
         if not math.isfinite(loss.item()):
@@ -76,6 +77,16 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         optimizer.zero_grad()
         loss.backward() 
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
+        if args.prompt_type == 'ImagePrompt':
+            # head fix
+            for n, p in model.named_parameters():
+                if n.startswith('head'):
+                    p.requires_grad = False
+            image_prompt_loss.backward()
+            for n, p in model.named_parameters():
+                if n.startswith('head'):
+                    p.requires_grad = True
+
         optimizer.step()
 
         torch.cuda.synchronize()
@@ -173,11 +184,11 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
     return test_stats
 
 def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module,
-                       criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device,
+                       criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device,
                        args = None,):
     
     for epoch in range(args.epochs):
-        train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion,
+        train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion, prompt_criterion=prompt_criterion,
                     data_loader=data_loader[0]['train'], optimizer=optimizer,
                     device=device, epoch=epoch, max_norm=args.clip_grad,
                     set_training_mode=True, task_id=-1, class_mask=None, args=args,)
@@ -210,7 +221,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
                 f.write(json.dumps(log_stats) + '\n')
 
 def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
-                    criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
+                    criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
                     class_mask=None, args = None,):
     
     # create matrix to save end-of-task accuracies 
@@ -270,7 +281,7 @@ def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torc
             optimizer = create_optimizer(args, model)
         
         for epoch in range(args.epochs):            
-            train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion, 
+            train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion, prompt_criterion=prompt_criterion,
                                         data_loader=data_loader[task_id]['train'], optimizer=optimizer, 
                                         device=device, epoch=epoch, max_norm=args.clip_grad, 
                                         set_training_mode=True, task_id=task_id, class_mask=class_mask, args=args,)

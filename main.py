@@ -153,7 +153,7 @@ def main(args):
         # data selection 100
         sample_loader = data_loader[0]['train']
         sample_size = 100
-        sample = torch.empty(1,3,32,32)
+        sample = torch.empty(1,3,224,224)
         for input, target in sample_loader:
             batch_size = input.shape[0]
             if batch_size >= sample_size:

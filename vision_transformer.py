@@ -234,11 +234,11 @@ class LayerScale(nn.Module):
 class Block(nn.Module):
 
     def __init__(
-            self, dim, num_heads, mlp_ratio=4., qkv_bias=False, drop=0., attn_drop=0., init_values=None,
+            self, dim, num_heads, patch_num, mlp_ratio=4., qkv_bias=False, drop=0., attn_drop=0., init_values=None,
             drop_path=0., act_layer=nn.GELU, norm_layer=nn.LayerNorm):
         super().__init__()
         self.norm1 = norm_layer(dim)
-        self.pre_norm = PreNorm()
+        self.pre_norm = PreNorm(patch_num=patch_num)
         self.attn = Attention(dim, num_heads=num_heads, qkv_bias=qkv_bias, attn_drop=attn_drop, proj_drop=drop)
         self.ls1 = LayerScale(dim, init_values=init_values) if init_values else nn.Identity()
         
@@ -413,7 +413,7 @@ class VisionTransformer(nn.Module):
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)]  # stochastic depth decay rule
         self.blocks = nn.Sequential(*[
             block_fn(
-                dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, init_values=init_values,
+                dim=embed_dim, num_heads=num_heads,patch_num=num_patches, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, init_values=init_values,
                 drop=drop_rate, attn_drop=attn_drop_rate, drop_path=dpr[i], norm_layer=norm_layer, act_layer=act_layer)
             for i in range(depth)])
         self.norm = norm_layer(embed_dim) if not use_fc_norm else nn.Identity()
@@ -467,7 +467,7 @@ class VisionTransformer(nn.Module):
             self.global_pool = global_pool
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
-    def forward_features(self, x, task_id=-1, cls_features=None, train=False, is_pre=is_pre):
+    def forward_features(self, x, task_id=-1, cls_features=None, train=False, is_pre=False):
         # (128,3,32,32) -> (128,4,768)
         x = self.patch_embed(x)
         # if use prompt

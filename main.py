@@ -153,19 +153,20 @@ def main(args):
         # data selection 100
         sample_loader = data_loader[0]['train']
         sample_size = 100
-        sample = list()
-        for input, target in enumerate(sample_loader):
+        sample = torch.empty(1,3,32,32)
+        for input, target in sample_loader:
             batch_size = input.shape[0]
             if batch_size >= sample_size:
-                sample = torch.cat(sample, input[:sample_size])
+                sample = torch.cat([sample, input[:sample_size]], dim=0)
                 break
             else:
-                sample = torch.cat(sample, input)
+                sample = torch.cat([sample, input], dim=0)
                 sample_size -= batch_size
         # debug
         print(sample.shape)
+        sample = sample.cuda()
         # save mean, var
-        out = original_model(sample, is_pre=True)
+        out = model(sample, is_pre=True)
         # prompt loss
         prompt_criterion = ImagePromptLoss(model=model)
     
@@ -187,7 +188,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
     parser.add_argument('--continual', action='store_true', help='activate continual learning setting')
     parser.add_argument('--prompt_type', type=str, default='ImagePrompt')
-    parser.add_argument('--deepinversion', action='store_true', help='use deepinversion loss')
     config = parser.parse_known_args()[-1][0]
     
     subparser = parser.add_subparsers(dest='subparser_name')

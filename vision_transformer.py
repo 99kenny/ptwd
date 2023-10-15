@@ -467,7 +467,7 @@ class VisionTransformer(nn.Module):
             self.global_pool = global_pool
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
-    def forward_features(self, x, task_id=-1, cls_features=None, train=False, is_pre=False):
+    def forward_features(self, x, task_id=-1, cls_features=None, train=False, is_pre=is_pre):
         # (128,3,32,32) -> (128,4,768)
         x = self.patch_embed(x)
         # if use prompt
@@ -497,7 +497,9 @@ class VisionTransformer(nn.Module):
         if self.grad_checkpointing and not torch.jit.is_scripting():
             x = checkpoint_seq(self.blocks, x)
         else:
-            x = self.blocks(x, is_pre=is_pre)
+            #x = self.blocks(x)
+            for block in self.blocks:
+                x = block(x, is_pre=is_pre)
         
         x = self.norm(x)
         res['x'] = x

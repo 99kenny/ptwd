@@ -2,7 +2,6 @@ import torch
 
 class ImagePromptLoss(object):
     def __init__(self, r_feature_layers, alpha_main=1.0, alpha_tv_l1=0, alpha_tv_l2=2.5e-5, alpha_l2=3e-8, alpha_f=1.0):
-        self.model = model
         self.alpha_main = alpha_main
         self.alpha_tv_l1 = alpha_tv_l1
         self.alpha_tv_l2 = alpha_tv_l2

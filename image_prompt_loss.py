@@ -1,39 +1,16 @@
 import torch
-import torch.nn as nn
-
-from pre_norm import PreNorm
-
-class DeepInversionFeatureHooK():
-    def __init__(self, module):
-        self.hook = module.register_forward_hook(self.hook_fn)
-
-    def hook_fn(self, module, input, output):
-        nch = input[0].shape[1]
-        mean = input[0].mean([0,2])
-        var = input[0].permute(1,0,2).contiguous().view([nch, -1]).var(1, unbiased=False)
-        # debug
-        print(module.var)
-        print(module.mean)
-        r_feature = torch.norm(module.var - var, 2) + torch.norm(module.mean - mean, 2)
-        self.r_feature = r_feature
-    
-    def close(self):
-        self.hook.remove()
 
 class ImagePromptLoss(object):
-    def __init__(self, model, alpha_main=1.0, alpha_tv_l1=0, alpha_tv_l2=2.5e-5, alpha_l2=3e-8, alpha_f=1.0):
+    def __init__(self, r_feature_layers, alpha_main=1.0, alpha_tv_l1=0, alpha_tv_l2=2.5e-5, alpha_l2=3e-8, alpha_f=1.0):
         self.model = model
         self.alpha_main = alpha_main
         self.alpha_tv_l1 = alpha_tv_l1
         self.alpha_tv_l2 = alpha_tv_l2
         self.alpha_l2 = alpha_l2
         self.alpha_f = alpha_f
-        self.r_feature_layers = list()
+        self.r_feature_layers = r_feature_layers
         
-        for module in self.model.modules():
-            if isinstance(module, PreNorm):
-                self.r_feature_layers.append(DeepInversionFeatureHooK(module))
-        
+       
     def r_prior(self, inputs):
         # COMPUTE total variation regularization loss
         diff1 = inputs[:, :, :, :-1] - inputs[:, :, :, 1:]

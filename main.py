@@ -28,6 +28,8 @@ from engine import *
 import models
 import utils
 from image_prompt_loss import ImagePromptLoss
+from pre_norm import PreNorm
+from deep_inversion_feature_hook import DeepInversionFeatureHooK
 
 import warnings
 warnings.filterwarnings('ignore', 'Argument interpolation should be of type InterpolationMode instead of int')
@@ -166,9 +168,15 @@ def main(args):
         print(sample.shape)
         sample = sample.cuda()
         # save mean, var
-        out = model(sample, is_pre=True)
+        model.eval()
+        model(sample, is_pre=True)
         # prompt loss
-        prompt_criterion = ImagePromptLoss(model=model)
+        r_feature_layers = list()
+        for module in model.modules():
+            if isinstance(module, PreNorm):
+                r_feature_layers.append(DeepInversionFeatureHooK(module))
+       
+        prompt_criterion = ImagePromptLoss(r_feature_layers=r_feature_layers)
     
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()

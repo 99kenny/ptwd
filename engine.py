@@ -82,14 +82,7 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         loss.backward() 
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
         if args.prompt_type == 'ImagePrompt':
-            # head fix
-            # for n, p in model.named_parameters():
-            #     if n.startswith('head'):
-            #         p.requires_grad = False
             image_prompt_loss.backward()
-            # for n, p in model.named_parameters():
-            #     if n.startswith('head'):
-            #         p.requires_grad = True
 
         optimizer.step()
 

@@ -56,7 +56,7 @@ class ImagePrompt(nn.Module):
             if self.embedding_key == 'mean':
                 x_embed_mean = torch.mean(x_embed, dim=1)
             elif self.embedding_key == 'max':
-                x_embed_mean = torch.max(x_embed, dim=1)[0]
+                    x_embed_mean = torch.max(x_embed, dim=1)[0]
             elif self.embedding_key == 'mean_max':
                 x_embed_mean = torch.max(x_embed, dim=1)[0] + 2 * torch.mean(x_embed, dim=1)
             elif self.embedding_key == 'cls':

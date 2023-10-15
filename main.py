@@ -23,7 +23,7 @@ from timm.models import create_model
 from timm.scheduler import create_scheduler
 from timm.optim import create_optimizer
 
-from datasets import build_continual_dataloader, build_dataloader
+from datasets import *
 from engine import *
 import models
 import utils
@@ -44,7 +44,7 @@ def main(args):
     random.seed(seed)
 
     cudnn.benchmark = True
-    
+        
     #data_loader, class_mask = build_continual_dataloader(args)
     data_loader, class_mask = build_dataloader(args)
     # normal dataloader for prompt tuning 
@@ -81,7 +81,7 @@ def main(args):
     )
     original_model.to(device)
     model.to(device)  
-
+    
     if args.freeze:
         # all parameters are frozen for original vit model
         for p in original_model.parameters():
@@ -91,9 +91,9 @@ def main(args):
         for n, p in model.named_parameters():
             if n.startswith(tuple(args.freeze)):
                 p.requires_grad = False
-
+    
     print(args)
-
+    
     if args.eval:
         if args.continual:
             acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
@@ -122,7 +122,8 @@ def main(args):
                 print('No checkpoint found at:', checkpoint_path)
                 return
             _ = evaluate(model, original_model, data_loader, device, acc_matrix, args,)
-        
+    
+    
     model_without_ddp = model
     if args.distributed:
         model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])
@@ -148,6 +149,24 @@ def main(args):
     # Image prompt loss
     prompt_criterion = None
     if args.prompt_type == 'ImagePrompt':
+        # pre norm
+        # data selection 100
+        sample_loader = data_loader[0]['train']
+        sample_size = 100
+        sample = list()
+        for input, target in enumerate(sample_loader):
+            batch_size = input.shape[0]
+            if batch_size >= sample_size:
+                sample = torch.cat(sample, input[:sample_size])
+                break
+            else:
+                sample = torch.cat(sample, input)
+                sample_size -= batch_size
+        # debug
+        print(sample.shape)
+        # save mean, var
+        out = original_model(sample, is_pre=True)
+        # prompt loss
         prompt_criterion = ImagePromptLoss(model=model)
     
     print(f"Start training for {args.epochs} epochs")
@@ -168,6 +187,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
     parser.add_argument('--continual', action='store_true', help='activate continual learning setting')
     parser.add_argument('--prompt_type', type=str, default='ImagePrompt')
+    parser.add_argument('--deepinversion', action='store_true', help='use deepinversion loss')
     config = parser.parse_known_args()[-1][0]
     
     subparser = parser.add_subparsers(dest='subparser_name')

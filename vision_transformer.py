@@ -42,6 +42,7 @@ from timm.models.registry import register_model
 
 from prompt import Prompt
 from image_prompt import ImagePrompt
+from pre_norm import PreNorm
 
 _logger = logging.getLogger(__name__)
 
@@ -237,19 +238,21 @@ class Block(nn.Module):
             drop_path=0., act_layer=nn.GELU, norm_layer=nn.LayerNorm):
         super().__init__()
         self.norm1 = norm_layer(dim)
+        self.pre_norm = PreNorm()
         self.attn = Attention(dim, num_heads=num_heads, qkv_bias=qkv_bias, attn_drop=attn_drop, proj_drop=drop)
         self.ls1 = LayerScale(dim, init_values=init_values) if init_values else nn.Identity()
+        
         # NOTE: drop path for stochastic depth, we shall see if this is better than dropout here
         self.drop_path1 = DropPath(drop_path) if drop_path > 0. else nn.Identity()
-
+        
         self.norm2 = norm_layer(dim)
         self.mlp = Mlp(in_features=dim, hidden_features=int(dim * mlp_ratio), act_layer=act_layer, drop=drop)
         self.ls2 = LayerScale(dim, init_values=init_values) if init_values else nn.Identity()
         self.drop_path2 = DropPath(drop_path) if drop_path > 0. else nn.Identity()
-
-    def forward(self, x):
-        x = x + self.drop_path1(self.ls1(self.attn(self.norm1(x))))
-        x = x + self.drop_path2(self.ls2(self.mlp(self.norm2(x))))
+        
+    def forward(self, x, is_pre):
+        x = x + self.drop_path1(self.ls1(self.attn(self.pre_norm(self.norm1(x), is_pre=is_pre))))
+        x = x + self.drop_path2(self.ls2(self.mlp(self.pre_norm(self.norm2(x), is_pre=is_pre))))
         return x
 
 
@@ -418,7 +421,7 @@ class VisionTransformer(nn.Module):
         # Classifier Head
         self.fc_norm = norm_layer(embed_dim) if use_fc_norm else nn.Identity()
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
-
+        
         if weight_init != 'skip':
             self.init_weights(weight_init)
  
@@ -464,7 +467,7 @@ class VisionTransformer(nn.Module):
             self.global_pool = global_pool
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
-    def forward_features(self, x, task_id=-1, cls_features=None, train=False):
+    def forward_features(self, x, task_id=-1, cls_features=None, train=False, is_pre=False):
         # (128,3,32,32) -> (128,4,768)
         x = self.patch_embed(x)
         # if use prompt
@@ -494,7 +497,7 @@ class VisionTransformer(nn.Module):
         if self.grad_checkpointing and not torch.jit.is_scripting():
             x = checkpoint_seq(self.blocks, x)
         else:
-            x = self.blocks(x)
+            x = self.blocks(x, is_pre=is_pre)
         
         x = self.norm(x)
         res['x'] = x
@@ -524,8 +527,8 @@ class VisionTransformer(nn.Module):
         
         return res
 
-    def forward(self, x, task_id=-1, cls_features=None, train=False):
-        res = self.forward_features(x, task_id=task_id, cls_features=cls_features, train=train)
+    def forward(self, x, task_id=-1, cls_features=None, train=False, is_pre=False):
+        res = self.forward_features(x, task_id=task_id, cls_features=cls_features, train=train, is_pre=is_pre)
         res = self.forward_head(res)
         return res
 

@@ -9,7 +9,7 @@ class DeepInversionFeatureHooK():
         # batch, size (prompt_patch + cls + img_patch), dim
         # regularize only prompt_patch
         
-        feature = input[0][:,module.patch_num:,:]
+        feature = input[0][:,:module.patch_num,:]
         nch = feature.shape[1] # img_patch
         mean = feature.mean([0,2])
         var = feature.permute(1,0,2).contiguous().view([nch, -1]).var(1, unbiased=False)

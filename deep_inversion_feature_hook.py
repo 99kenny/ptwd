@@ -1,4 +1,5 @@
 import torch
+import numpy as np
 
 class DeepInversionFeatureHooK():
     def __init__(self, module):
@@ -7,7 +8,9 @@ class DeepInversionFeatureHooK():
     def hook_fn(self, module, input, output):
         # batch, size (prompt_patch + cls + img_patch), dim
         # regularize only prompt_patch
-        feature = input[:,module.patch_num+1:,:]
+        
+        feature = input[0].cuda().detach().numpy()[:,module.patch_num+1:,:]
+        print(feature.shape)
         nch = feature[0].shape[1] # img_patch
         mean = feature[0].mean([0,2])
         var = feature[0].permute(1,0,2).contiguous().view([nch, -1]).var(1, unbiased=False)

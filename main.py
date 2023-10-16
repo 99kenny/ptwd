@@ -154,8 +154,9 @@ def main(args):
         # pre norm
         # data selection 100
         sample_loader = data_loader[0]['train']
-        sample_size = 100
+        sample_size = 10
         sample = torch.empty(0,3,224,224)
+        # todo: fix this (memory issue)
         for input, target in sample_loader:
             batch_size = input.shape[0]
             if batch_size >= sample_size:

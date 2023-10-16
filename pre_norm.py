@@ -7,11 +7,12 @@ class PreNorm(nn.Module):
         self.mean = 0.
         self.var = 0.
         self.patch_num = patch_num
-    
+        
+    @torch.no_grad()
     def forward(self, x, is_pre):
         if is_pre:
             # x = (batch, size, dim) 
-            stats = x[:,self.patch_num+1:-1,:].item()
+            stats = x[:,self.patch_num+1:,:]
             self.mean = torch.mean(stats, dim=(0,2)) # (size,)
             self.var = torch.var(stats, dim=(0,2))   # (size,)
             

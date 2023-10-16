@@ -79,10 +79,10 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
             sys.exit(1)
 
         optimizer.zero_grad()
-        loss.backward() 
+        loss.backward(retain_graph=True) 
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
         if args.prompt_type == 'ImagePrompt':
-            image_prompt_loss.backward()
+                image_prompt_loss.backward()
 
         optimizer.step()
 
@@ -102,9 +102,11 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
 
 @torch.no_grad()
 def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loader, 
-            device, task_id=-1, class_mask=None, args=None,):
+            device, prompt_criterion=None, task_id=-1, class_mask=None, args=None,):
     criterion = torch.nn.CrossEntropyLoss()
-    prompt_criterion = ImagePromptLoss(model)
+    if prompt_criterion is None:
+        raise ValueError
+    prompt_criterion = prompt_criterion
     metric_logger = utils.MetricLogger(delimiter="  ")
     header = 'Test: [Task {}]'.format(task_id + 1)
 
@@ -154,12 +156,14 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
 
 @torch.no_grad()
 def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, data_loader, 
-                    device, task_id=-1, class_mask=None, acc_matrix=None, args=None,):
+                    device, prompt_criterion=None, task_id=-1, class_mask=None, acc_matrix=None, args=None,):
     stat_matrix = np.zeros((3, args.num_tasks)) # 3 for Acc@1, Acc@5, Loss
-
+    if prompt_criterion is None:
+        raise ValueError
+    
     for i in range(task_id+1):
         test_stats = evaluate(model=model, original_model=original_model, data_loader=data_loader[i]['val'], 
-                            device=device, task_id=i, class_mask=class_mask, args=args)
+                            device=device, prompt_criterion=prompt_criterion, task_id=i, class_mask=class_mask, args=args)
 
         stat_matrix[0, i] = test_stats['Acc@1']
         stat_matrix[1, i] = test_stats['Acc@5']
@@ -195,7 +199,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
             lr_scheduler.step(epoch)
         
         test_stats = evaluate(model=model, original_model=original_model, data_loader=data_loader[0]['val'], device=device, 
-                                   task_id=-1, class_mask=None, args=args)
+                                prompt_criterion=prompt_criterion, task_id=-1, class_mask=None, args=args)
         if args.output_dir and utils.is_main_process():
             Path(os.path.join(args.output_dir, 'checkpoint')).mkdir(parents=True, exist_ok=True)
             

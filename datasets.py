@@ -33,7 +33,7 @@ def target_transform(x, nb_classes):
 def build_dataloader(args):
     train_transform = build_transform(True, args)
     val_transform = build_transform(False, args)
-    dataset_train, dataset_val = get_dataset('CIFAR100', train_transform, val_transform, args)
+    dataset_train, dataset_val = get_dataset(args.dataset, train_transform, val_transform, args)
     args.nb_classes = len(dataset_val.classes)
     
     dataloader = list()

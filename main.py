@@ -177,7 +177,7 @@ def main(args):
             if isinstance(module, PreNorm):
                 r_feature_layers.append(DeepInversionFeatureHooK(module))
        
-        prompt_criterion = ImagePromptLoss(r_feature_layers=r_feature_layers)
+        prompt_criterion = ImagePromptLoss
     
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()

@@ -24,7 +24,6 @@ import numpy as np
 from timm.utils import accuracy
 from timm.optim import create_optimizer
 
-from image_prompt_loss import ImagePromptLoss
 import utils
 
 def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module, 
@@ -70,7 +69,7 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         if args.pull_constraint and 'reduce_sim' in output:
             loss = loss - args.pull_constraint_coeff * output['reduce_sim']
         if args.prompt_type == 'ImagePrompt':
-            image_prompt_loss = prompt_criterion.calc_loss(model.prompt.prompt)
+            image_prompt_loss = prompt_criterion(model.prompt.prompt)
             
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
 
@@ -138,7 +137,7 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
                 logits = logits + logits_mask
 
             loss = criterion(logits, target)
-            prompt_loss = prompt_criterion.calc_loss(model.prompt.prompt)
+            prompt_loss = prompt_criterion(model.prompt.prompt)
             acc1, acc5 = accuracy(logits, target, topk=(1, 5))
                 
             metric_logger.meters['Loss'].update(loss.item())

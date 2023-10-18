@@ -70,7 +70,7 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
 
     # Continual learning parameters
-    subparsers.add_argument('--num_tasks', default=10, type=int, help='number of sequential tasks')
+    subparsers.add_argument('--num_tasks', default=1, type=int, help='number of sequential tasks')
     subparsers.add_argument('--train_mask', default=True, type=bool, help='if using the class mask at training')
     subparsers.add_argument('--task_inc', default=False, type=bool, help='if doing task incremental')
 
@@ -85,7 +85,7 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--use_prompt_mask', default=False, type=bool)
     subparsers.add_argument('--shared_prompt_pool', default=False, type=bool)
     subparsers.add_argument('--shared_prompt_key', default=False, type=bool)
-    subparsers.add_argument('--batchwise_prompt', default=True, type=bool)
+    subparsers.add_argument('--batchwise_prompt', default=False, type=bool)
     subparsers.add_argument('--embedding_key', default='cls', type=str)
     subparsers.add_argument('--predefined_key', default='', type=str)
     subparsers.add_argument('--pull_constraint', default=True)

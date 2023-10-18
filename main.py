@@ -13,6 +13,7 @@ import datetime
 import random
 import numpy as np
 import time
+import logging
 import torch
 from torch.utils.data import DataLoader 
 import torch.backends.cudnn as cudnn
@@ -34,7 +35,9 @@ from deep_inversion_feature_hook import DeepInversionFeatureHooK
 import warnings
 warnings.filterwarnings('ignore', 'Argument interpolation should be of type InterpolationMode instead of int')
 
+
 def main(args):
+    logging.basicConfig(level=logging.DEBUG, datefmt='%H:%M:%S', format='[%(levelname)s %(asctime)s : %(funcName)s] %(message)s')
     utils.init_distributed_mode(args)
     
     device = torch.device(args.device)
@@ -93,35 +96,37 @@ def main(args):
         for n, p in model.named_parameters():
             if n.startswith(tuple(args.freeze)):
                 p.requires_grad = False
-    
-    print(args)
+    logging.debug(args)
     
     if args.eval:
+        logging.info('eval mode')
         if args.continual:
+            logging.info('continual')
             acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
             # validate for each task
             for task_id in range(args.num_tasks):
                 checkpoint_path = os.path.join(args.output_dir, 'checkpoint/task{}_checkpoint.pth'.format(task_id+1))
                 if os.path.exists(checkpoint_path):
-                    print('Loading checkpoint from:', checkpoint_path)
+                    logging.info('Loading checkpoint from: %s', checkpoint_path)
                     checkpoint = torch.load(checkpoint_path)
                     model.load_state_dict(checkpoint['model'])
                 else:
-                    print('No checkpoint found at:', checkpoint_path)
+                    logging.info('No checkpoint found at: %s', checkpoint_path)
                     return
                 _ = evaluate_till_now(model, original_model, data_loader, device, 
                                                 task_id, class_mask, acc_matrix, args,)
-            
+                
             return
         else:
+            logging.info('single task')
             acc_matrix = np.zeros(1)
             checkpoint_path = os.path.join(args.output_dir, 'checkpoint/checkpoint.pth')
             if os.path.exists(checkpoint_path):
-                print('Loading checkpoint from:', checkpoint_path)
+                logging.info('Loading checkpoint from: %s', checkpoint_path)
                 checkpoint = torch.load(checkpoint_path)
                 model.load_state_dict(checkpoint['model'])
             else:
-                print('No checkpoint found at:', checkpoint_path)
+                logging.info('No checkpoint found at: %s', checkpoint_path)
                 return
             _ = evaluate(model, original_model, data_loader, device, acc_matrix, args,)
     
@@ -132,13 +137,13 @@ def main(args):
         model_without_ddp = model.module
     
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print('number of params:', n_parameters)
-
-    if args.unscale_lr:
-        global_batch_size = args.batch_size
-    else:
-        global_batch_size = args.batch_size * args.world_size
-    args.lr = args.lr * global_batch_size / 256.0
+    logging.info('number of params: %s', n_parameters)
+    
+    # if args.unscale_lr:
+    #     global_batch_size = args.batch_size
+    # else:
+    #     global_batch_size = args.batch_size * args.world_size
+    # args.lr = args.lr * global_batch_size / 256.0
     
     optimizer = create_optimizer(args, model_without_ddp)
     
@@ -146,7 +151,7 @@ def main(args):
         lr_scheduler, _ = create_scheduler(args, optimizer)
     elif args.sched == 'constant':
         lr_scheduler = None
-    
+        
     criterion = torch.nn.CrossEntropyLoss().to(device)
     # Image prompt loss
     prompt_criterion = None
@@ -156,6 +161,7 @@ def main(args):
         sample_loader = data_loader[0]['train']
         sample_size = 10
         sample = torch.empty(0,3,224,224)
+        logging.info('load sample %d images for prenorm', sample_size)
         # todo: fix this (memory issue)
         for input, target in sample_loader:
             batch_size = input.shape[0]
@@ -165,8 +171,7 @@ def main(args):
             else:
                 sample = torch.cat([sample, input], dim=0)
                 sample_size -= batch_size
-        # debug
-        print(sample.shape)
+        logging.debug('sample shape for mean, var: %s', sample.shape) 
         sample = sample.cuda()
         # save mean, var
         model.eval()
@@ -176,7 +181,7 @@ def main(args):
         for module in model.modules():
             if isinstance(module, PreNorm):
                 r_feature_layers.append(DeepInversionFeatureHooK(module))
-       
+    
         prompt_criterion = ImagePromptLoss(r_feature_layers=r_feature_layers)
     
     print(f"Start training for {args.epochs} epochs")
@@ -197,6 +202,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser('L2P training and evaluation configs')
     parser.add_argument('--continual', action='store_true', help='activate continual learning setting')
     parser.add_argument('--prompt_type', type=str, default='ImagePrompt')
+    parser.add_argument('--exp_name', type=str)
     config = parser.parse_known_args()[-1][0]
     
     subparser = parser.add_subparsers(dest='subparser_name')
@@ -218,7 +224,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.output_dir:
-        Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+        Path(args.output_dir + '/' + args.exp_name).mkdir(parents=True, exist_ok=True)
 
     main(args)
 

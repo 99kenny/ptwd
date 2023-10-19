@@ -8,6 +8,7 @@
 # ------------------------------------------
 
 import random
+import logging
 
 import torch
 from torch.utils.data.dataset import Subset
@@ -18,6 +19,8 @@ from timm.data import create_transform
 from continual_datasets.continual_datasets import *
 
 import utils
+
+logging.basicConfig(level=logging.DEBUG, datefmt='%H:%M:%S', format='[%(levelname)s %(asctime)s : %(funcName)s] %(message)s')
 
 class Lambda(transforms.Lambda):
     def __init__(self, lambd, nb_classes):
@@ -33,7 +36,7 @@ def target_transform(x, nb_classes):
 def build_dataloader(args):
     train_transform = build_transform(True, args)
     val_transform = build_transform(False, args)
-    dataset_train, dataset_val = get_dataset(args.dataset, train_transform, val_transform, args)
+    dataset_train, dataset_val = get_dataset(args.dataset, train_transform, val_transform, args.data_path)
     args.nb_classes = len(dataset_val.classes)
     
     dataloader = list()
@@ -78,7 +81,7 @@ def build_continual_dataloader(args):
     transform_val = build_transform(False, args)
     # args (SPLIT CIFAR)
     if args.dataset.startswith('Split-'):
-        dataset_train, dataset_val = get_dataset(args.dataset.replace('Split-',''), transform_train, transform_val, args)
+        dataset_train, dataset_val = get_dataset(args.dataset.replace('Split-',''), transform_train, transform_val, args.data_path)
 
         args.nb_classes = len(dataset_val.classes)
         
@@ -101,7 +104,7 @@ def build_continual_dataloader(args):
             dataset_train, dataset_val = splited_dataset[i]
 
         else:
-            dataset_train, dataset_val = get_dataset(dataset_list[i], transform_train, transform_val, args)
+            dataset_train, dataset_val = get_dataset(dataset_list[i], transform_train, transform_val, args.data_path)
 
             transform_target = Lambda(target_transform, args.nb_classes)
             # if not Split-CIFAR100 set targets [0,1,2], [0,1,2] -> [0,1,2], [3,4,5] 
@@ -143,54 +146,54 @@ def build_continual_dataloader(args):
 
     return dataloader, class_mask
 
-def get_dataset(dataset, transform_train, transform_val, args,):
+def get_dataset(dataset, transform_train, transform_val, data_path,):
     if dataset == 'CIFAR100':
-        dataset_train = datasets.CIFAR100(args.data_path, train=True, download=True, transform=transform_train)
-        dataset_val = datasets.CIFAR100(args.data_path, train=False, download=True, transform=transform_val)
+        dataset_train = datasets.CIFAR100(data_path, train=True, download=True, transform=transform_train)
+        dataset_val = datasets.CIFAR100(data_path, train=False, download=True, transform=transform_val)
 
     elif dataset == 'CIFAR10':
-        dataset_train = datasets.CIFAR10(args.data_path, train=True, download=True, transform=transform_train)
-        dataset_val = datasets.CIFAR10(args.data_path, train=False, download=True, transform=transform_val)
+        dataset_train = datasets.CIFAR10(data_path, train=True, download=True, transform=transform_train)
+        dataset_val = datasets.CIFAR10(data_path, train=False, download=True, transform=transform_val)
     
     elif dataset == 'MNIST':
-        dataset_train = MNIST_RGB(args.data_path, train=True, download=True, transform=transform_train)
-        dataset_val = MNIST_RGB(args.data_path, train=False, download=True, transform=transform_val)
+        dataset_train = MNIST_RGB(data_path, train=True, download=True, transform=transform_train)
+        dataset_val = MNIST_RGB(data_path, train=False, download=True, transform=transform_val)
     
     elif dataset == 'FashionMNIST':
-        dataset_train = FashionMNIST(args.data_path, train=True, download=True, transform=transform_train)
-        dataset_val = FashionMNIST(args.data_path, train=False, download=True, transform=transform_val)
+        dataset_train = FashionMNIST(data_path, train=True, download=True, transform=transform_train)
+        dataset_val = FashionMNIST(data_path, train=False, download=True, transform=transform_val)
     
     elif dataset == 'SVHN':
-        dataset_train = SVHN(args.data_path, split='train', download=True, transform=transform_train)
-        dataset_val = SVHN(args.data_path, split='test', download=True, transform=transform_val)
+        dataset_train = SVHN(data_path, split='train', download=True, transform=transform_train)
+        dataset_val = SVHN(data_path, split='test', download=True, transform=transform_val)
     
     elif dataset == 'NotMNIST':
-        dataset_train = NotMNIST(args.data_path, train=True, download=True, transform=transform_train)
-        dataset_val = NotMNIST(args.data_path, train=False, download=True, transform=transform_val)
+        dataset_train = NotMNIST(data_path, train=True, download=True, transform=transform_train)
+        dataset_val = NotMNIST(data_path, train=False, download=True, transform=transform_val)
     
     elif dataset == 'Flower102':
-        dataset_train = Flowers102(args.data_path, split='train', download=True, transform=transform_train)
-        dataset_val = Flowers102(args.data_path, split='test', download=True, transform=transform_val)
+        dataset_train = Flowers102(data_path, split='train', download=True, transform=transform_train)
+        dataset_val = Flowers102(data_path, split='test', download=True, transform=transform_val)
     
     elif dataset == 'Cars196':
-        dataset_train = StanfordCars(args.data_path, split='train', download=True, transform=transform_train)
-        dataset_val = StanfordCars(args.data_path, split='test', download=True, transform=transform_val)
+        dataset_train = StanfordCars(data_path, split='train', download=True, transform=transform_train)
+        dataset_val = StanfordCars(data_path, split='test', download=True, transform=transform_val)
         
     elif dataset == 'CUB200':
-        dataset_train = CUB200(args.data_path, train=True, download=True, transform=transform_train).data
-        dataset_val = CUB200(args.data_path, train=False, download=True, transform=transform_val).data
+        dataset_train = CUB200(data_path, train=True, download=True, transform=transform_train).data
+        dataset_val = CUB200(data_path, train=False, download=True, transform=transform_val).data
     
     elif dataset == 'Scene67':
-        dataset_train = Scene67(args.data_path, train=True, download=True, transform=transform_train).data
-        dataset_val = Scene67(args.data_path, train=False, download=True, transform=transform_val).data
+        dataset_train = Scene67(data_path, train=True, download=True, transform=transform_train).data
+        dataset_val = Scene67(data_path, train=False, download=True, transform=transform_val).data
 
     elif dataset == 'TinyImagenet':
-        dataset_train = TinyImagenet(args.data_path, train=True, download=True, transform=transform_train).data
-        dataset_val = TinyImagenet(args.data_path, train=False, download=True, transform=transform_val).data
+        dataset_train = TinyImagenet(data_path, train=True, download=True, transform=transform_train).data
+        dataset_val = TinyImagenet(data_path, train=False, download=True, transform=transform_val).data
         
     elif dataset == 'Imagenet-R':
-        dataset_train = Imagenet_R(args.data_path, train=True, download=True, transform=transform_train).data
-        dataset_val = Imagenet_R(args.data_path, train=False, download=True, transform=transform_val).data
+        dataset_train = Imagenet_R(data_path, train=True, download=True, transform=transform_train).data
+        dataset_val = Imagenet_R(data_path, train=False, download=True, transform=transform_val).data
     
     else:
         raise ValueError('Dataset {} not found.'.format(dataset))
@@ -239,6 +242,20 @@ def split_single_dataset(dataset_train, dataset_val, args):
     
     return split_datasets, mask
 
+def get_images(data_path, name='CIFAR10'):
+    transform = transforms.Compose([
+        transforms.ToTensor()
+    ])
+    dataset_train, dataset_val = get_dataset(name, transform, transform, data_path)
+    idx = torch.randint(0,len(dataset_train),(num,))
+    imgs = torch.unsqueeze(torch.empty(dataset_train.__getitem__(0).shape),0)
+    logging.debug(f'imgs shape : {imgs.shape}')
+    for i in idx:
+        imgs = torch.cat([dataset_train.__getitem__(i), imgs],dim=0)
+    
+    return imgs
+    
+    
 def build_transform(is_train, args):
     resize_im = args.input_size > 32
     if is_train:

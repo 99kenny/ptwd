@@ -1,12 +1,17 @@
+import logging
 import torch
 import torch.nn as nn
 from torchvision import transforms
+
+from datasets import get_images
+
+logging.basicConfig(level=logging.DEBUG, datefmt='%H:%M:%S', format='[%(levelname)s %(asctime)s : %(funcName)s] %(message)s')
 
 class ImagePrompt(nn.Module):
     def __init__(self, patch_embed,embed_dim=768, size=32, embedding_key='mean', prompt_init='uniform', prompt_pool=False,
                  prompt_key=False, pool_size=None, top_k=None, batchwise_prompt=False, prompt_key_init='uniform', channel=3):
         super().__init__()
-        
+        logging.info('ImagePrompt Configs : %s', self.__dict__)
         self.size = size
         self.patch_embed = patch_embed
         self.embed_dim = embed_dim
@@ -26,7 +31,12 @@ class ImagePrompt(nn.Module):
             elif prompt_init == 'uniform':
                 self.prompt = nn.Parameter(torch.zeros(prompt_pool_shape))
                 nn.init.uniform_(self.prompt, -1, 1)
-            
+            elif prompt_init == 'train':
+                size = pool_size
+                logging.info('load %d sample images for training initialization', pool_size)
+                self. prompt = get_images(size)
+
+                
         if prompt_key:
             key_shape = (pool_size, embed_dim)
             if prompt_key_init == 'zero':
@@ -34,6 +44,7 @@ class ImagePrompt(nn.Module):
             if prompt_key_init == 'uniform':
                 self.prompt_key = nn.Parameter(torch.randn(key_shape))
                 nn.init.uniform_(self.prompt_key, -1, 1)
+                
         else:
             # if not use prompt_key, use image prompt embedding as prompt key
             self.prompt_key = None

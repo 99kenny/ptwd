@@ -3,3 +3,5 @@
 checkpoint/
 *.out
 *.err
+/output
+/local_datasets

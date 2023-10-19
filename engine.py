@@ -18,7 +18,7 @@ from typing import Iterable
 from pathlib import Path
 
 import torch
-from torchvision.utils import save_image
+from torchvision.utils import save_image, make_grid
 import numpy as np
 
 from timm.utils import accuracy
@@ -68,8 +68,8 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         loss = criterion(logits, target) # base criterion (CrossEntropyLoss)
         if args.pull_constraint and 'reduce_sim' in output:
             loss = loss - args.pull_constraint_coeff * output['reduce_sim']
-        if args.prompt_type == 'ImagePrompt':
-            image_prompt_loss = prompt_criterion(model.prompt.prompt)
+        # if args.prompt_type == 'ImagePrompt':
+        #     image_prompt_loss = prompt_criterion(model.prompt.prompt)
             
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
 
@@ -78,10 +78,11 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
             sys.exit(1)
 
         optimizer.zero_grad()
-        loss.backward(retain_graph=True) 
+        # loss.backward(retain_graph=True) 
+        loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
-        if args.prompt_type == 'ImagePrompt':
-                image_prompt_loss.backward()
+        # if args.prompt_type == 'ImagePrompt':
+        #         image_prompt_loss.backward()
 
         optimizer.step()
 
@@ -90,8 +91,8 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         metric_logger.update(Lr=optimizer.param_groups[0]["lr"])
         metric_logger.meters['Acc@1'].update(acc1.item(), n=input.shape[0])
         metric_logger.meters['Acc@5'].update(acc5.item(), n=input.shape[0])
-        if args.prompt_type == 'ImagePrompt':
-            metric_logger.update(Prompt_Loss= image_prompt_loss.item())
+        # if args.prompt_type == 'ImagePrompt':
+        #     metric_logger.update(Prompt_Loss= image_prompt_loss.item())
         
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
@@ -224,8 +225,7 @@ def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Modul
         
         if args.prompt_type == 'ImagePrompt' and epoch % save_every == 0:
             batch_imgs = model.prompt.prompt # pool_size, channel, size, size
-            for idx,img in enumerate(batch_imgs):
-                save_image(img,f'{args.output_dir}/{epoch}epoch_{idx}th_prompt.jpg')
+            save_image(make_grid(batch_imgs,f'{args.output_dir}/{args.exp_name}/{epoch}epoch_prompts.jpg'))
             
 def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 

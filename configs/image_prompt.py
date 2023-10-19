@@ -22,7 +22,7 @@ def get_args_parser(subparsers):
 
     # Learning rate schedule parameters
     subparsers.add_argument('--sched', default='constant', type=str, metavar='SCHEDULER', help='LR scheduler (default: "constant"')
-    subparsers.add_argument('--lr', type=float, default=0.03, metavar='LR', help='learning rate (default: 0.03)')
+    subparsers.add_argument('--lr', type=float, default=0.01, metavar='LR', help='learning rate (default: 0.03)')
     subparsers.add_argument('--lr-noise', type=float, nargs='+', default=None, metavar='pct, pct', help='learning rate noise on/off epoch percentages')
     subparsers.add_argument('--lr-noise-pct', type=float, default=0.67, metavar='PERCENT', help='learning rate noise limit percent (default: 0.67)')
     subparsers.add_argument('--lr-noise-std', type=float, default=1.0, metavar='STDDEV', help='learning rate noise std-dev (default: 1.0)')
@@ -50,11 +50,11 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--recount', type=int, default=1, help='Random erase count (default: 1)')
 
     # Data parameters
-    subparsers.add_argument('--data-path', default='/local_datasets/', type=str, help='dataset path')
+    subparsers.add_argument('--data-path', default='./local_datasets/', type=str, help='dataset path')
     subparsers.add_argument('--dataset', default='CIFAR10', type=str, help='dataset name')
     subparsers.add_argument('--shuffle', default=False, help='shuffle the data order')
     subparsers.add_argument('--output_dir', default='./output', help='path where to save, empty for no saving')
-    subparsers.add_argument('--device', default='cuda', help='device to use for training / testing')
+    subparsers.add_argument('--device', default=4, help='device to use for training / testing')
     subparsers.add_argument('--seed', default=42, type=int)
     subparsers.add_argument('--eval', action='store_true', help='Perform evaluation only')
     subparsers.add_argument('--num_workers', default=4, type=int)
@@ -65,9 +65,9 @@ def get_args_parser(subparsers):
     subparsers.set_defaults(pin_mem=True)
 
     # distributed training parameters
-    subparsers.add_argument('--world_size', default=1, type=int,
-                        help='number of distributed processes')
-    subparsers.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
+    # subparsers.add_argument('--world_size', default=1, type=int,
+    #                     help='number of distributed processes')
+    # subparsers.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
 
     # Continual learning parameters
     subparsers.add_argument('--num_tasks', default=1, type=int, help='number of sequential tasks')
@@ -79,7 +79,7 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--size', default=10, type=int,)
     subparsers.add_argument('--length', default=5,type=int, )
     subparsers.add_argument('--top_k', default=1, type=int, )
-    subparsers.add_argument('--initializer', default='uniform', type=str,)
+    subparsers.add_argument('--initializer', default='train', type=str,)
     subparsers.add_argument('--prompt_key', default=True, type=bool,)
     subparsers.add_argument('--prompt_key_init', default='uniform', type=str)
     subparsers.add_argument('--use_prompt_mask', default=False, type=bool)

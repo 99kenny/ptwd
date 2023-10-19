@@ -1,0 +1,68 @@
+1697677886.279757 client started (12867): version 2.6, socket /tmp/tmux-1003/default, protocol 8
+1697677886.279792 on Linux 5.4.0-150-generic #167~18.04.1-Ubuntu SMP Wed May 24 00:51:42 UTC 2023; libevent 2.1.8-stable (poll)
+1697677886.279810 socket is /tmp/tmux-1003/default
+1697677886.279825 trying connect
+1697677886.279845 connect failed: No such file or directory
+1697677886.279855 lock file is /tmp/tmux-1003/default.lock
+1697677886.279875 flock succeeded
+1697677886.279878 got lock (6)
+1697677886.279885 trying connect
+1697677886.279891 connect failed: No such file or directory
+1697677886.280133 add peer 0x557b6dc7bac0: 7 ((nil))
+1697677886.280248 sending message 100 to peer 0x557b6dc7bac0 (4 bytes)
+1697677886.280367 sending message 101 to peer 0x557b6dc7bac0 (6 bytes)
+1697677886.280379 sending message 102 to peer 0x557b6dc7bac0 (12 bytes)
+1697677886.280385 sending message 108 to peer 0x557b6dc7bac0 (19 bytes)
+1697677886.280392 sending message 104 to peer 0x557b6dc7bac0 (0 bytes)
+1697677886.280399 sending message 107 to peer 0x557b6dc7bac0 (4 bytes)
+1697677886.280404 sending message 105 to peer 0x557b6dc7bac0 (14 bytes)
+1697677886.280414 sending message 105 to peer 0x557b6dc7bac0 (1516 bytes)
+1697677886.280427 sending message 105 to peer 0x557b6dc7bac0 (41 bytes)
+1697677886.280434 sending message 105 to peer 0x557b6dc7bac0 (27 bytes)
+1697677886.280439 sending message 105 to peer 0x557b6dc7bac0 (53 bytes)
+1697677886.280445 sending message 105 to peer 0x557b6dc7bac0 (34 bytes)
+1697677886.280451 sending message 105 to peer 0x557b6dc7bac0 (21 bytes)
+1697677886.280457 sending message 105 to peer 0x557b6dc7bac0 (24 bytes)
+1697677886.280462 sending message 105 to peer 0x557b6dc7bac0 (17 bytes)
+1697677886.280468 sending message 105 to peer 0x557b6dc7bac0 (23 bytes)
+1697677886.280473 sending message 105 to peer 0x557b6dc7bac0 (21 bytes)
+1697677886.280479 sending message 105 to peer 0x557b6dc7bac0 (44 bytes)
+1697677886.280485 sending message 105 to peer 0x557b6dc7bac0 (7 bytes)
+1697677886.280491 sending message 105 to peer 0x557b6dc7bac0 (20 bytes)
+1697677886.280496 sending message 105 to peer 0x557b6dc7bac0 (20 bytes)
+1697677886.280502 sending message 105 to peer 0x557b6dc7bac0 (13 bytes)
+1697677886.280508 sending message 105 to peer 0x557b6dc7bac0 (36 bytes)
+1697677886.280513 sending message 105 to peer 0x557b6dc7bac0 (23 bytes)
+1697677886.280519 sending message 105 to peer 0x557b6dc7bac0 (19 bytes)
+1697677886.280525 sending message 105 to peer 0x557b6dc7bac0 (49 bytes)
+1697677886.280531 sending message 105 to peer 0x557b6dc7bac0 (34 bytes)
+1697677886.280537 sending message 105 to peer 0x557b6dc7bac0 (65 bytes)
+1697677886.280542 sending message 105 to peer 0x557b6dc7bac0 (11 bytes)
+1697677886.280548 sending message 105 to peer 0x557b6dc7bac0 (23 bytes)
+1697677886.280554 sending message 105 to peer 0x557b6dc7bac0 (23 bytes)
+1697677886.280559 sending message 105 to peer 0x557b6dc7bac0 (30 bytes)
+1697677886.280565 sending message 105 to peer 0x557b6dc7bac0 (20 bytes)
+1697677886.280571 sending message 105 to peer 0x557b6dc7bac0 (23 bytes)
+1697677886.280577 sending message 105 to peer 0x557b6dc7bac0 (11 bytes)
+1697677886.280583 sending message 105 to peer 0x557b6dc7bac0 (16 bytes)
+1697677886.280589 sending message 105 to peer 0x557b6dc7bac0 (8 bytes)
+1697677886.280594 sending message 105 to peer 0x557b6dc7bac0 (25 bytes)
+1697677886.280600 sending message 105 to peer 0x557b6dc7bac0 (16 bytes)
+1697677886.280611 sending message 105 to peer 0x557b6dc7bac0 (54 bytes)
+1697677886.280617 sending message 105 to peer 0x557b6dc7bac0 (31 bytes)
+1697677886.280623 sending message 105 to peer 0x557b6dc7bac0 (194 bytes)
+1697677886.280630 sending message 105 to peer 0x557b6dc7bac0 (30 bytes)
+1697677886.280635 sending message 105 to peer 0x557b6dc7bac0 (23 bytes)
+1697677886.280641 sending message 105 to peer 0x557b6dc7bac0 (32 bytes)
+1697677886.280646 sending message 105 to peer 0x557b6dc7bac0 (20 bytes)
+1697677886.280652 sending message 105 to peer 0x557b6dc7bac0 (16 bytes)
+1697677886.280658 sending message 105 to peer 0x557b6dc7bac0 (16 bytes)
+1697677886.280664 sending message 106 to peer 0x557b6dc7bac0 (0 bytes)
+1697677886.280680 sending message 200 to peer 0x557b6dc7bac0 (4 bytes)
+1697677886.280686 client loop enter
+1697677886.292605 peer 0x557b6dc7bac0 message 207
+1697677886.292623 sending message 208 to peer 0x557b6dc7bac0 (0 bytes)
+1697677980.914735 peer 0x557b6dc7bac0 message 203
+1697677980.914756 sending message 205 to peer 0x557b6dc7bac0 (0 bytes)
+1697677980.915312 peer 0x557b6dc7bac0 message 204
+1697677980.915327 client loop exit

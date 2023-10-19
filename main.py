@@ -14,9 +14,11 @@ import random
 import numpy as np
 import time
 import logging
+
 import torch
 from torch.utils.data import DataLoader 
 import torch.backends.cudnn as cudnn
+from torchvision.utils import make_grid, save_image
 
 from pathlib import Path
 
@@ -38,10 +40,10 @@ warnings.filterwarnings('ignore', 'Argument interpolation should be of type Inte
 
 def main(args):
     logging.basicConfig(level=logging.DEBUG, datefmt='%H:%M:%S', format='[%(levelname)s %(asctime)s : %(funcName)s] %(message)s')
-    utils.init_distributed_mode(args)
+    # utils.init_distributed_mode(args)
     
     device = torch.device(args.device)
-
+    logging.debug(f'using device {args.device}:{device}')
     # fix the seed for reproducibility
     seed = args.seed
     torch.manual_seed(seed)
@@ -86,6 +88,10 @@ def main(args):
     )
     original_model.to(device)
     model.to(device)  
+    
+    if args.prompt_init == 'train' and args.prompt_type == 'ImagePrompt':
+        logging.info('save initial prompt imgs...')
+        save_image(make_grid(model.prompt.prompt, nrow=args.pool_size), f'{args.output_dir}/{args.exp_name}/initial_prompts.jpg')
     
     if args.freeze:
         # all parameters are frozen for original vit model
@@ -132,9 +138,9 @@ def main(args):
     
     
     model_without_ddp = model
-    if args.distributed:
-        model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])
-        model_without_ddp = model.module
+    # if args.distributed:
+    #     model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])
+    #     model_without_ddp = model.module
     
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
     logging.info('number of params: %s', n_parameters)
@@ -171,8 +177,9 @@ def main(args):
             else:
                 sample = torch.cat([sample, input], dim=0)
                 sample_size -= batch_size
-        logging.debug('sample shape for mean, var: %s', sample.shape) 
-        sample = sample.cuda()
+        logging.info('sample shape for mean, var: %s', sample.shape) 
+       
+        sample = sample.to(device)
         # save mean, var
         model.eval()
         model(sample, is_pre=True)
@@ -199,7 +206,7 @@ def main(args):
     print(f"Total training time: {total_time_str}")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser('L2P training and evaluation configs')
+    parser = argparse.ArgumentParser('Image prompt')
     parser.add_argument('--continual', action='store_true', help='activate continual learning setting')
     parser.add_argument('--prompt_type', type=str, default='ImagePrompt')
     parser.add_argument('--exp_name', type=str)

@@ -19,6 +19,7 @@ import torch
 from torch.utils.data import DataLoader 
 import torch.backends.cudnn as cudnn
 from torchvision.utils import make_grid, save_image
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 from pathlib import Path
 
@@ -44,6 +45,7 @@ def main(args):
     
     device = torch.device(args.device)
     logging.debug(f'using device {args.device}:{device}')
+    logging.debug(f'args : {args}')
     # fix the seed for reproducibility
     seed = args.seed
     torch.manual_seed(seed)
@@ -76,7 +78,7 @@ def main(args):
         drop_block_rate=None,
         prompt_length=args.length,
         embedding_key=args.embedding_key,
-        prompt_init=args.prompt_key_init,
+        prompt_init=args.initializer,
         prompt_pool=args.prompt_pool,
         prompt_key=args.prompt_key,
         pool_size=args.size,
@@ -89,9 +91,9 @@ def main(args):
     original_model.to(device)
     model.to(device)  
     
-    if args.prompt_init == 'train' and args.prompt_type == 'ImagePrompt':
+    if args.initializer == 'train' and args.prompt_type == 'ImagePrompt':
         logging.info('save initial prompt imgs...')
-        save_image(make_grid(model.prompt.prompt, nrow=args.pool_size), f'{args.output_dir}/{args.exp_name}/initial_prompts.jpg')
+        save_image(make_grid(model.prompt.prompt, nrow=args.size), f'{args.output_dir}/{args.exp_name}/initial_prompts.jpg')
     
     if args.freeze:
         # all parameters are frozen for original vit model
@@ -103,7 +105,10 @@ def main(args):
             if n.startswith(tuple(args.freeze)):
                 p.requires_grad = False
     logging.debug(args)
-    
+    for n, p in model.named_parameters():
+        if p.requires_grad == True:
+            logging.debug(f'{n} : {p.shape}')
+
     if args.eval:
         logging.info('eval mode')
         if args.continual:
@@ -137,7 +142,6 @@ def main(args):
             _ = evaluate(model, original_model, data_loader, device, acc_matrix, args,)
     
     
-    model_without_ddp = model
     # if args.distributed:
     #     model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu])
     #     model_without_ddp = model.module
@@ -151,13 +155,16 @@ def main(args):
     #     global_batch_size = args.batch_size * args.world_size
     # args.lr = args.lr * global_batch_size / 256.0
     
-    optimizer = create_optimizer(args, model_without_ddp)
+    optimizer = create_optimizer(args, model)
     
-    if args.sched != 'constant':
-        lr_scheduler, _ = create_scheduler(args, optimizer)
-    elif args.sched == 'constant':
+    # if args.sched == 'cosine':
+    #     lr_scheduler, _ = create_scheduler(args, optimizer)
+    # elif args.sched == 'constant':
+    #     lr_scheduler = None
+    if args.sched == 'constant':
         lr_scheduler = None
-        
+    elif args.sched == 'cosine':
+        lr_scheduler = CosineAnnealingLR(optimizer, T_max=args.epochs, eta_min=0)
     criterion = torch.nn.CrossEntropyLoss().to(device)
     # Image prompt loss
     prompt_criterion = None
@@ -165,7 +172,7 @@ def main(args):
         # pre norm
         # data selection 100
         sample_loader = data_loader[0]['train']
-        sample_size = 10
+        sample_size = 100
         sample = torch.empty(0,3,224,224)
         logging.info('load sample %d images for prenorm', sample_size)
         # todo: fix this (memory issue)
@@ -181,24 +188,33 @@ def main(args):
        
         sample = sample.to(device)
         # save mean, var
-        model.eval()
-        model(sample, is_pre=True)
+        original_model.eval()
+        original_model(sample, is_pre=True)
+        prenorm_values = list()
+        for module in original_model.modules():
+            if isinstance(module, PreNorm):
+                prenorm_values.append({'mean' : module.mean, 'var' : module.var})
+                #logging.debug(f'original model running : {module.mean} , {module.var}')
         # prompt loss
         r_feature_layers = list()
+        idx = 0
         for module in model.modules():
-            if isinstance(module, PreNorm):
+            if isinstance(module, PreNorm):            
+                module.set_mean_var(mean=prenorm_values[idx]['mean'], var=prenorm_values[idx]['var'])
+                #logging.debug(f'model running: {module.mean}, {module.var}')
                 r_feature_layers.append(DeepInversionFeatureHooK(module))
+                idx += 1
     
         prompt_criterion = ImagePromptLoss(r_feature_layers=r_feature_layers)
     
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()
     if args.continual:
-        train_and_evaluate_continual(model, model_without_ddp, original_model,
+        train_and_evaluate_continual(model, original_model,
                     criterion, prompt_criterion, data_loader, optimizer, lr_scheduler,
                     device, class_mask, args)
     else:
-        train_and_evaluate(model, model_without_ddp, original_model,
+        train_and_evaluate(model, original_model,
                                   criterion, prompt_criterion, data_loader, optimizer, lr_scheduler,
                                   device, args)
     total_time = time.time() - start_time

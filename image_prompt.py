@@ -34,14 +34,14 @@ class ImagePrompt(nn.Module):
             elif prompt_init == 'train':
                 size = pool_size
                 logging.info('load %d sample images for training initialization', pool_size)
-                self. prompt = get_images(size)
-
+                self.prompt = nn.Parameter(get_images(size))
+                
                 
         if prompt_key:
             key_shape = (pool_size, embed_dim)
             if prompt_key_init == 'zero':
                 self.prompt_key = nn.Parameter(torch.zeros(key_shape))
-            if prompt_key_init == 'uniform':
+            if prompt_key_init == 'uniform' or prompt_key_init == 'train':
                 self.prompt_key = nn.Parameter(torch.randn(key_shape))
                 nn.init.uniform_(self.prompt_key, -1, 1)
                 
@@ -79,7 +79,6 @@ class ImagePrompt(nn.Module):
                 raise NotImplementedError("Not supported way of calculating embedding keys")
             if self.prompt_key is None:
                 self.prompt_key = prompt_embed 
-            
             prompt_norm = self.l2_normalize(self.prompt_key, dim=1)
             x_embed_norm = self.l2_normalize(x_embed_mean, dim=1)  
             

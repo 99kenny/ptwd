@@ -50,7 +50,7 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--recount', type=int, default=1, help='Random erase count (default: 1)')
 
     # Data parameters
-    subparsers.add_argument('--data-path', default='./local_datasets/', type=str, help='dataset path')
+    subparsers.add_argument('--data_path', default='./local_datasets/', type=str, help='dataset path')
     subparsers.add_argument('--dataset', default='CIFAR10', type=str, help='dataset name')
     subparsers.add_argument('--shuffle', default=False, help='shuffle the data order')
     subparsers.add_argument('--output_dir', default='./output', help='path where to save, empty for no saving')
@@ -81,7 +81,7 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--top_k', default=1, type=int, )
     subparsers.add_argument('--initializer', default='train', type=str,)
     subparsers.add_argument('--prompt_key', default=True, type=bool,)
-    subparsers.add_argument('--prompt_key_init', default='uniform', type=str)
+    subparsers.add_argument('--prompt_key_init', default='train', type=str)
     subparsers.add_argument('--use_prompt_mask', default=False, type=bool)
     subparsers.add_argument('--shared_prompt_pool', default=False, type=bool)
     subparsers.add_argument('--shared_prompt_key', default=False, type=bool)
@@ -95,6 +95,12 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--global_pool', default='token', choices=['token', 'avg'], type=str, help='type of global pooling for final sequence')
     subparsers.add_argument('--head_type', default='prompt', choices=['token', 'gap', 'prompt', 'token+prompt'], type=str, help='input type of classification head')
     subparsers.add_argument('--freeze', default=['blocks', 'patch_embed', 'cls_token', 'norm', 'pos_embed'], nargs='*', type=list, help='freeze part in backbone model')
-
+    
+    subparsers.add_argument('--alpha_main', default=0.1, type=float)
+    subparsers.add_argument('--alpha_tv_l1', default=0., type=float)
+    subparsers.add_argument('--alpha_tv_l2', default=0., type=float)
+    subparsers.add_argument('--alpha_l2', default=0., type=float)
+    subparsers.add_argument('--alpha_f', default=0., type=float)
+    
     # Misc parameters
     subparsers.add_argument('--print_freq', type=int, default=10, help = 'The frequency of printing')

@@ -729,7 +729,10 @@ def checkpoint_filter_fn(state_dict, model, adapt_layer_scale=False):
         out_dict[k] = v
     return out_dict
 
+def _create_vision_transformer_prenorm(variant, pretrained=True, **kwargs):    
+    pretrained_cfg = resolve_pretrained_cfg(variant, pretrained_cfg=kwargs.pop('pretrained_cfg', None))
 
+    
 def _create_vision_transformer(variant, pretrained=False, **kwargs):
     if kwargs.get('features_only', None):
         raise RuntimeError('features_only not implemented for Vision Transformer models.')

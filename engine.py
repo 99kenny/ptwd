@@ -34,14 +34,14 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
     model.train(set_training_mode)
     original_model.eval()
 
-    if args.distributed and utils.get_world_size() > 1:
-        data_loader.sampler.set_epoch(epoch)
+    # if args.distributed and utils.get_world_size() > 1:
+    #     data_loader.sampler.set_epoch(epoch)
 
     metric_logger = utils.MetricLogger(delimiter="  ")
     metric_logger.add_meter('Lr', utils.SmoothedValue(window_size=1, fmt='{value:.6f}'))
     metric_logger.add_meter('Loss', utils.SmoothedValue(window_size=1, fmt='{value:.4f}'))
-    if args.prompt_type == 'ImagePrompt':
-        metric_logger.add_meter('Prompt_Loss', utils.SmoothedValue(window_size=1, fmt='{value:.4f}'))
+    #if args.prompt_type == 'ImagePrompt':
+    #    metric_logger.add_meter('Prompt_Loss', utils.SmoothedValue(window_size=1, fmt='{value:.4f}'))
     header = f'Train: Epoch[{epoch+1:{int(math.log10(args.epochs))+1}}/{args.epochs}]'
     
     for input, target in metric_logger.log_every(data_loader, args.print_freq, header):
@@ -68,8 +68,8 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         loss = criterion(logits, target) # base criterion (CrossEntropyLoss)
         if args.pull_constraint and 'reduce_sim' in output:
             loss = loss - args.pull_constraint_coeff * output['reduce_sim']
-        # if args.prompt_type == 'ImagePrompt':
-        #     image_prompt_loss = prompt_criterion(model.prompt.prompt)
+        if args.prompt_type == 'ImagePrompt':
+            image_prompt_loss = prompt_criterion(model.prompt.prompt)
             
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
 
@@ -78,11 +78,11 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
             sys.exit(1)
 
         optimizer.zero_grad()
-        # loss.backward(retain_graph=True) 
-        loss.backward()
+        loss.backward(retain_graph=True) 
+        #loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm)
-        # if args.prompt_type == 'ImagePrompt':
-        #         image_prompt_loss.backward()
+        if args.prompt_type == 'ImagePrompt':
+                image_prompt_loss.backward()
 
         optimizer.step()
 
@@ -91,14 +91,13 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         metric_logger.update(Lr=optimizer.param_groups[0]["lr"])
         metric_logger.meters['Acc@1'].update(acc1.item(), n=input.shape[0])
         metric_logger.meters['Acc@5'].update(acc5.item(), n=input.shape[0])
-        # if args.prompt_type == 'ImagePrompt':
-        #     metric_logger.update(Prompt_Loss= image_prompt_loss.item())
+        if args.prompt_type == 'ImagePrompt':
+            metric_logger.update(Prompt_Loss= image_prompt_loss.item())
         
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
     print("Averaged stats:", metric_logger)
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
-
 
 @torch.no_grad()
 def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loader, 
@@ -186,48 +185,48 @@ def evaluate_till_now(model: torch.nn.Module, original_model: torch.nn.Module, d
 
     return test_stats
 
-def train_and_evaluate(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module,
+def train_and_evaluate(model: torch.nn.Module, original_model: torch.nn.Module,
                        criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device,
                        args = None,):
-    save_every = 1
+    save_every = 10
     for epoch in range(args.epochs):
         train_stats = train_one_epoch(model=model, original_model=original_model, criterion=criterion, prompt_criterion=prompt_criterion,
                     data_loader=data_loader[0]['train'], optimizer=optimizer,
                     device=device, epoch=epoch, max_norm=args.clip_grad,
                     set_training_mode=True, task_id=-1, class_mask=None, args=args,)
         if lr_scheduler:
-            lr_scheduler.step(epoch)
+            lr_scheduler.step()
         
         test_stats = evaluate(model=model, original_model=original_model, data_loader=data_loader[0]['val'], device=device, 
                                 prompt_criterion=prompt_criterion, task_id=-1, class_mask=None, args=args)
-        if args.output_dir and utils.is_main_process():
-            Path(os.path.join(args.output_dir, 'checkpoint')).mkdir(parents=True, exist_ok=True)
+        # if args.output_dir and utils.is_main_process():
+        #     Path(os.path.join(args.output_dir, args.exp_name,'checkpoint')).mkdir(parents=True, exist_ok=True)
             
-            checkpoint_path = os.path.join(args.output_dir, 'checkpoint/checkpoint.pth')
-            state_dict = {
-                    'model': model_without_ddp.state_dict(),
-                    'optimizer': optimizer.state_dict(),
-                    'epoch': epoch,
-                    'args': args,
-                }
-            if args.sched is not None and args.sched != 'constant':
-                state_dict['lr_scheduler'] = lr_scheduler.state_dict()
+        #     checkpoint_path = os.path.join(args.output_dir, args.exp_name,'checkpoint/checkpoint.pth')
+        #     state_dict = {
+        #             'model': model_without_ddp.state_dict(),
+        #             'optimizer': optimizer.state_dict(),
+        #             'epoch': epoch,
+        #             'args': args,
+        #         }
+        #     if args.sched is not None and args.sched != 'constant':
+        #         state_dict['lr_scheduler'] = lr_scheduler.state_dict()
             
-            utils.save_on_master(state_dict, checkpoint_path)
+        #     utils.save_on_master(state_dict, checkpoint_path)
 
-        log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
-            **{f'test_{k}': v for k, v in test_stats.items()},
-            'epoch': epoch,}
+        # log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
+        #     **{f'test_{k}': v for k, v in test_stats.items()},
+        #     'epoch': epoch,}
 
-        if args.output_dir and utils.is_main_process():
-            with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
-                f.write(json.dumps(log_stats) + '\n')
+        # if args.output_dir and utils.is_main_process():
+        #     with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
+        #         f.write(json.dumps(log_stats) + '\n')
         
         if args.prompt_type == 'ImagePrompt' and epoch % save_every == 0:
             batch_imgs = model.prompt.prompt # pool_size, channel, size, size
-            save_image(make_grid(batch_imgs,f'{args.output_dir}/{args.exp_name}/{epoch}epoch_prompts.jpg'))
+            save_image(make_grid(batch_imgs, nrow=args.size),f'{args.output_dir}/{args.exp_name}/{epoch}epoch_prompts.jpg')
             
-def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torch.nn.Module, original_model: torch.nn.Module, 
+def train_and_evaluate_continual(model: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer, lr_scheduler, device: torch.device, 
                     class_mask=None, args = None,):
     
@@ -255,14 +254,14 @@ def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torc
                     prev_idx = (slice(prev_start, prev_end))
 
                     with torch.no_grad():
-                        if args.distributed:
-                            model.module.prompt.prompt.grad.zero_()
-                            model.module.prompt.prompt[cur_idx] = model.module.prompt.prompt[prev_idx]
-                            optimizer.param_groups[0]['params'] = model.module.parameters()
-                        else:
-                            model.prompt.prompt.grad.zero_()
-                            model.prompt.prompt[cur_idx] = model.prompt.prompt[prev_idx]
-                            optimizer.param_groups[0]['params'] = model.parameters()
+                        # if args.distributed:
+                        #     model.module.prompt.prompt.grad.zero_()
+                        #     model.module.prompt.prompt[cur_idx] = model.module.prompt.prompt[prev_idx]
+                        #     optimizer.param_groups[0]['params'] = model.module.parameters()
+                        # else:
+                        model.prompt.prompt.grad.zero_()
+                        model.prompt.prompt[cur_idx] = model.prompt.prompt[prev_idx]
+                        optimizer.param_groups[0]['params'] = model.parameters()
                     
         # Transfer previous learned prompt param keys to the new prompt
         if args.prompt_pool and args.shared_prompt_key:
@@ -274,15 +273,15 @@ def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torc
                 cur_end = (task_id + 1) * args.top_k
 
                 with torch.no_grad():
-                    if args.distributed:
-                        model.module.prompt.prompt_key.grad.zero_()
-                        model.module.prompt.prompt_key[cur_idx] = model.module.prompt.prompt_key[prev_idx]
-                        optimizer.param_groups[0]['params'] = model.module.parameters()
-                    else:
-                        model.prompt.prompt_key.grad.zero_()
-                        model.prompt.prompt_key[cur_idx] = model.prompt.prompt_key[prev_idx]
-                        optimizer.param_groups[0]['params'] = model.parameters()
-     
+                    # if args.distributed:
+                    #     model.module.prompt.prompt_key.grad.zero_()
+                    #     model.module.prompt.prompt_key[cur_idx] = model.module.prompt.prompt_key[prev_idx]
+                    #     optimizer.param_groups[0]['params'] = model.module.parameters()
+                    # else:
+                    model.prompt.prompt_key.grad.zero_()
+                    model.prompt.prompt_key[cur_idx] = model.prompt.prompt_key[prev_idx]
+                    optimizer.param_groups[0]['params'] = model.parameters()
+    
         # Create new optimizer for each task to clear optimizer status
         if task_id > 0 and args.reinit_optimizer:
             optimizer = create_optimizer(args, model)
@@ -294,33 +293,33 @@ def train_and_evaluate_continual(model: torch.nn.Module, model_without_ddp: torc
                                         set_training_mode=True, task_id=task_id, class_mask=class_mask, args=args,)
             
             if lr_scheduler:
-                lr_scheduler.step(epoch)
+                lr_scheduler.step()
 
         test_stats = evaluate_till_now(model=model, original_model=original_model, data_loader=data_loader, device=device, 
                                     task_id=task_id, class_mask=class_mask, acc_matrix=acc_matrix, args=args)
         
-        if args.output_dir and utils.is_main_process():
-            Path(os.path.join(args.output_dir, 'checkpoint')).mkdir(parents=True, exist_ok=True)
+        # if args.output_dir and utils.is_main_process():
+        #     Path(os.path.join(args.output_dir, args.exp_name,'checkpoint')).mkdir(parents=True, exist_ok=True)
             
-            checkpoint_path = os.path.join(args.output_dir, 'checkpoint/task{}_checkpoint.pth'.format(task_id+1))
-            state_dict = {
-                    'model': model_without_ddp.state_dict(),
-                    'optimizer': optimizer.state_dict(),
-                    'epoch': epoch,
-                    'args': args,
-                }
-            if args.sched is not None and args.sched != 'constant':
-                state_dict['lr_scheduler'] = lr_scheduler.state_dict()
+        #     checkpoint_path = os.path.join(args.output_dir, args.exp_name, 'checkpoint/task{}_checkpoint.pth'.format(task_id+1))
+        #     state_dict = {
+        #             'model': model.state_dict(),
+        #             'optimizer': optimizer.state_dict(),
+        #             'epoch': epoch,
+        #             'args': args,
+        #         }
+        #     if args.sched is not None and args.sched != 'constant':
+        #         state_dict['lr_scheduler'] = lr_scheduler.state_dict()
             
-            utils.save_on_master(state_dict, checkpoint_path)
+        #     utils.save_on_master(state_dict, checkpoint_path)
 
-        log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
-            **{f'test_{k}': v for k, v in test_stats.items()},
-            'epoch': epoch,}
+        # log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
+        #     **{f'test_{k}': v for k, v in test_stats.items()},
+        #     'epoch': epoch,}
 
-        if args.output_dir and utils.is_main_process():
-            with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
-                f.write(json.dumps(log_stats) + '\n')
+        # if args.output_dir and utils.is_main_process():
+        #     with open(os.path.join(args.output_dir, '{}_stats.txt'.format(datetime.datetime.now().strftime('log_%Y_%m_%d_%H_%M'))), 'a') as f:
+        #         f.write(json.dumps(log_stats) + '\n')
         
         if args.prompt_type == 'ImagePrompt':
             batch_imgs = model.prompt.prompt # pool_size, channel, size, size

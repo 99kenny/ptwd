@@ -21,6 +21,8 @@ import datetime
 import torch
 import torch.distributed as dist
 
+from timm.models import create_model
+
 class SmoothedValue(object):
     """Track a series of values and provide access to smoothed values over a
     window or the global series average.
@@ -164,7 +166,22 @@ class MetricLogger(object):
         print('{} Total time: {} ({:.4f} s / it)'.format(
             header, total_time_str, total_time / len(iterable)))
 
-
+def get_prenorms(model, args, size=100):
+    # timm model load
+    original_model = create_model(
+        args.model,
+        pretrained=args.pretrained,
+        num_classes=args.nb_classes,
+        drop_rate=args.drop,
+        drop_path_rate=args.drop_path,
+        drop_block_rate=None,
+    )
+    # check model
+    print(original_model)
+    # add prenorm layer
+    
+    # forward images ()
+    
 def _load_checkpoint_for_ema(model_ema, checkpoint):
     """
     Workaround for ModelEma._load_checkpoint to accept an already-loaded object

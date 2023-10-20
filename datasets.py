@@ -21,6 +21,7 @@ from continual_datasets.continual_datasets import *
 import utils
 
 logging.basicConfig(level=logging.DEBUG, datefmt='%H:%M:%S', format='[%(levelname)s %(asctime)s : %(funcName)s] %(message)s')
+device = 4
 
 class Lambda(transforms.Lambda):
     def __init__(self, lambd, nb_classes):
@@ -242,16 +243,18 @@ def split_single_dataset(dataset_train, dataset_val, args):
     
     return split_datasets, mask
 
-def get_images(data_path, name='CIFAR10'):
+def get_images(num, name='CIFAR10', data_path='./local_datasets'):
     transform = transforms.Compose([
         transforms.ToTensor()
     ])
     dataset_train, dataset_val = get_dataset(name, transform, transform, data_path)
     idx = torch.randint(0,len(dataset_train),(num,))
-    imgs = torch.unsqueeze(torch.empty(dataset_train.__getitem__(0).shape),0)
+    c,h,w = dataset_train.__getitem__(0)[0].shape
+    imgs = torch.empty((0,c,h,w))
     logging.debug(f'imgs shape : {imgs.shape}')
     for i in idx:
-        imgs = torch.cat([dataset_train.__getitem__(i), imgs],dim=0)
+        imgs = torch.cat([torch.unsqueeze(dataset_train.__getitem__(i)[0],0), imgs],dim=0)
+    imgs.to(device)
     
     return imgs
     

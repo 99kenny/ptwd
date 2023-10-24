@@ -1,0 +1,741 @@
+Files already downloaded and verified
+Files already downloaded and verified
+Creating original model: vit_base_patch16_224
+Creating model: vit_base_patch16_224
+Files already downloaded and verified
+Files already downloaded and verified
+=================================================================
+Layer (type:depth-idx)                   Param #
+=================================================================
+├─PatchEmbed: 1-1                        --
+|    └─Conv2d: 2-1                       (590,592)
+|    └─Identity: 2-2                     --
+├─Dropout: 1-2                           --
+├─ImagePrompt: 1-3                       --
+|    └─PatchEmbed: 2-3                   (recursive)
+|    |    └─Conv2d: 3-1                  (recursive)
+|    |    └─Identity: 3-2                --
+├─Sequential: 1-4                        --
+|    └─Block: 2-4                        --
+|    |    └─LayerNorm: 3-3               (1,536)
+|    |    └─PreNorm: 3-4                 --
+|    |    └─PreNorm: 3-5                 --
+|    |    └─Attention: 3-6               (2,362,368)
+|    |    └─Identity: 3-7                --
+|    |    └─Identity: 3-8                --
+|    |    └─LayerNorm: 3-9               (1,536)
+|    |    └─Mlp: 3-10                    (4,722,432)
+|    |    └─Identity: 3-11               --
+|    |    └─Identity: 3-12               --
+|    └─Block: 2-5                        --
+|    |    └─LayerNorm: 3-13              (1,536)
+|    |    └─PreNorm: 3-14                --
+|    |    └─PreNorm: 3-15                --
+|    |    └─Attention: 3-16              (2,362,368)
+|    |    └─Identity: 3-17               --
+|    |    └─Identity: 3-18               --
+|    |    └─LayerNorm: 3-19              (1,536)
+|    |    └─Mlp: 3-20                    (4,722,432)
+|    |    └─Identity: 3-21               --
+|    |    └─Identity: 3-22               --
+|    └─Block: 2-6                        --
+|    |    └─LayerNorm: 3-23              (1,536)
+|    |    └─PreNorm: 3-24                --
+|    |    └─PreNorm: 3-25                --
+|    |    └─Attention: 3-26              (2,362,368)
+|    |    └─Identity: 3-27               --
+|    |    └─Identity: 3-28               --
+|    |    └─LayerNorm: 3-29              (1,536)
+|    |    └─Mlp: 3-30                    (4,722,432)
+|    |    └─Identity: 3-31               --
+|    |    └─Identity: 3-32               --
+|    └─Block: 2-7                        --
+|    |    └─LayerNorm: 3-33              (1,536)
+|    |    └─PreNorm: 3-34                --
+|    |    └─PreNorm: 3-35                --
+|    |    └─Attention: 3-36              (2,362,368)
+|    |    └─Identity: 3-37               --
+|    |    └─Identity: 3-38               --
+|    |    └─LayerNorm: 3-39              (1,536)
+|    |    └─Mlp: 3-40                    (4,722,432)
+|    |    └─Identity: 3-41               --
+|    |    └─Identity: 3-42               --
+|    └─Block: 2-8                        --
+|    |    └─LayerNorm: 3-43              (1,536)
+|    |    └─PreNorm: 3-44                --
+|    |    └─PreNorm: 3-45                --
+|    |    └─Attention: 3-46              (2,362,368)
+|    |    └─Identity: 3-47               --
+|    |    └─Identity: 3-48               --
+|    |    └─LayerNorm: 3-49              (1,536)
+|    |    └─Mlp: 3-50                    (4,722,432)
+|    |    └─Identity: 3-51               --
+|    |    └─Identity: 3-52               --
+|    └─Block: 2-9                        --
+|    |    └─LayerNorm: 3-53              (1,536)
+|    |    └─PreNorm: 3-54                --
+|    |    └─PreNorm: 3-55                --
+|    |    └─Attention: 3-56              (2,362,368)
+|    |    └─Identity: 3-57               --
+|    |    └─Identity: 3-58               --
+|    |    └─LayerNorm: 3-59              (1,536)
+|    |    └─Mlp: 3-60                    (4,722,432)
+|    |    └─Identity: 3-61               --
+|    |    └─Identity: 3-62               --
+|    └─Block: 2-10                       --
+|    |    └─LayerNorm: 3-63              (1,536)
+|    |    └─PreNorm: 3-64                --
+|    |    └─PreNorm: 3-65                --
+|    |    └─Attention: 3-66              (2,362,368)
+|    |    └─Identity: 3-67               --
+|    |    └─Identity: 3-68               --
+|    |    └─LayerNorm: 3-69              (1,536)
+|    |    └─Mlp: 3-70                    (4,722,432)
+|    |    └─Identity: 3-71               --
+|    |    └─Identity: 3-72               --
+|    └─Block: 2-11                       --
+|    |    └─LayerNorm: 3-73              (1,536)
+|    |    └─PreNorm: 3-74                --
+|    |    └─PreNorm: 3-75                --
+|    |    └─Attention: 3-76              (2,362,368)
+|    |    └─Identity: 3-77               --
+|    |    └─Identity: 3-78               --
+|    |    └─LayerNorm: 3-79              (1,536)
+|    |    └─Mlp: 3-80                    (4,722,432)
+|    |    └─Identity: 3-81               --
+|    |    └─Identity: 3-82               --
+|    └─Block: 2-12                       --
+|    |    └─LayerNorm: 3-83              (1,536)
+|    |    └─PreNorm: 3-84                --
+|    |    └─PreNorm: 3-85                --
+|    |    └─Attention: 3-86              (2,362,368)
+|    |    └─Identity: 3-87               --
+|    |    └─Identity: 3-88               --
+|    |    └─LayerNorm: 3-89              (1,536)
+|    |    └─Mlp: 3-90                    (4,722,432)
+|    |    └─Identity: 3-91               --
+|    |    └─Identity: 3-92               --
+|    └─Block: 2-13                       --
+|    |    └─LayerNorm: 3-93              (1,536)
+|    |    └─PreNorm: 3-94                --
+|    |    └─PreNorm: 3-95                --
+|    |    └─Attention: 3-96              (2,362,368)
+|    |    └─Identity: 3-97               --
+|    |    └─Identity: 3-98               --
+|    |    └─LayerNorm: 3-99              (1,536)
+|    |    └─Mlp: 3-100                   (4,722,432)
+|    |    └─Identity: 3-101              --
+|    |    └─Identity: 3-102              --
+|    └─Block: 2-14                       --
+|    |    └─LayerNorm: 3-103             (1,536)
+|    |    └─PreNorm: 3-104               --
+|    |    └─PreNorm: 3-105               --
+|    |    └─Attention: 3-106             (2,362,368)
+|    |    └─Identity: 3-107              --
+|    |    └─Identity: 3-108              --
+|    |    └─LayerNorm: 3-109             (1,536)
+|    |    └─Mlp: 3-110                   (4,722,432)
+|    |    └─Identity: 3-111              --
+|    |    └─Identity: 3-112              --
+|    └─Block: 2-15                       --
+|    |    └─LayerNorm: 3-113             (1,536)
+|    |    └─PreNorm: 3-114               --
+|    |    └─PreNorm: 3-115               --
+|    |    └─Attention: 3-116             (2,362,368)
+|    |    └─Identity: 3-117              --
+|    |    └─Identity: 3-118              --
+|    |    └─LayerNorm: 3-119             (1,536)
+|    |    └─Mlp: 3-120                   (4,722,432)
+|    |    └─Identity: 3-121              --
+|    |    └─Identity: 3-122              --
+├─LayerNorm: 1-5                         (1,536)
+├─Identity: 1-6                          --
+├─Linear: 1-7                            7,690
+=================================================================
+Total params: 85,654,282
+Trainable params: 7,690
+Non-trainable params: 85,646,592
+=================================================================
+Start training for 100 epochs
+Train: Epoch[  1/100]  [   0/3125]  eta: 0:46:21  Lr: 0.010000  Loss: 2.2599  Acc@1: 18.7500 (18.7500)  Acc@5: 62.5000 (62.5000)  Prompt_Loss: 0.0000 (0.0000)  time: 0.8901  data: 0.1710  max mem: 6587
+Train: Epoch[  1/100]  [  10/3125]  eta: 0:27:13  Lr: 0.010000  Loss: 2.1278  Acc@1: 25.0000 (23.2955)  Acc@5: 62.5000 (61.9318)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5243  data: 0.0158  max mem: 6588
+Train: Epoch[  1/100]  [  20/3125]  eta: 0:26:18  Lr: 0.010000  Loss: 1.2307  Acc@1: 31.2500 (30.6548)  Acc@5: 75.0000 (71.4286)  Prompt_Loss: 0.0000 (0.0000)  time: 0.4892  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [  30/3125]  eta: 0:25:57  Lr: 0.010000  Loss: 1.2021  Acc@1: 43.7500 (35.6855)  Acc@5: 87.5000 (77.6210)  Prompt_Loss: 0.0000 (0.0000)  time: 0.4918  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [  40/3125]  eta: 0:25:55  Lr: 0.010000  Loss: 1.7216  Acc@1: 43.7500 (41.1585)  Acc@5: 87.5000 (80.6402)  Prompt_Loss: 0.0000 (0.0000)  time: 0.4999  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [  50/3125]  eta: 0:25:49  Lr: 0.010000  Loss: 1.7830  Acc@1: 56.2500 (44.4853)  Acc@5: 93.7500 (83.2108)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5050  data: 0.0007  max mem: 6588
+Train: Epoch[  1/100]  [  60/3125]  eta: 0:25:44  Lr: 0.010000  Loss: 0.6841  Acc@1: 50.0000 (46.7213)  Acc@5: 93.7500 (84.7336)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5030  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [  70/3125]  eta: 0:25:37  Lr: 0.010000  Loss: 1.3693  Acc@1: 62.5000 (48.8556)  Acc@5: 93.7500 (86.0915)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5009  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [  80/3125]  eta: 0:25:31  Lr: 0.010000  Loss: 1.0196  Acc@1: 62.5000 (50.3858)  Acc@5: 93.7500 (87.1142)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5001  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [  90/3125]  eta: 0:25:26  Lr: 0.010000  Loss: 0.7947  Acc@1: 56.2500 (51.6484)  Acc@5: 93.7500 (87.6374)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5020  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 100/3125]  eta: 0:25:22  Lr: 0.010000  Loss: 0.8525  Acc@1: 62.5000 (52.5371)  Acc@5: 93.7500 (88.3045)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5043  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 110/3125]  eta: 0:25:17  Lr: 0.010000  Loss: 0.8947  Acc@1: 62.5000 (53.7162)  Acc@5: 93.7500 (88.8514)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5056  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 120/3125]  eta: 0:25:13  Lr: 0.010000  Loss: 0.7308  Acc@1: 62.5000 (54.1839)  Acc@5: 93.7500 (89.5145)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5068  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 130/3125]  eta: 0:25:09  Lr: 0.010000  Loss: 0.4777  Acc@1: 62.5000 (55.0095)  Acc@5: 100.0000 (89.8855)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5081  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 140/3125]  eta: 0:25:05  Lr: 0.010000  Loss: 1.0791  Acc@1: 62.5000 (56.0284)  Acc@5: 93.7500 (90.1596)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5084  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 150/3125]  eta: 0:25:02  Lr: 0.010000  Loss: 0.7706  Acc@1: 62.5000 (56.5397)  Acc@5: 93.7500 (90.2318)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5101  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 160/3125]  eta: 0:24:58  Lr: 0.010000  Loss: 0.8810  Acc@1: 62.5000 (56.8323)  Acc@5: 93.7500 (90.4115)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5114  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 170/3125]  eta: 0:24:54  Lr: 0.010000  Loss: 1.5349  Acc@1: 62.5000 (56.9444)  Acc@5: 93.7500 (90.4971)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5130  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 180/3125]  eta: 0:24:50  Lr: 0.010000  Loss: 0.8896  Acc@1: 62.5000 (57.2859)  Acc@5: 93.7500 (90.6077)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5139  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 190/3125]  eta: 0:24:47  Lr: 0.010000  Loss: 0.8909  Acc@1: 62.5000 (57.5262)  Acc@5: 93.7500 (90.6414)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5145  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 200/3125]  eta: 0:24:43  Lr: 0.010000  Loss: 1.4666  Acc@1: 62.5000 (57.9602)  Acc@5: 93.7500 (90.9515)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5146  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 210/3125]  eta: 0:24:39  Lr: 0.010000  Loss: 1.0760  Acc@1: 62.5000 (58.2050)  Acc@5: 100.0000 (91.1434)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5146  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 220/3125]  eta: 0:24:35  Lr: 0.010000  Loss: 0.9601  Acc@1: 68.7500 (58.7952)  Acc@5: 100.0000 (91.4593)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5164  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 230/3125]  eta: 0:24:31  Lr: 0.010000  Loss: 0.9359  Acc@1: 62.5000 (58.7121)  Acc@5: 100.0000 (91.5043)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5168  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 240/3125]  eta: 0:24:27  Lr: 0.010000  Loss: 1.0736  Acc@1: 62.5000 (59.1286)  Acc@5: 93.7500 (91.6234)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5163  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 250/3125]  eta: 0:24:23  Lr: 0.010000  Loss: 1.3625  Acc@1: 62.5000 (59.1633)  Acc@5: 93.7500 (91.6335)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 260/3125]  eta: 0:24:19  Lr: 0.010000  Loss: 1.0265  Acc@1: 62.5000 (59.3630)  Acc@5: 93.7500 (91.7864)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 270/3125]  eta: 0:24:15  Lr: 0.010000  Loss: 0.9256  Acc@1: 68.7500 (59.7555)  Acc@5: 93.7500 (91.8819)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 280/3125]  eta: 0:24:10  Lr: 0.010000  Loss: 0.8310  Acc@1: 68.7500 (60.0311)  Acc@5: 93.7500 (92.0596)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 290/3125]  eta: 0:24:06  Lr: 0.010000  Loss: 0.6931  Acc@1: 68.7500 (60.3522)  Acc@5: 93.7500 (92.2036)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 300/3125]  eta: 0:24:02  Lr: 0.010000  Loss: 1.4209  Acc@1: 62.5000 (60.4444)  Acc@5: 93.7500 (92.2757)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5204  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [ 310/3125]  eta: 0:23:58  Lr: 0.010000  Loss: 1.0388  Acc@1: 62.5000 (60.6109)  Acc@5: 93.7500 (92.3031)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5203  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 320/3125]  eta: 0:23:53  Lr: 0.010000  Loss: 0.5905  Acc@1: 68.7500 (60.8840)  Acc@5: 93.7500 (92.3871)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 330/3125]  eta: 0:23:49  Lr: 0.010000  Loss: 1.4611  Acc@1: 56.2500 (60.7628)  Acc@5: 93.7500 (92.3338)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 340/3125]  eta: 0:23:44  Lr: 0.010000  Loss: 0.7551  Acc@1: 56.2500 (60.7588)  Acc@5: 87.5000 (92.3204)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 350/3125]  eta: 0:23:40  Lr: 0.010000  Loss: 0.6096  Acc@1: 62.5000 (60.8974)  Acc@5: 93.7500 (92.3077)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 360/3125]  eta: 0:23:35  Lr: 0.010000  Loss: 1.2658  Acc@1: 62.5000 (60.9938)  Acc@5: 93.7500 (92.3996)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 370/3125]  eta: 0:23:30  Lr: 0.010000  Loss: 1.3052  Acc@1: 56.2500 (60.8996)  Acc@5: 93.7500 (92.5202)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 380/3125]  eta: 0:23:26  Lr: 0.010000  Loss: 0.7162  Acc@1: 62.5000 (61.0728)  Acc@5: 100.0000 (92.6345)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5233  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [ 390/3125]  eta: 0:23:22  Lr: 0.010000  Loss: 1.6235  Acc@1: 68.7500 (61.3971)  Acc@5: 93.7500 (92.6630)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5286  data: 0.0007  max mem: 6588
+Train: Epoch[  1/100]  [ 400/3125]  eta: 0:23:18  Lr: 0.010000  Loss: 0.6730  Acc@1: 68.7500 (61.4557)  Acc@5: 93.7500 (92.7525)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5229  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [ 410/3125]  eta: 0:23:13  Lr: 0.010000  Loss: 0.6247  Acc@1: 62.5000 (61.6332)  Acc@5: 93.7500 (92.8224)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [ 420/3125]  eta: 0:23:08  Lr: 0.010000  Loss: 0.9656  Acc@1: 62.5000 (61.5499)  Acc@5: 93.7500 (92.8444)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5203  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [ 430/3125]  eta: 0:23:04  Lr: 0.010000  Loss: 0.3772  Acc@1: 62.5000 (61.7024)  Acc@5: 93.7500 (92.9234)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5207  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 440/3125]  eta: 0:22:59  Lr: 0.010000  Loss: 0.8751  Acc@1: 68.7500 (61.8764)  Acc@5: 93.7500 (92.9138)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 450/3125]  eta: 0:22:54  Lr: 0.010000  Loss: 0.8789  Acc@1: 68.7500 (61.9180)  Acc@5: 93.7500 (92.9601)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 460/3125]  eta: 0:22:49  Lr: 0.010000  Loss: 1.0077  Acc@1: 68.7500 (62.1339)  Acc@5: 93.7500 (93.0043)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 470/3125]  eta: 0:22:44  Lr: 0.010000  Loss: 0.6766  Acc@1: 68.7500 (62.3142)  Acc@5: 93.7500 (93.0732)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [ 480/3125]  eta: 0:22:39  Lr: 0.010000  Loss: 0.9265  Acc@1: 68.7500 (62.4220)  Acc@5: 93.7500 (93.1003)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 490/3125]  eta: 0:22:34  Lr: 0.010000  Loss: 1.2626  Acc@1: 68.7500 (62.6655)  Acc@5: 93.7500 (93.1390)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5194  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 500/3125]  eta: 0:22:29  Lr: 0.010000  Loss: 1.1254  Acc@1: 75.0000 (62.7994)  Acc@5: 93.7500 (93.1637)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 510/3125]  eta: 0:22:24  Lr: 0.010000  Loss: 1.1996  Acc@1: 68.7500 (62.8425)  Acc@5: 93.7500 (93.1874)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 520/3125]  eta: 0:22:19  Lr: 0.010000  Loss: 0.8733  Acc@1: 68.7500 (62.9918)  Acc@5: 93.7500 (93.2102)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 530/3125]  eta: 0:22:14  Lr: 0.010000  Loss: 1.1538  Acc@1: 68.7500 (63.0767)  Acc@5: 100.0000 (93.2556)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 540/3125]  eta: 0:22:09  Lr: 0.010000  Loss: 0.8145  Acc@1: 68.7500 (63.2509)  Acc@5: 100.0000 (93.3110)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 550/3125]  eta: 0:22:04  Lr: 0.010000  Loss: 0.6047  Acc@1: 75.0000 (63.4528)  Acc@5: 93.7500 (93.3530)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 560/3125]  eta: 0:21:59  Lr: 0.010000  Loss: 1.7099  Acc@1: 68.7500 (63.3133)  Acc@5: 93.7500 (93.3266)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [ 570/3125]  eta: 0:21:54  Lr: 0.010000  Loss: 0.9979  Acc@1: 56.2500 (63.3647)  Acc@5: 93.7500 (93.3231)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 580/3125]  eta: 0:21:49  Lr: 0.010000  Loss: 0.9222  Acc@1: 68.7500 (63.4466)  Acc@5: 93.7500 (93.2982)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 590/3125]  eta: 0:21:45  Lr: 0.010000  Loss: 1.1284  Acc@1: 68.7500 (63.5047)  Acc@5: 93.7500 (93.3587)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5195  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 600/3125]  eta: 0:21:40  Lr: 0.010000  Loss: 1.1731  Acc@1: 68.7500 (63.5087)  Acc@5: 93.7500 (93.3340)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5191  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 610/3125]  eta: 0:21:34  Lr: 0.010000  Loss: 0.8118  Acc@1: 68.7500 (63.6150)  Acc@5: 93.7500 (93.3408)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 620/3125]  eta: 0:21:29  Lr: 0.010000  Loss: 1.8009  Acc@1: 68.7500 (63.6473)  Acc@5: 93.7500 (93.3977)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 630/3125]  eta: 0:21:24  Lr: 0.010000  Loss: 1.0051  Acc@1: 68.7500 (63.7084)  Acc@5: 93.7500 (93.4231)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 640/3125]  eta: 0:21:19  Lr: 0.010000  Loss: 1.1021  Acc@1: 68.7500 (63.7285)  Acc@5: 93.7500 (93.4672)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 650/3125]  eta: 0:21:14  Lr: 0.010000  Loss: 0.4471  Acc@1: 68.7500 (63.8633)  Acc@5: 100.0000 (93.5484)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 660/3125]  eta: 0:21:09  Lr: 0.010000  Loss: 1.0441  Acc@1: 68.7500 (63.9372)  Acc@5: 100.0000 (93.5703)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 670/3125]  eta: 0:21:04  Lr: 0.010000  Loss: 0.8935  Acc@1: 75.0000 (64.1021)  Acc@5: 100.0000 (93.6103)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 680/3125]  eta: 0:20:59  Lr: 0.010000  Loss: 1.0993  Acc@1: 75.0000 (64.2070)  Acc@5: 100.0000 (93.6766)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 690/3125]  eta: 0:20:54  Lr: 0.010000  Loss: 0.4847  Acc@1: 75.0000 (64.3904)  Acc@5: 100.0000 (93.7229)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5191  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 700/3125]  eta: 0:20:49  Lr: 0.010000  Loss: 0.9896  Acc@1: 75.0000 (64.5061)  Acc@5: 93.7500 (93.7589)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5193  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 710/3125]  eta: 0:20:44  Lr: 0.010000  Loss: 0.7312  Acc@1: 75.0000 (64.6537)  Acc@5: 100.0000 (93.7852)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5222  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 720/3125]  eta: 0:20:40  Lr: 0.010000  Loss: 1.1903  Acc@1: 68.7500 (64.6671)  Acc@5: 93.7500 (93.7847)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5249  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [ 730/3125]  eta: 0:20:35  Lr: 0.010000  Loss: 0.8038  Acc@1: 68.7500 (64.7144)  Acc@5: 93.7500 (93.8098)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5246  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 740/3125]  eta: 0:20:30  Lr: 0.010000  Loss: 0.5422  Acc@1: 62.5000 (64.7520)  Acc@5: 93.7500 (93.8343)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5207  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 750/3125]  eta: 0:20:24  Lr: 0.010000  Loss: 1.2480  Acc@1: 62.5000 (64.8053)  Acc@5: 93.7500 (93.8415)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 760/3125]  eta: 0:20:19  Lr: 0.010000  Loss: 0.6655  Acc@1: 68.7500 (64.8653)  Acc@5: 93.7500 (93.8650)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 770/3125]  eta: 0:20:14  Lr: 0.010000  Loss: 1.4760  Acc@1: 68.7500 (64.9157)  Acc@5: 93.7500 (93.8716)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 780/3125]  eta: 0:20:09  Lr: 0.010000  Loss: 1.0012  Acc@1: 62.5000 (64.8928)  Acc@5: 93.7500 (93.9101)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 790/3125]  eta: 0:20:04  Lr: 0.010000  Loss: 0.6746  Acc@1: 68.7500 (64.9889)  Acc@5: 100.0000 (93.9554)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 800/3125]  eta: 0:19:59  Lr: 0.010000  Loss: 1.0819  Acc@1: 68.7500 (65.0593)  Acc@5: 100.0000 (93.9919)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 810/3125]  eta: 0:19:54  Lr: 0.010000  Loss: 0.9571  Acc@1: 68.7500 (65.1048)  Acc@5: 93.7500 (94.0274)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 820/3125]  eta: 0:19:49  Lr: 0.010000  Loss: 0.9930  Acc@1: 68.7500 (65.1873)  Acc@5: 100.0000 (94.0545)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 830/3125]  eta: 0:19:44  Lr: 0.010000  Loss: 1.5344  Acc@1: 62.5000 (65.1700)  Acc@5: 100.0000 (94.0584)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 840/3125]  eta: 0:19:39  Lr: 0.010000  Loss: 0.7806  Acc@1: 62.5000 (65.1605)  Acc@5: 93.7500 (94.0324)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 850/3125]  eta: 0:19:33  Lr: 0.010000  Loss: 0.5058  Acc@1: 68.7500 (65.2247)  Acc@5: 100.0000 (94.0878)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 860/3125]  eta: 0:19:28  Lr: 0.010000  Loss: 0.5407  Acc@1: 75.0000 (65.3092)  Acc@5: 100.0000 (94.1275)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 870/3125]  eta: 0:19:23  Lr: 0.010000  Loss: 0.9843  Acc@1: 68.7500 (65.3344)  Acc@5: 93.7500 (94.1088)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 880/3125]  eta: 0:19:18  Lr: 0.010000  Loss: 0.7225  Acc@1: 68.7500 (65.3590)  Acc@5: 93.7500 (94.1544)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 890/3125]  eta: 0:19:13  Lr: 0.010000  Loss: 0.8543  Acc@1: 68.7500 (65.4040)  Acc@5: 100.0000 (94.1849)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 900/3125]  eta: 0:19:08  Lr: 0.010000  Loss: 1.3478  Acc@1: 68.7500 (65.4550)  Acc@5: 93.7500 (94.2009)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5190  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 910/3125]  eta: 0:19:03  Lr: 0.010000  Loss: 0.8260  Acc@1: 75.0000 (65.5049)  Acc@5: 93.7500 (94.2097)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 920/3125]  eta: 0:18:58  Lr: 0.010000  Loss: 1.1851  Acc@1: 75.0000 (65.5945)  Acc@5: 93.7500 (94.2454)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 930/3125]  eta: 0:18:53  Lr: 0.010000  Loss: 1.5424  Acc@1: 68.7500 (65.5948)  Acc@5: 100.0000 (94.2602)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5193  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [ 940/3125]  eta: 0:18:47  Lr: 0.010000  Loss: 0.5644  Acc@1: 68.7500 (65.7147)  Acc@5: 100.0000 (94.2946)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5196  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 950/3125]  eta: 0:18:42  Lr: 0.010000  Loss: 0.8606  Acc@1: 68.7500 (65.7203)  Acc@5: 100.0000 (94.3152)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [ 960/3125]  eta: 0:18:37  Lr: 0.010000  Loss: 0.7908  Acc@1: 68.7500 (65.7453)  Acc@5: 93.7500 (94.3288)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 970/3125]  eta: 0:18:32  Lr: 0.010000  Loss: 0.8219  Acc@1: 68.7500 (65.8213)  Acc@5: 100.0000 (94.3615)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 980/3125]  eta: 0:18:27  Lr: 0.010000  Loss: 1.1846  Acc@1: 68.7500 (65.8257)  Acc@5: 93.7500 (94.3489)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [ 990/3125]  eta: 0:18:22  Lr: 0.010000  Loss: 1.0567  Acc@1: 62.5000 (65.8110)  Acc@5: 93.7500 (94.3491)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1000/3125]  eta: 0:18:17  Lr: 0.010000  Loss: 0.7351  Acc@1: 75.0000 (65.8904)  Acc@5: 100.0000 (94.3931)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1010/3125]  eta: 0:18:12  Lr: 0.010000  Loss: 1.6162  Acc@1: 75.0000 (65.8506)  Acc@5: 100.0000 (94.4115)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1020/3125]  eta: 0:18:06  Lr: 0.010000  Loss: 0.5469  Acc@1: 68.7500 (65.9096)  Acc@5: 100.0000 (94.4234)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1030/3125]  eta: 0:18:01  Lr: 0.010000  Loss: 1.1340  Acc@1: 75.0000 (65.9433)  Acc@5: 93.7500 (94.4108)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1040/3125]  eta: 0:17:56  Lr: 0.010000  Loss: 1.5788  Acc@1: 68.7500 (65.9402)  Acc@5: 93.7500 (94.4164)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1050/3125]  eta: 0:17:51  Lr: 0.010000  Loss: 0.5744  Acc@1: 68.7500 (65.9788)  Acc@5: 93.7500 (94.4160)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5234  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1060/3125]  eta: 0:17:46  Lr: 0.010000  Loss: 0.3941  Acc@1: 75.0000 (66.0815)  Acc@5: 93.7500 (94.4333)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5277  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [1070/3125]  eta: 0:17:41  Lr: 0.010000  Loss: 0.9995  Acc@1: 68.7500 (66.0598)  Acc@5: 93.7500 (94.4269)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5227  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1080/3125]  eta: 0:17:36  Lr: 0.010000  Loss: 1.2846  Acc@1: 62.5000 (66.0557)  Acc@5: 93.7500 (94.4265)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1090/3125]  eta: 0:17:31  Lr: 0.010000  Loss: 0.7239  Acc@1: 62.5000 (66.0747)  Acc@5: 93.7500 (94.4260)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1100/3125]  eta: 0:17:26  Lr: 0.010000  Loss: 0.8942  Acc@1: 68.7500 (66.0763)  Acc@5: 100.0000 (94.4596)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1110/3125]  eta: 0:17:21  Lr: 0.010000  Loss: 1.2012  Acc@1: 68.7500 (66.1454)  Acc@5: 100.0000 (94.4757)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1120/3125]  eta: 0:17:15  Lr: 0.010000  Loss: 0.8029  Acc@1: 68.7500 (66.1909)  Acc@5: 93.7500 (94.4692)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1130/3125]  eta: 0:17:10  Lr: 0.010000  Loss: 0.9868  Acc@1: 68.7500 (66.1859)  Acc@5: 93.7500 (94.4629)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1140/3125]  eta: 0:17:05  Lr: 0.010000  Loss: 0.3387  Acc@1: 68.7500 (66.2741)  Acc@5: 93.7500 (94.4621)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1150/3125]  eta: 0:17:00  Lr: 0.010000  Loss: 1.0447  Acc@1: 68.7500 (66.2522)  Acc@5: 93.7500 (94.4668)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5192  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1160/3125]  eta: 0:16:55  Lr: 0.010000  Loss: 0.6033  Acc@1: 62.5000 (66.2683)  Acc@5: 93.7500 (94.4714)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5195  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1170/3125]  eta: 0:16:50  Lr: 0.010000  Loss: 1.0644  Acc@1: 75.0000 (66.3002)  Acc@5: 93.7500 (94.4705)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1180/3125]  eta: 0:16:45  Lr: 0.010000  Loss: 0.7803  Acc@1: 75.0000 (66.3580)  Acc@5: 93.7500 (94.4750)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5169  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1190/3125]  eta: 0:16:39  Lr: 0.010000  Loss: 0.7435  Acc@1: 68.7500 (66.3780)  Acc@5: 100.0000 (94.4952)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1200/3125]  eta: 0:16:34  Lr: 0.010000  Loss: 1.1026  Acc@1: 75.0000 (66.4550)  Acc@5: 100.0000 (94.4994)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5191  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1210/3125]  eta: 0:16:29  Lr: 0.010000  Loss: 1.3898  Acc@1: 75.0000 (66.5101)  Acc@5: 93.7500 (94.4880)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1220/3125]  eta: 0:16:24  Lr: 0.010000  Loss: 0.5989  Acc@1: 75.0000 (66.5745)  Acc@5: 93.7500 (94.4871)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1230/3125]  eta: 0:16:19  Lr: 0.010000  Loss: 0.8066  Acc@1: 75.0000 (66.6277)  Acc@5: 100.0000 (94.5116)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1240/3125]  eta: 0:16:14  Lr: 0.010000  Loss: 1.1362  Acc@1: 75.0000 (66.6801)  Acc@5: 100.0000 (94.5357)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1250/3125]  eta: 0:16:09  Lr: 0.010000  Loss: 0.3871  Acc@1: 68.7500 (66.7366)  Acc@5: 93.7500 (94.5294)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1260/3125]  eta: 0:16:03  Lr: 0.010000  Loss: 0.4922  Acc@1: 68.7500 (66.7823)  Acc@5: 93.7500 (94.5480)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1270/3125]  eta: 0:15:58  Lr: 0.010000  Loss: 0.8531  Acc@1: 75.0000 (66.8224)  Acc@5: 100.0000 (94.5515)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5192  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1280/3125]  eta: 0:15:53  Lr: 0.010000  Loss: 1.0366  Acc@1: 68.7500 (66.8130)  Acc@5: 93.7500 (94.5550)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1290/3125]  eta: 0:15:48  Lr: 0.010000  Loss: 1.0124  Acc@1: 68.7500 (66.8619)  Acc@5: 93.7500 (94.5682)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1300/3125]  eta: 0:15:43  Lr: 0.010000  Loss: 1.2015  Acc@1: 68.7500 (66.8860)  Acc@5: 93.7500 (94.5811)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1310/3125]  eta: 0:15:38  Lr: 0.010000  Loss: 1.0200  Acc@1: 68.7500 (66.9003)  Acc@5: 100.0000 (94.5986)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5197  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1320/3125]  eta: 0:15:32  Lr: 0.010000  Loss: 0.4991  Acc@1: 68.7500 (66.9143)  Acc@5: 100.0000 (94.6158)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1330/3125]  eta: 0:15:27  Lr: 0.010000  Loss: 1.0277  Acc@1: 68.7500 (66.8999)  Acc@5: 93.7500 (94.5905)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1340/3125]  eta: 0:15:22  Lr: 0.010000  Loss: 0.4444  Acc@1: 62.5000 (66.9090)  Acc@5: 100.0000 (94.6076)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1350/3125]  eta: 0:15:17  Lr: 0.010000  Loss: 0.5494  Acc@1: 68.7500 (66.9689)  Acc@5: 100.0000 (94.6290)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1360/3125]  eta: 0:15:12  Lr: 0.010000  Loss: 1.1385  Acc@1: 75.0000 (67.0096)  Acc@5: 93.7500 (94.6363)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1370/3125]  eta: 0:15:07  Lr: 0.010000  Loss: 0.5587  Acc@1: 68.7500 (67.0359)  Acc@5: 93.7500 (94.6481)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1380/3125]  eta: 0:15:02  Lr: 0.010000  Loss: 0.8712  Acc@1: 68.7500 (67.0529)  Acc@5: 93.7500 (94.6370)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5207  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1390/3125]  eta: 0:14:57  Lr: 0.010000  Loss: 0.3966  Acc@1: 75.0000 (67.0965)  Acc@5: 93.7500 (94.6486)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5233  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1400/3125]  eta: 0:14:52  Lr: 0.010000  Loss: 0.8647  Acc@1: 75.0000 (67.1351)  Acc@5: 100.0000 (94.6556)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5265  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [1410/3125]  eta: 0:14:46  Lr: 0.010000  Loss: 0.5792  Acc@1: 68.7500 (67.1642)  Acc@5: 93.7500 (94.6536)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5221  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [1420/3125]  eta: 0:14:41  Lr: 0.010000  Loss: 0.6922  Acc@1: 68.7500 (67.1842)  Acc@5: 93.7500 (94.6605)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1430/3125]  eta: 0:14:36  Lr: 0.010000  Loss: 0.8444  Acc@1: 68.7500 (67.2170)  Acc@5: 93.7500 (94.6803)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1440/3125]  eta: 0:14:31  Lr: 0.010000  Loss: 1.3755  Acc@1: 75.0000 (67.2580)  Acc@5: 100.0000 (94.6912)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5192  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1450/3125]  eta: 0:14:26  Lr: 0.010000  Loss: 1.3704  Acc@1: 75.0000 (67.3027)  Acc@5: 100.0000 (94.7105)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5203  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1460/3125]  eta: 0:14:21  Lr: 0.010000  Loss: 0.9503  Acc@1: 68.7500 (67.3169)  Acc@5: 93.7500 (94.7040)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1470/3125]  eta: 0:14:15  Lr: 0.010000  Loss: 0.9808  Acc@1: 68.7500 (67.2884)  Acc@5: 93.7500 (94.7272)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1480/3125]  eta: 0:14:10  Lr: 0.010000  Loss: 0.9733  Acc@1: 68.7500 (67.2941)  Acc@5: 100.0000 (94.7122)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1490/3125]  eta: 0:14:05  Lr: 0.010000  Loss: 0.5280  Acc@1: 68.7500 (67.3164)  Acc@5: 93.7500 (94.7225)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1500/3125]  eta: 0:14:00  Lr: 0.010000  Loss: 1.4790  Acc@1: 68.7500 (67.3093)  Acc@5: 93.7500 (94.7244)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1510/3125]  eta: 0:13:55  Lr: 0.010000  Loss: 1.1535  Acc@1: 68.7500 (67.3271)  Acc@5: 93.7500 (94.7344)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1520/3125]  eta: 0:13:50  Lr: 0.010000  Loss: 1.0476  Acc@1: 68.7500 (67.3200)  Acc@5: 93.7500 (94.7156)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1530/3125]  eta: 0:13:44  Lr: 0.010000  Loss: 0.7243  Acc@1: 68.7500 (67.3089)  Acc@5: 93.7500 (94.7216)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1540/3125]  eta: 0:13:39  Lr: 0.010000  Loss: 0.4895  Acc@1: 68.7500 (67.3305)  Acc@5: 93.7500 (94.7356)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1550/3125]  eta: 0:13:34  Lr: 0.010000  Loss: 1.0418  Acc@1: 68.7500 (67.3759)  Acc@5: 93.7500 (94.7373)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1560/3125]  eta: 0:13:29  Lr: 0.010000  Loss: 1.2567  Acc@1: 68.7500 (67.3927)  Acc@5: 93.7500 (94.7389)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1570/3125]  eta: 0:13:24  Lr: 0.010000  Loss: 0.8280  Acc@1: 68.7500 (67.3974)  Acc@5: 93.7500 (94.7525)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1580/3125]  eta: 0:13:19  Lr: 0.010000  Loss: 0.8380  Acc@1: 75.0000 (67.4613)  Acc@5: 100.0000 (94.7660)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1590/3125]  eta: 0:13:13  Lr: 0.010000  Loss: 0.8889  Acc@1: 75.0000 (67.4890)  Acc@5: 93.7500 (94.7517)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1600/3125]  eta: 0:13:08  Lr: 0.010000  Loss: 0.4027  Acc@1: 68.7500 (67.4930)  Acc@5: 93.7500 (94.7611)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1610/3125]  eta: 0:13:03  Lr: 0.010000  Loss: 0.7582  Acc@1: 68.7500 (67.5202)  Acc@5: 100.0000 (94.7781)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5167  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1620/3125]  eta: 0:12:58  Lr: 0.010000  Loss: 1.0431  Acc@1: 68.7500 (67.5316)  Acc@5: 93.7500 (94.7717)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1630/3125]  eta: 0:12:53  Lr: 0.010000  Loss: 0.6870  Acc@1: 75.0000 (67.5927)  Acc@5: 93.7500 (94.7808)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1640/3125]  eta: 0:12:48  Lr: 0.010000  Loss: 1.2986  Acc@1: 75.0000 (67.5884)  Acc@5: 93.7500 (94.7783)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1650/3125]  eta: 0:12:42  Lr: 0.010000  Loss: 0.8992  Acc@1: 62.5000 (67.5727)  Acc@5: 93.7500 (94.7721)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1660/3125]  eta: 0:12:37  Lr: 0.010000  Loss: 1.3483  Acc@1: 62.5000 (67.5798)  Acc@5: 93.7500 (94.7622)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1670/3125]  eta: 0:12:32  Lr: 0.010000  Loss: 1.5007  Acc@1: 68.7500 (67.6242)  Acc@5: 93.7500 (94.7599)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1680/3125]  eta: 0:12:27  Lr: 0.010000  Loss: 1.3703  Acc@1: 68.7500 (67.6123)  Acc@5: 93.7500 (94.7539)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1690/3125]  eta: 0:12:22  Lr: 0.010000  Loss: 0.6868  Acc@1: 68.7500 (67.6116)  Acc@5: 93.7500 (94.7738)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [1700/3125]  eta: 0:12:17  Lr: 0.010000  Loss: 1.5050  Acc@1: 68.7500 (67.6110)  Acc@5: 100.0000 (94.7825)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1710/3125]  eta: 0:12:11  Lr: 0.010000  Loss: 0.7266  Acc@1: 68.7500 (67.5884)  Acc@5: 93.7500 (94.7764)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1720/3125]  eta: 0:12:06  Lr: 0.010000  Loss: 0.4652  Acc@1: 68.7500 (67.6387)  Acc@5: 93.7500 (94.7850)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5216  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [1730/3125]  eta: 0:12:01  Lr: 0.010000  Loss: 1.5916  Acc@1: 75.0000 (67.6813)  Acc@5: 93.7500 (94.7826)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5255  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [1740/3125]  eta: 0:11:56  Lr: 0.010000  Loss: 1.6124  Acc@1: 75.0000 (67.7161)  Acc@5: 93.7500 (94.7875)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5233  data: 0.0009  max mem: 6588
+Train: Epoch[  1/100]  [1750/3125]  eta: 0:11:51  Lr: 0.010000  Loss: 0.6793  Acc@1: 75.0000 (67.7399)  Acc@5: 100.0000 (94.7887)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5211  data: 0.0009  max mem: 6588
+Train: Epoch[  1/100]  [1760/3125]  eta: 0:11:46  Lr: 0.010000  Loss: 1.2502  Acc@1: 75.0000 (67.7846)  Acc@5: 93.7500 (94.7828)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1770/3125]  eta: 0:11:41  Lr: 0.010000  Loss: 1.2272  Acc@1: 75.0000 (67.7901)  Acc@5: 93.7500 (94.8017)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1780/3125]  eta: 0:11:35  Lr: 0.010000  Loss: 0.8587  Acc@1: 68.7500 (67.8376)  Acc@5: 100.0000 (94.8203)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1790/3125]  eta: 0:11:30  Lr: 0.010000  Loss: 0.6468  Acc@1: 75.0000 (67.8636)  Acc@5: 100.0000 (94.8353)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1800/3125]  eta: 0:11:25  Lr: 0.010000  Loss: 0.5603  Acc@1: 75.0000 (67.8963)  Acc@5: 100.0000 (94.8397)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5196  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [1810/3125]  eta: 0:11:20  Lr: 0.010000  Loss: 0.4863  Acc@1: 68.7500 (67.9045)  Acc@5: 93.7500 (94.8475)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5191  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1820/3125]  eta: 0:11:15  Lr: 0.010000  Loss: 1.0263  Acc@1: 68.7500 (67.8988)  Acc@5: 93.7500 (94.8517)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1830/3125]  eta: 0:11:10  Lr: 0.010000  Loss: 1.1319  Acc@1: 68.7500 (67.9171)  Acc@5: 93.7500 (94.8525)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1840/3125]  eta: 0:11:04  Lr: 0.010000  Loss: 1.0334  Acc@1: 68.7500 (67.9318)  Acc@5: 93.7500 (94.8466)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5191  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1850/3125]  eta: 0:10:59  Lr: 0.010000  Loss: 1.2768  Acc@1: 68.7500 (67.9126)  Acc@5: 93.7500 (94.8373)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5193  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1860/3125]  eta: 0:10:54  Lr: 0.010000  Loss: 1.1217  Acc@1: 68.7500 (67.9373)  Acc@5: 93.7500 (94.8448)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1870/3125]  eta: 0:10:49  Lr: 0.010000  Loss: 1.0713  Acc@1: 68.7500 (67.9550)  Acc@5: 100.0000 (94.8657)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1880/3125]  eta: 0:10:44  Lr: 0.010000  Loss: 0.5295  Acc@1: 75.0000 (67.9825)  Acc@5: 100.0000 (94.8764)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1890/3125]  eta: 0:10:39  Lr: 0.010000  Loss: 0.6038  Acc@1: 75.0000 (68.0063)  Acc@5: 100.0000 (94.8969)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1900/3125]  eta: 0:10:33  Lr: 0.010000  Loss: 1.2414  Acc@1: 75.0000 (68.0267)  Acc@5: 100.0000 (94.9106)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1910/3125]  eta: 0:10:28  Lr: 0.010000  Loss: 0.9708  Acc@1: 75.0000 (68.0534)  Acc@5: 100.0000 (94.9241)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [1920/3125]  eta: 0:10:23  Lr: 0.010000  Loss: 1.4792  Acc@1: 75.0000 (68.0733)  Acc@5: 100.0000 (94.9278)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1930/3125]  eta: 0:10:18  Lr: 0.010000  Loss: 0.9345  Acc@1: 75.0000 (68.0994)  Acc@5: 100.0000 (94.9411)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1940/3125]  eta: 0:10:13  Lr: 0.010000  Loss: 0.7865  Acc@1: 68.7500 (68.1092)  Acc@5: 93.7500 (94.9414)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1950/3125]  eta: 0:10:08  Lr: 0.010000  Loss: 0.3098  Acc@1: 75.0000 (68.1574)  Acc@5: 93.7500 (94.9449)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1960/3125]  eta: 0:10:02  Lr: 0.010000  Loss: 1.1202  Acc@1: 68.7500 (68.1476)  Acc@5: 93.7500 (94.9420)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1970/3125]  eta: 0:09:57  Lr: 0.010000  Loss: 0.9106  Acc@1: 68.7500 (68.1285)  Acc@5: 93.7500 (94.9455)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1980/3125]  eta: 0:09:52  Lr: 0.010000  Loss: 0.8651  Acc@1: 68.7500 (68.1285)  Acc@5: 93.7500 (94.9457)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [1990/3125]  eta: 0:09:47  Lr: 0.010000  Loss: 0.9819  Acc@1: 68.7500 (68.1441)  Acc@5: 100.0000 (94.9586)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2000/3125]  eta: 0:09:42  Lr: 0.010000  Loss: 0.2548  Acc@1: 68.7500 (68.1097)  Acc@5: 100.0000 (94.9525)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2010/3125]  eta: 0:09:36  Lr: 0.010000  Loss: 0.6716  Acc@1: 68.7500 (68.1129)  Acc@5: 93.7500 (94.9497)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2020/3125]  eta: 0:09:31  Lr: 0.010000  Loss: 1.3647  Acc@1: 75.0000 (68.1160)  Acc@5: 93.7500 (94.9499)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2030/3125]  eta: 0:09:26  Lr: 0.010000  Loss: 0.9452  Acc@1: 68.7500 (68.1468)  Acc@5: 93.7500 (94.9501)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2040/3125]  eta: 0:09:21  Lr: 0.010000  Loss: 1.0506  Acc@1: 75.0000 (68.1866)  Acc@5: 93.7500 (94.9565)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2050/3125]  eta: 0:09:16  Lr: 0.010000  Loss: 0.8377  Acc@1: 75.0000 (68.2106)  Acc@5: 93.7500 (94.9476)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2060/3125]  eta: 0:09:11  Lr: 0.010000  Loss: 0.7598  Acc@1: 68.7500 (68.2041)  Acc@5: 93.7500 (94.9509)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5226  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2070/3125]  eta: 0:09:06  Lr: 0.010000  Loss: 0.9636  Acc@1: 68.7500 (68.2309)  Acc@5: 100.0000 (94.9571)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5273  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [2080/3125]  eta: 0:09:00  Lr: 0.010000  Loss: 1.0151  Acc@1: 75.0000 (68.2635)  Acc@5: 100.0000 (94.9634)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5223  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2090/3125]  eta: 0:08:55  Lr: 0.010000  Loss: 0.5781  Acc@1: 75.0000 (68.2568)  Acc@5: 93.7500 (94.9665)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2100/3125]  eta: 0:08:50  Lr: 0.010000  Loss: 0.7860  Acc@1: 68.7500 (68.2830)  Acc@5: 93.7500 (94.9697)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2110/3125]  eta: 0:08:45  Lr: 0.010000  Loss: 0.5174  Acc@1: 68.7500 (68.2941)  Acc@5: 100.0000 (94.9757)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2120/3125]  eta: 0:08:40  Lr: 0.010000  Loss: 1.3030  Acc@1: 68.7500 (68.2844)  Acc@5: 93.7500 (94.9699)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2130/3125]  eta: 0:08:34  Lr: 0.010000  Loss: 0.2756  Acc@1: 68.7500 (68.3189)  Acc@5: 93.7500 (94.9789)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2140/3125]  eta: 0:08:29  Lr: 0.010000  Loss: 1.2931  Acc@1: 75.0000 (68.3442)  Acc@5: 93.7500 (94.9848)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2150/3125]  eta: 0:08:24  Lr: 0.010000  Loss: 0.3845  Acc@1: 75.0000 (68.3548)  Acc@5: 100.0000 (94.9849)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5169  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2160/3125]  eta: 0:08:19  Lr: 0.010000  Loss: 0.5140  Acc@1: 75.0000 (68.3856)  Acc@5: 100.0000 (94.9965)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2170/3125]  eta: 0:08:14  Lr: 0.010000  Loss: 0.6633  Acc@1: 75.0000 (68.4074)  Acc@5: 100.0000 (95.0052)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2180/3125]  eta: 0:08:09  Lr: 0.010000  Loss: 0.4017  Acc@1: 75.0000 (68.4319)  Acc@5: 100.0000 (95.0080)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2190/3125]  eta: 0:08:03  Lr: 0.010000  Loss: 0.6630  Acc@1: 68.7500 (68.4391)  Acc@5: 100.0000 (95.0137)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5167  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2200/3125]  eta: 0:07:58  Lr: 0.010000  Loss: 0.8976  Acc@1: 68.7500 (68.4433)  Acc@5: 93.7500 (95.0136)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2210/3125]  eta: 0:07:53  Lr: 0.010000  Loss: 0.4411  Acc@1: 62.5000 (68.4362)  Acc@5: 93.7500 (95.0136)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2220/3125]  eta: 0:07:48  Lr: 0.010000  Loss: 1.2114  Acc@1: 68.7500 (68.4461)  Acc@5: 100.0000 (95.0135)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2230/3125]  eta: 0:07:43  Lr: 0.010000  Loss: 0.5776  Acc@1: 75.0000 (68.4671)  Acc@5: 100.0000 (95.0106)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2240/3125]  eta: 0:07:38  Lr: 0.010000  Loss: 0.4434  Acc@1: 68.7500 (68.4739)  Acc@5: 93.7500 (95.0134)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5193  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2250/3125]  eta: 0:07:32  Lr: 0.010000  Loss: 0.8888  Acc@1: 68.7500 (68.4890)  Acc@5: 100.0000 (95.0217)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2260/3125]  eta: 0:07:27  Lr: 0.010000  Loss: 0.7134  Acc@1: 68.7500 (68.5040)  Acc@5: 100.0000 (95.0299)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5165  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2270/3125]  eta: 0:07:22  Lr: 0.010000  Loss: 1.1207  Acc@1: 68.7500 (68.4996)  Acc@5: 100.0000 (95.0435)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5167  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2280/3125]  eta: 0:07:17  Lr: 0.010000  Loss: 1.2411  Acc@1: 68.7500 (68.5007)  Acc@5: 93.7500 (95.0406)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2290/3125]  eta: 0:07:12  Lr: 0.010000  Loss: 0.6583  Acc@1: 68.7500 (68.5263)  Acc@5: 93.7500 (95.0540)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2300/3125]  eta: 0:07:06  Lr: 0.010000  Loss: 1.2194  Acc@1: 68.7500 (68.5436)  Acc@5: 100.0000 (95.0619)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2310/3125]  eta: 0:07:01  Lr: 0.010000  Loss: 0.7300  Acc@1: 68.7500 (68.5228)  Acc@5: 100.0000 (95.0644)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2320/3125]  eta: 0:06:56  Lr: 0.010000  Loss: 0.7266  Acc@1: 68.7500 (68.5507)  Acc@5: 100.0000 (95.0776)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2330/3125]  eta: 0:06:51  Lr: 0.010000  Loss: 0.6197  Acc@1: 81.2500 (68.5998)  Acc@5: 100.0000 (95.0853)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2340/3125]  eta: 0:06:46  Lr: 0.010000  Loss: 1.1653  Acc@1: 75.0000 (68.6112)  Acc@5: 100.0000 (95.0956)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2350/3125]  eta: 0:06:41  Lr: 0.010000  Loss: 0.8999  Acc@1: 68.7500 (68.6091)  Acc@5: 100.0000 (95.0952)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2360/3125]  eta: 0:06:35  Lr: 0.010000  Loss: 0.6867  Acc@1: 68.7500 (68.6256)  Acc@5: 93.7500 (95.0895)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2370/3125]  eta: 0:06:30  Lr: 0.010000  Loss: 0.7720  Acc@1: 68.7500 (68.6287)  Acc@5: 93.7500 (95.0865)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2380/3125]  eta: 0:06:25  Lr: 0.010000  Loss: 0.6940  Acc@1: 68.7500 (68.6083)  Acc@5: 93.7500 (95.0835)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2390/3125]  eta: 0:06:20  Lr: 0.010000  Loss: 0.3018  Acc@1: 68.7500 (68.6219)  Acc@5: 93.7500 (95.0831)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2400/3125]  eta: 0:06:15  Lr: 0.010000  Loss: 1.1721  Acc@1: 68.7500 (68.6042)  Acc@5: 100.0000 (95.0854)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5225  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2410/3125]  eta: 0:06:10  Lr: 0.010000  Loss: 0.6557  Acc@1: 75.0000 (68.6489)  Acc@5: 100.0000 (95.0928)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5269  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [2420/3125]  eta: 0:06:04  Lr: 0.010000  Loss: 0.7314  Acc@1: 75.0000 (68.6855)  Acc@5: 93.7500 (95.0950)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5225  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2430/3125]  eta: 0:05:59  Lr: 0.010000  Loss: 0.8289  Acc@1: 75.0000 (68.6857)  Acc@5: 93.7500 (95.0998)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2440/3125]  eta: 0:05:54  Lr: 0.010000  Loss: 1.2625  Acc@1: 68.7500 (68.6937)  Acc@5: 100.0000 (95.0993)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5207  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2450/3125]  eta: 0:05:49  Lr: 0.010000  Loss: 0.8451  Acc@1: 68.7500 (68.6939)  Acc@5: 100.0000 (95.1142)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5199  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2460/3125]  eta: 0:05:44  Lr: 0.010000  Loss: 0.2002  Acc@1: 68.7500 (68.7017)  Acc@5: 100.0000 (95.1214)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2470/3125]  eta: 0:05:39  Lr: 0.010000  Loss: 1.1657  Acc@1: 75.0000 (68.7374)  Acc@5: 100.0000 (95.1310)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2480/3125]  eta: 0:05:33  Lr: 0.010000  Loss: 0.5660  Acc@1: 75.0000 (68.7550)  Acc@5: 100.0000 (95.1456)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2490/3125]  eta: 0:05:28  Lr: 0.010000  Loss: 0.7363  Acc@1: 68.7500 (68.7676)  Acc@5: 100.0000 (95.1450)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2500/3125]  eta: 0:05:23  Lr: 0.010000  Loss: 0.7651  Acc@1: 68.7500 (68.7625)  Acc@5: 100.0000 (95.1544)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2510/3125]  eta: 0:05:18  Lr: 0.010000  Loss: 1.6559  Acc@1: 68.7500 (68.7649)  Acc@5: 100.0000 (95.1613)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2520/3125]  eta: 0:05:13  Lr: 0.010000  Loss: 0.6612  Acc@1: 68.7500 (68.7698)  Acc@5: 100.0000 (95.1631)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2530/3125]  eta: 0:05:08  Lr: 0.010000  Loss: 0.2373  Acc@1: 75.0000 (68.7944)  Acc@5: 100.0000 (95.1699)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2540/3125]  eta: 0:05:02  Lr: 0.010000  Loss: 0.5758  Acc@1: 75.0000 (68.8312)  Acc@5: 93.7500 (95.1717)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2550/3125]  eta: 0:04:57  Lr: 0.010000  Loss: 0.2936  Acc@1: 75.0000 (68.8431)  Acc@5: 93.7500 (95.1784)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2560/3125]  eta: 0:04:52  Lr: 0.010000  Loss: 1.0790  Acc@1: 75.0000 (68.8647)  Acc@5: 100.0000 (95.1874)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2570/3125]  eta: 0:04:47  Lr: 0.010000  Loss: 0.5325  Acc@1: 75.0000 (68.8910)  Acc@5: 100.0000 (95.1843)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2580/3125]  eta: 0:04:42  Lr: 0.010000  Loss: 0.6497  Acc@1: 75.0000 (68.9316)  Acc@5: 100.0000 (95.1932)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2590/3125]  eta: 0:04:36  Lr: 0.010000  Loss: 1.0084  Acc@1: 75.0000 (68.9623)  Acc@5: 100.0000 (95.1925)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2600/3125]  eta: 0:04:31  Lr: 0.010000  Loss: 1.5057  Acc@1: 75.0000 (68.9807)  Acc@5: 93.7500 (95.1942)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5202  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2610/3125]  eta: 0:04:26  Lr: 0.010000  Loss: 0.4729  Acc@1: 75.0000 (68.9846)  Acc@5: 93.7500 (95.2006)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5203  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2620/3125]  eta: 0:04:21  Lr: 0.010000  Loss: 0.8220  Acc@1: 75.0000 (69.0147)  Acc@5: 100.0000 (95.2046)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5194  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2630/3125]  eta: 0:04:16  Lr: 0.010000  Loss: 0.5042  Acc@1: 75.0000 (69.0517)  Acc@5: 100.0000 (95.2204)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2640/3125]  eta: 0:04:11  Lr: 0.010000  Loss: 1.7737  Acc@1: 75.0000 (69.0576)  Acc@5: 100.0000 (95.2172)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5165  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2650/3125]  eta: 0:04:05  Lr: 0.010000  Loss: 1.2590  Acc@1: 62.5000 (69.0518)  Acc@5: 100.0000 (95.2235)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2660/3125]  eta: 0:04:00  Lr: 0.010000  Loss: 0.7243  Acc@1: 75.0000 (69.0694)  Acc@5: 93.7500 (95.2250)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2670/3125]  eta: 0:03:55  Lr: 0.010000  Loss: 0.6908  Acc@1: 75.0000 (69.0870)  Acc@5: 93.7500 (95.2265)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2680/3125]  eta: 0:03:50  Lr: 0.010000  Loss: 1.7244  Acc@1: 68.7500 (69.0764)  Acc@5: 93.7500 (95.2210)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2690/3125]  eta: 0:03:45  Lr: 0.010000  Loss: 0.7281  Acc@1: 68.7500 (69.0868)  Acc@5: 93.7500 (95.2295)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2700/3125]  eta: 0:03:40  Lr: 0.010000  Loss: 0.6992  Acc@1: 75.0000 (69.1110)  Acc@5: 100.0000 (95.2379)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2710/3125]  eta: 0:03:34  Lr: 0.010000  Loss: 0.8450  Acc@1: 75.0000 (69.1235)  Acc@5: 100.0000 (95.2393)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [2720/3125]  eta: 0:03:29  Lr: 0.010000  Loss: 0.5235  Acc@1: 68.7500 (69.1014)  Acc@5: 100.0000 (95.2338)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2730/3125]  eta: 0:03:24  Lr: 0.010000  Loss: 0.5427  Acc@1: 68.7500 (69.1047)  Acc@5: 93.7500 (95.2330)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5229  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [2740/3125]  eta: 0:03:19  Lr: 0.010000  Loss: 0.6764  Acc@1: 68.7500 (69.1240)  Acc@5: 93.7500 (95.2390)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5289  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [2750/3125]  eta: 0:03:14  Lr: 0.010000  Loss: 0.9245  Acc@1: 68.7500 (69.1112)  Acc@5: 93.7500 (95.2336)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5231  data: 0.0005  max mem: 6588
+Train: Epoch[  1/100]  [2760/3125]  eta: 0:03:08  Lr: 0.010000  Loss: 0.8049  Acc@1: 68.7500 (69.1235)  Acc@5: 93.7500 (95.2372)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2770/3125]  eta: 0:03:03  Lr: 0.010000  Loss: 1.3364  Acc@1: 68.7500 (69.1154)  Acc@5: 100.0000 (95.2454)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2780/3125]  eta: 0:02:58  Lr: 0.010000  Loss: 0.8994  Acc@1: 62.5000 (69.1073)  Acc@5: 93.7500 (95.2333)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5201  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2790/3125]  eta: 0:02:53  Lr: 0.010000  Loss: 0.4181  Acc@1: 62.5000 (69.1016)  Acc@5: 93.7500 (95.2347)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5195  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2800/3125]  eta: 0:02:48  Lr: 0.010000  Loss: 0.9411  Acc@1: 68.7500 (69.1204)  Acc@5: 93.7500 (95.2428)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2810/3125]  eta: 0:02:43  Lr: 0.010000  Loss: 1.1323  Acc@1: 75.0000 (69.1280)  Acc@5: 100.0000 (95.2486)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5158  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2820/3125]  eta: 0:02:37  Lr: 0.010000  Loss: 0.7323  Acc@1: 75.0000 (69.1355)  Acc@5: 93.7500 (95.2521)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [2830/3125]  eta: 0:02:32  Lr: 0.010000  Loss: 0.5276  Acc@1: 75.0000 (69.1474)  Acc@5: 93.7500 (95.2534)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5220  data: 0.0007  max mem: 6588
+Train: Epoch[  1/100]  [2840/3125]  eta: 0:02:27  Lr: 0.010000  Loss: 1.3413  Acc@1: 68.7500 (69.1526)  Acc@5: 93.7500 (95.2504)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5235  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2850/3125]  eta: 0:02:22  Lr: 0.010000  Loss: 0.7705  Acc@1: 68.7500 (69.1687)  Acc@5: 93.7500 (95.2582)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5254  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2860/3125]  eta: 0:02:17  Lr: 0.010000  Loss: 0.9831  Acc@1: 75.0000 (69.1913)  Acc@5: 100.0000 (95.2639)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5222  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [2870/3125]  eta: 0:02:12  Lr: 0.010000  Loss: 0.2598  Acc@1: 75.0000 (69.2268)  Acc@5: 100.0000 (95.2717)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2880/3125]  eta: 0:02:06  Lr: 0.010000  Loss: 0.1804  Acc@1: 75.0000 (69.2555)  Acc@5: 100.0000 (95.2772)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2890/3125]  eta: 0:02:01  Lr: 0.010000  Loss: 0.5371  Acc@1: 68.7500 (69.2559)  Acc@5: 93.7500 (95.2698)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2900/3125]  eta: 0:01:56  Lr: 0.010000  Loss: 0.7806  Acc@1: 68.7500 (69.2541)  Acc@5: 93.7500 (95.2732)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2910/3125]  eta: 0:01:51  Lr: 0.010000  Loss: 0.7509  Acc@1: 68.7500 (69.2567)  Acc@5: 93.7500 (95.2787)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2920/3125]  eta: 0:01:46  Lr: 0.010000  Loss: 0.9073  Acc@1: 68.7500 (69.2378)  Acc@5: 100.0000 (95.2820)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2930/3125]  eta: 0:01:40  Lr: 0.010000  Loss: 0.4186  Acc@1: 68.7500 (69.2596)  Acc@5: 100.0000 (95.2853)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2940/3125]  eta: 0:01:35  Lr: 0.010000  Loss: 0.7335  Acc@1: 75.0000 (69.2792)  Acc@5: 100.0000 (95.2886)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2950/3125]  eta: 0:01:30  Lr: 0.010000  Loss: 0.5226  Acc@1: 75.0000 (69.2858)  Acc@5: 93.7500 (95.2897)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2960/3125]  eta: 0:01:25  Lr: 0.010000  Loss: 0.7431  Acc@1: 68.7500 (69.2671)  Acc@5: 100.0000 (95.2972)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2970/3125]  eta: 0:01:20  Lr: 0.010000  Loss: 0.7973  Acc@1: 68.7500 (69.2906)  Acc@5: 100.0000 (95.3046)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0002  max mem: 6588
+Train: Epoch[  1/100]  [2980/3125]  eta: 0:01:15  Lr: 0.010000  Loss: 1.1785  Acc@1: 75.0000 (69.3077)  Acc@5: 100.0000 (95.3162)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [2990/3125]  eta: 0:01:09  Lr: 0.010000  Loss: 0.5062  Acc@1: 68.7500 (69.3184)  Acc@5: 100.0000 (95.3172)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5167  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3000/3125]  eta: 0:01:04  Lr: 0.010000  Loss: 0.5376  Acc@1: 68.7500 (69.3206)  Acc@5: 93.7500 (95.3203)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3010/3125]  eta: 0:00:59  Lr: 0.010000  Loss: 0.5353  Acc@1: 75.0000 (69.3333)  Acc@5: 93.7500 (95.3255)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3020/3125]  eta: 0:00:54  Lr: 0.010000  Loss: 0.4326  Acc@1: 75.0000 (69.3562)  Acc@5: 100.0000 (95.3265)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3030/3125]  eta: 0:00:49  Lr: 0.010000  Loss: 1.0992  Acc@1: 68.7500 (69.3480)  Acc@5: 93.7500 (95.3254)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3040/3125]  eta: 0:00:44  Lr: 0.010000  Loss: 0.3059  Acc@1: 68.7500 (69.3686)  Acc@5: 93.7500 (95.3243)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3050/3125]  eta: 0:00:38  Lr: 0.010000  Loss: 0.7706  Acc@1: 75.0000 (69.3871)  Acc@5: 93.7500 (95.3233)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3060/3125]  eta: 0:00:33  Lr: 0.010000  Loss: 0.7509  Acc@1: 75.0000 (69.3850)  Acc@5: 93.7500 (95.3283)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3070/3125]  eta: 0:00:28  Lr: 0.010000  Loss: 0.4688  Acc@1: 68.7500 (69.3890)  Acc@5: 100.0000 (95.3395)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  1/100]  [3080/3125]  eta: 0:00:23  Lr: 0.010000  Loss: 0.6474  Acc@1: 75.0000 (69.4133)  Acc@5: 100.0000 (95.3363)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [3090/3125]  eta: 0:00:18  Lr: 0.010000  Loss: 0.8024  Acc@1: 75.0000 (69.4334)  Acc@5: 93.7500 (95.3393)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5231  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [3100/3125]  eta: 0:00:12  Lr: 0.010000  Loss: 0.7393  Acc@1: 75.0000 (69.4232)  Acc@5: 100.0000 (95.3442)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5256  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100]  [3110/3125]  eta: 0:00:07  Lr: 0.010000  Loss: 0.8781  Acc@1: 75.0000 (69.4391)  Acc@5: 100.0000 (95.3451)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5220  data: 0.0004  max mem: 6588
+Train: Epoch[  1/100]  [3120/3125]  eta: 0:00:02  Lr: 0.010000  Loss: 0.7953  Acc@1: 68.7500 (69.4249)  Acc@5: 93.7500 (95.3500)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5192  data: 0.0007  max mem: 6588
+Train: Epoch[  1/100]  [3124/3125]  eta: 0:00:00  Lr: 0.010000  Loss: 1.1303  Acc@1: 68.7500 (69.4380)  Acc@5: 100.0000 (95.3480)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0006  max mem: 6588
+Train: Epoch[  1/100] Total time: 0:26:58 (0.5181 s / it)
+Averaged stats: Lr: 0.010000  Loss: 1.1303  Acc@1: 68.7500 (69.4380)  Acc@5: 100.0000 (95.3480)  Prompt_Loss: 0.0000 (0.0000)
+Test: [Task 0]  [  0/625]  eta: 0:04:20  Loss: 0.1344 (0.1344)  Acc@1: 100.0000 (100.0000)  Acc@5: 100.0000 (100.0000)  Prompt_Loss: 0.0000 (0.0000)  time: 0.4167  data: 0.2137  max mem: 6588
+Test: [Task 0]  [ 10/625]  eta: 0:02:18  Loss: 0.3753 (0.3600)  Acc@1: 87.5000 (86.3636)  Acc@5: 100.0000 (100.0000)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2250  data: 0.0197  max mem: 6588
+Test: [Task 0]  [ 20/625]  eta: 0:02:10  Loss: 0.3560 (0.3906)  Acc@1: 87.5000 (86.0119)  Acc@5: 100.0000 (100.0000)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2059  data: 0.0003  max mem: 6588
+Test: [Task 0]  [ 30/625]  eta: 0:02:06  Loss: 0.3430 (0.3906)  Acc@1: 87.5000 (85.8871)  Acc@5: 100.0000 (100.0000)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2053  data: 0.0003  max mem: 6588
+Test: [Task 0]  [ 40/625]  eta: 0:02:03  Loss: 0.2804 (0.3673)  Acc@1: 87.5000 (86.7378)  Acc@5: 100.0000 (100.0000)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2049  data: 0.0003  max mem: 6588
+Test: [Task 0]  [ 50/625]  eta: 0:02:00  Loss: 0.2372 (0.3534)  Acc@1: 87.5000 (87.2549)  Acc@5: 100.0000 (99.8775)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0003  max mem: 6588
+Test: [Task 0]  [ 60/625]  eta: 0:01:58  Loss: 0.2606 (0.3535)  Acc@1: 87.5000 (87.1926)  Acc@5: 100.0000 (99.7951)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2058  data: 0.0003  max mem: 6588
+Test: [Task 0]  [ 70/625]  eta: 0:01:55  Loss: 0.2586 (0.3352)  Acc@1: 87.5000 (87.8521)  Acc@5: 100.0000 (99.8239)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2052  data: 0.0002  max mem: 6588
+Test: [Task 0]  [ 80/625]  eta: 0:01:53  Loss: 0.2586 (0.3359)  Acc@1: 87.5000 (87.8858)  Acc@5: 100.0000 (99.8457)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2051  data: 0.0002  max mem: 6588
+Test: [Task 0]  [ 90/625]  eta: 0:01:51  Loss: 0.3531 (0.3466)  Acc@1: 87.5000 (87.3626)  Acc@5: 100.0000 (99.7940)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2051  data: 0.0002  max mem: 6588
+Test: [Task 0]  [100/625]  eta: 0:01:48  Loss: 0.3707 (0.3593)  Acc@1: 81.2500 (87.1287)  Acc@5: 100.0000 (99.7525)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2052  data: 0.0003  max mem: 6588
+Test: [Task 0]  [110/625]  eta: 0:01:46  Loss: 0.3014 (0.3522)  Acc@1: 87.5000 (87.4437)  Acc@5: 100.0000 (99.6622)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2052  data: 0.0003  max mem: 6588
+Test: [Task 0]  [120/625]  eta: 0:01:44  Loss: 0.2570 (0.3524)  Acc@1: 87.5000 (87.6550)  Acc@5: 100.0000 (99.5868)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0003  max mem: 6588
+Test: [Task 0]  [130/625]  eta: 0:01:42  Loss: 0.2425 (0.3512)  Acc@1: 87.5000 (87.6908)  Acc@5: 100.0000 (99.5706)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2060  data: 0.0003  max mem: 6588
+Test: [Task 0]  [140/625]  eta: 0:01:40  Loss: 0.2475 (0.3587)  Acc@1: 87.5000 (87.6773)  Acc@5: 100.0000 (99.5567)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0002  max mem: 6588
+Test: [Task 0]  [150/625]  eta: 0:01:38  Loss: 0.3707 (0.3674)  Acc@1: 87.5000 (87.5828)  Acc@5: 100.0000 (99.5447)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2053  data: 0.0002  max mem: 6588
+Test: [Task 0]  [160/625]  eta: 0:01:36  Loss: 0.4187 (0.3789)  Acc@1: 87.5000 (87.4612)  Acc@5: 100.0000 (99.4177)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2051  data: 0.0002  max mem: 6588
+Test: [Task 0]  [170/625]  eta: 0:01:34  Loss: 0.2830 (0.3730)  Acc@1: 87.5000 (87.5000)  Acc@5: 100.0000 (99.4152)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0003  max mem: 6588
+Test: [Task 0]  [180/625]  eta: 0:01:31  Loss: 0.2830 (0.3725)  Acc@1: 87.5000 (87.6381)  Acc@5: 100.0000 (99.3439)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2059  data: 0.0003  max mem: 6588
+Test: [Task 0]  [190/625]  eta: 0:01:29  Loss: 0.3615 (0.3724)  Acc@1: 87.5000 (87.6963)  Acc@5: 100.0000 (99.2801)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0003  max mem: 6588
+Test: [Task 0]  [200/625]  eta: 0:01:27  Loss: 0.3555 (0.3701)  Acc@1: 87.5000 (87.6866)  Acc@5: 100.0000 (99.3159)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2058  data: 0.0003  max mem: 6588
+Test: [Task 0]  [210/625]  eta: 0:01:25  Loss: 0.2674 (0.3657)  Acc@1: 87.5000 (87.8258)  Acc@5: 100.0000 (99.3187)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2060  data: 0.0003  max mem: 6588
+Test: [Task 0]  [220/625]  eta: 0:01:23  Loss: 0.3154 (0.3662)  Acc@1: 87.5000 (87.8394)  Acc@5: 100.0000 (99.2930)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2063  data: 0.0003  max mem: 6588
+Test: [Task 0]  [230/625]  eta: 0:01:21  Loss: 0.3517 (0.3679)  Acc@1: 87.5000 (87.7976)  Acc@5: 100.0000 (99.3236)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2063  data: 0.0003  max mem: 6588
+Test: [Task 0]  [240/625]  eta: 0:01:19  Loss: 0.3334 (0.3701)  Acc@1: 87.5000 (87.7593)  Acc@5: 100.0000 (99.3517)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2060  data: 0.0003  max mem: 6588
+Test: [Task 0]  [250/625]  eta: 0:01:17  Loss: 0.3310 (0.3688)  Acc@1: 87.5000 (87.7739)  Acc@5: 100.0000 (99.3526)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0002  max mem: 6588
+Test: [Task 0]  [260/625]  eta: 0:01:15  Loss: 0.2671 (0.3651)  Acc@1: 87.5000 (87.9550)  Acc@5: 100.0000 (99.3295)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2055  data: 0.0003  max mem: 6588
+Test: [Task 0]  [270/625]  eta: 0:01:13  Loss: 0.1935 (0.3584)  Acc@1: 93.7500 (88.2380)  Acc@5: 100.0000 (99.3542)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2061  data: 0.0003  max mem: 6588
+Test: [Task 0]  [280/625]  eta: 0:01:11  Loss: 0.1912 (0.3558)  Acc@1: 93.7500 (88.3007)  Acc@5: 100.0000 (99.3772)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2063  data: 0.0002  max mem: 6588
+Test: [Task 0]  [290/625]  eta: 0:01:09  Loss: 0.3641 (0.3573)  Acc@1: 87.5000 (88.3162)  Acc@5: 100.0000 (99.3771)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2058  data: 0.0002  max mem: 6588
+Test: [Task 0]  [300/625]  eta: 0:01:07  Loss: 0.3337 (0.3588)  Acc@1: 87.5000 (88.2683)  Acc@5: 100.0000 (99.3771)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2052  data: 0.0002  max mem: 6588
+Test: [Task 0]  [310/625]  eta: 0:01:04  Loss: 0.2752 (0.3583)  Acc@1: 87.5000 (88.2637)  Acc@5: 100.0000 (99.3770)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2052  data: 0.0002  max mem: 6588
+Test: [Task 0]  [320/625]  eta: 0:01:02  Loss: 0.2029 (0.3532)  Acc@1: 93.7500 (88.4346)  Acc@5: 100.0000 (99.3769)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0003  max mem: 6588
+Test: [Task 0]  [330/625]  eta: 0:01:00  Loss: 0.2761 (0.3586)  Acc@1: 87.5000 (88.2742)  Acc@5: 100.0000 (99.3958)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2061  data: 0.0003  max mem: 6588
+Test: [Task 0]  [340/625]  eta: 0:00:58  Loss: 0.2995 (0.3554)  Acc@1: 87.5000 (88.3798)  Acc@5: 100.0000 (99.4135)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2060  data: 0.0003  max mem: 6588
+Test: [Task 0]  [350/625]  eta: 0:00:56  Loss: 0.2440 (0.3538)  Acc@1: 93.7500 (88.3903)  Acc@5: 100.0000 (99.4302)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2053  data: 0.0003  max mem: 6588
+Test: [Task 0]  [360/625]  eta: 0:00:54  Loss: 0.2776 (0.3540)  Acc@1: 87.5000 (88.4003)  Acc@5: 100.0000 (99.4460)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2051  data: 0.0002  max mem: 6588
+Test: [Task 0]  [370/625]  eta: 0:00:52  Loss: 0.2385 (0.3541)  Acc@1: 87.5000 (88.4097)  Acc@5: 100.0000 (99.4609)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2058  data: 0.0002  max mem: 6588
+Test: [Task 0]  [380/625]  eta: 0:00:50  Loss: 0.2910 (0.3533)  Acc@1: 87.5000 (88.3694)  Acc@5: 100.0000 (99.4751)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2063  data: 0.0003  max mem: 6588
+Test: [Task 0]  [390/625]  eta: 0:00:48  Loss: 0.2910 (0.3547)  Acc@1: 87.5000 (88.3472)  Acc@5: 100.0000 (99.4725)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2058  data: 0.0003  max mem: 6588
+Test: [Task 0]  [400/625]  eta: 0:00:46  Loss: 0.2724 (0.3520)  Acc@1: 87.5000 (88.4196)  Acc@5: 100.0000 (99.4857)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0003  max mem: 6588
+Test: [Task 0]  [410/625]  eta: 0:00:44  Loss: 0.3126 (0.3582)  Acc@1: 87.5000 (88.2755)  Acc@5: 100.0000 (99.4830)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2058  data: 0.0002  max mem: 6588
+Test: [Task 0]  [420/625]  eta: 0:00:42  Loss: 0.3091 (0.3572)  Acc@1: 87.5000 (88.3314)  Acc@5: 100.0000 (99.4952)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0002  max mem: 6588
+Test: [Task 0]  [430/625]  eta: 0:00:40  Loss: 0.3607 (0.3580)  Acc@1: 87.5000 (88.3411)  Acc@5: 100.0000 (99.4635)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0002  max mem: 6588
+Test: [Task 0]  [440/625]  eta: 0:00:38  Loss: 0.3837 (0.3593)  Acc@1: 87.5000 (88.2370)  Acc@5: 100.0000 (99.4615)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2059  data: 0.0003  max mem: 6588
+Test: [Task 0]  [450/625]  eta: 0:00:36  Loss: 0.2614 (0.3581)  Acc@1: 87.5000 (88.2761)  Acc@5: 100.0000 (99.4734)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0002  max mem: 6588
+Test: [Task 0]  [460/625]  eta: 0:00:34  Loss: 0.2143 (0.3542)  Acc@1: 93.7500 (88.4084)  Acc@5: 100.0000 (99.4848)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2055  data: 0.0002  max mem: 6588
+Test: [Task 0]  [470/625]  eta: 0:00:31  Loss: 0.1471 (0.3549)  Acc@1: 93.7500 (88.4156)  Acc@5: 100.0000 (99.4692)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2054  data: 0.0002  max mem: 6588
+Test: [Task 0]  [480/625]  eta: 0:00:29  Loss: 0.3371 (0.3554)  Acc@1: 87.5000 (88.3706)  Acc@5: 100.0000 (99.4543)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0003  max mem: 6588
+Test: [Task 0]  [490/625]  eta: 0:00:27  Loss: 0.4294 (0.3578)  Acc@1: 87.5000 (88.3147)  Acc@5: 100.0000 (99.4399)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2061  data: 0.0002  max mem: 6588
+Test: [Task 0]  [500/625]  eta: 0:00:25  Loss: 0.4267 (0.3574)  Acc@1: 87.5000 (88.3483)  Acc@5: 100.0000 (99.4386)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0002  max mem: 6588
+Test: [Task 0]  [510/625]  eta: 0:00:23  Loss: 0.3017 (0.3565)  Acc@1: 87.5000 (88.4173)  Acc@5: 100.0000 (99.4374)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2054  data: 0.0002  max mem: 6588
+Test: [Task 0]  [520/625]  eta: 0:00:21  Loss: 0.3667 (0.3576)  Acc@1: 87.5000 (88.3877)  Acc@5: 100.0000 (99.4242)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2053  data: 0.0003  max mem: 6588
+Test: [Task 0]  [530/625]  eta: 0:00:19  Loss: 0.3667 (0.3604)  Acc@1: 87.5000 (88.2651)  Acc@5: 100.0000 (99.4350)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0003  max mem: 6588
+Test: [Task 0]  [540/625]  eta: 0:00:17  Loss: 0.4401 (0.3616)  Acc@1: 87.5000 (88.2278)  Acc@5: 100.0000 (99.4455)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0002  max mem: 6588
+Test: [Task 0]  [550/625]  eta: 0:00:15  Loss: 0.4434 (0.3630)  Acc@1: 81.2500 (88.1919)  Acc@5: 100.0000 (99.4442)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2053  data: 0.0002  max mem: 6588
+Test: [Task 0]  [560/625]  eta: 0:00:13  Loss: 0.4434 (0.3645)  Acc@1: 87.5000 (88.2019)  Acc@5: 100.0000 (99.4430)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2052  data: 0.0002  max mem: 6588
+Test: [Task 0]  [570/625]  eta: 0:00:11  Loss: 0.3688 (0.3652)  Acc@1: 87.5000 (88.2005)  Acc@5: 100.0000 (99.4527)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2059  data: 0.0003  max mem: 6588
+Test: [Task 0]  [580/625]  eta: 0:00:09  Loss: 0.3497 (0.3669)  Acc@1: 87.5000 (88.1670)  Acc@5: 100.0000 (99.4514)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2060  data: 0.0003  max mem: 6588
+Test: [Task 0]  [590/625]  eta: 0:00:07  Loss: 0.3040 (0.3652)  Acc@1: 87.5000 (88.2085)  Acc@5: 100.0000 (99.4501)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2056  data: 0.0002  max mem: 6588
+Test: [Task 0]  [600/625]  eta: 0:00:05  Loss: 0.2098 (0.3636)  Acc@1: 93.7500 (88.2592)  Acc@5: 100.0000 (99.4592)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2058  data: 0.0003  max mem: 6588
+Test: [Task 0]  [610/625]  eta: 0:00:03  Loss: 0.2767 (0.3631)  Acc@1: 93.7500 (88.2570)  Acc@5: 100.0000 (99.4681)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2061  data: 0.0003  max mem: 6588
+Test: [Task 0]  [620/625]  eta: 0:00:01  Loss: 0.3018 (0.3633)  Acc@1: 87.5000 (88.2448)  Acc@5: 100.0000 (99.4666)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2057  data: 0.0002  max mem: 6588
+Test: [Task 0]  [624/625]  eta: 0:00:00  Loss: 0.2799 (0.3627)  Acc@1: 87.5000 (88.2700)  Acc@5: 100.0000 (99.4600)  Prompt_Loss: 0.0000 (0.0000)  time: 0.2054  data: 0.0002  max mem: 6588
+Test: [Task 0] Total time: 0:02:08 (0.2062 s / it)
+* Acc@1 88.270 Acc@5 99.460 loss 0.363
+Train: Epoch[  2/100]  [   0/3125]  eta: 0:38:47  Lr: 0.010000  Loss: 0.8628  Acc@1: 56.2500 (56.2500)  Acc@5: 100.0000 (100.0000)  Prompt_Loss: 0.0000 (0.0000)  time: 0.7449  data: 0.2246  max mem: 6588
+Train: Epoch[  2/100]  [  10/3125]  eta: 0:27:55  Lr: 0.010000  Loss: 0.3532  Acc@1: 75.0000 (73.8636)  Acc@5: 100.0000 (96.0227)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5379  data: 0.0207  max mem: 6588
+Train: Epoch[  2/100]  [  20/3125]  eta: 0:27:19  Lr: 0.010000  Loss: 0.8090  Acc@1: 81.2500 (76.1905)  Acc@5: 100.0000 (97.3214)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [  30/3125]  eta: 0:27:04  Lr: 0.010000  Loss: 0.4885  Acc@1: 81.2500 (76.2097)  Acc@5: 100.0000 (97.1774)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [  40/3125]  eta: 0:26:54  Lr: 0.010000  Loss: 0.8397  Acc@1: 75.0000 (74.6951)  Acc@5: 93.7500 (96.6463)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [  50/3125]  eta: 0:26:50  Lr: 0.010000  Loss: 1.2861  Acc@1: 75.0000 (73.6520)  Acc@5: 93.7500 (96.0784)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5222  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [  60/3125]  eta: 0:26:46  Lr: 0.010000  Loss: 0.1045  Acc@1: 75.0000 (73.7705)  Acc@5: 93.7500 (96.1066)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5258  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [  70/3125]  eta: 0:26:38  Lr: 0.010000  Loss: 0.6302  Acc@1: 75.0000 (73.7676)  Acc@5: 100.0000 (96.1268)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5213  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [  80/3125]  eta: 0:26:31  Lr: 0.010000  Loss: 0.6134  Acc@1: 75.0000 (73.9969)  Acc@5: 100.0000 (96.3735)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [  90/3125]  eta: 0:26:24  Lr: 0.010000  Loss: 0.6671  Acc@1: 75.0000 (74.5192)  Acc@5: 100.0000 (96.4286)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 100/3125]  eta: 0:26:18  Lr: 0.010000  Loss: 0.6948  Acc@1: 68.7500 (74.0099)  Acc@5: 100.0000 (96.4728)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 110/3125]  eta: 0:26:11  Lr: 0.010000  Loss: 0.6611  Acc@1: 68.7500 (73.9865)  Acc@5: 93.7500 (96.3964)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0002  max mem: 6588
+Train: Epoch[  2/100]  [ 120/3125]  eta: 0:26:05  Lr: 0.010000  Loss: 0.8493  Acc@1: 75.0000 (74.0186)  Acc@5: 93.7500 (96.3326)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5166  data: 0.0002  max mem: 6588
+Train: Epoch[  2/100]  [ 130/3125]  eta: 0:25:59  Lr: 0.010000  Loss: 0.6882  Acc@1: 75.0000 (74.2366)  Acc@5: 100.0000 (96.4695)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5168  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 140/3125]  eta: 0:25:53  Lr: 0.010000  Loss: 1.4351  Acc@1: 75.0000 (73.8032)  Acc@5: 100.0000 (96.4539)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 150/3125]  eta: 0:25:47  Lr: 0.010000  Loss: 0.4237  Acc@1: 75.0000 (73.8411)  Acc@5: 93.7500 (96.4404)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 160/3125]  eta: 0:25:41  Lr: 0.010000  Loss: 0.4476  Acc@1: 75.0000 (73.6801)  Acc@5: 93.7500 (96.3509)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 170/3125]  eta: 0:25:36  Lr: 0.010000  Loss: 0.6176  Acc@1: 75.0000 (73.4284)  Acc@5: 100.0000 (96.4912)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 180/3125]  eta: 0:25:30  Lr: 0.010000  Loss: 0.7595  Acc@1: 68.7500 (73.3425)  Acc@5: 100.0000 (96.5470)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5169  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 190/3125]  eta: 0:25:24  Lr: 0.010000  Loss: 0.9230  Acc@1: 68.7500 (73.0366)  Acc@5: 100.0000 (96.4987)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5169  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 200/3125]  eta: 0:25:19  Lr: 0.010000  Loss: 0.7455  Acc@1: 68.7500 (72.8545)  Acc@5: 93.7500 (96.3930)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 210/3125]  eta: 0:25:14  Lr: 0.010000  Loss: 0.4320  Acc@1: 68.7500 (72.7784)  Acc@5: 93.7500 (96.4751)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 220/3125]  eta: 0:25:08  Lr: 0.010000  Loss: 0.9021  Acc@1: 75.0000 (72.9072)  Acc@5: 100.0000 (96.5215)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0002  max mem: 6588
+Train: Epoch[  2/100]  [ 230/3125]  eta: 0:25:03  Lr: 0.010000  Loss: 0.7764  Acc@1: 68.7500 (72.8896)  Acc@5: 100.0000 (96.4556)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 240/3125]  eta: 0:24:57  Lr: 0.010000  Loss: 1.8192  Acc@1: 62.5000 (72.4326)  Acc@5: 93.7500 (96.3434)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 250/3125]  eta: 0:24:52  Lr: 0.010000  Loss: 0.4839  Acc@1: 68.7500 (72.5847)  Acc@5: 93.7500 (96.2898)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5169  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 260/3125]  eta: 0:24:47  Lr: 0.010000  Loss: 1.4987  Acc@1: 75.0000 (72.4617)  Acc@5: 100.0000 (96.3602)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 270/3125]  eta: 0:24:41  Lr: 0.010000  Loss: 1.0498  Acc@1: 68.7500 (72.4631)  Acc@5: 100.0000 (96.3561)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5168  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 280/3125]  eta: 0:24:36  Lr: 0.010000  Loss: 1.8296  Acc@1: 68.7500 (72.4644)  Acc@5: 100.0000 (96.3523)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5167  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 290/3125]  eta: 0:24:30  Lr: 0.010000  Loss: 0.3993  Acc@1: 68.7500 (72.4442)  Acc@5: 100.0000 (96.3918)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 300/3125]  eta: 0:24:25  Lr: 0.010000  Loss: 1.1552  Acc@1: 68.7500 (72.3630)  Acc@5: 100.0000 (96.3663)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 310/3125]  eta: 0:24:20  Lr: 0.010000  Loss: 1.0269  Acc@1: 68.7500 (72.1463)  Acc@5: 93.7500 (96.3223)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 320/3125]  eta: 0:24:14  Lr: 0.010000  Loss: 0.6757  Acc@1: 68.7500 (72.1573)  Acc@5: 100.0000 (96.3785)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 330/3125]  eta: 0:24:09  Lr: 0.010000  Loss: 0.8239  Acc@1: 68.7500 (72.0355)  Acc@5: 100.0000 (96.4124)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 340/3125]  eta: 0:24:04  Lr: 0.010000  Loss: 0.8428  Acc@1: 68.7500 (71.7925)  Acc@5: 100.0000 (96.4076)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 350/3125]  eta: 0:23:59  Lr: 0.010000  Loss: 0.7627  Acc@1: 68.7500 (71.8661)  Acc@5: 100.0000 (96.3319)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 360/3125]  eta: 0:23:53  Lr: 0.010000  Loss: 0.7426  Acc@1: 75.0000 (71.9183)  Acc@5: 93.7500 (96.3123)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 370/3125]  eta: 0:23:48  Lr: 0.010000  Loss: 1.0405  Acc@1: 75.0000 (72.1024)  Acc@5: 93.7500 (96.3106)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 380/3125]  eta: 0:23:44  Lr: 0.010000  Loss: 0.6378  Acc@1: 75.0000 (72.0965)  Acc@5: 93.7500 (96.2927)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5234  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [ 390/3125]  eta: 0:23:39  Lr: 0.010000  Loss: 0.7322  Acc@1: 75.0000 (72.0588)  Acc@5: 93.7500 (96.2596)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5276  data: 0.0006  max mem: 6588
+Train: Epoch[  2/100]  [ 400/3125]  eta: 0:23:34  Lr: 0.010000  Loss: 1.2736  Acc@1: 68.7500 (71.9296)  Acc@5: 93.7500 (96.1970)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5213  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 410/3125]  eta: 0:23:29  Lr: 0.010000  Loss: 0.7702  Acc@1: 68.7500 (71.9130)  Acc@5: 100.0000 (96.1983)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 420/3125]  eta: 0:23:23  Lr: 0.010000  Loss: 1.1738  Acc@1: 75.0000 (71.9863)  Acc@5: 93.7500 (96.1698)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 430/3125]  eta: 0:23:18  Lr: 0.010000  Loss: 1.1112  Acc@1: 75.0000 (71.9548)  Acc@5: 93.7500 (96.1572)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 440/3125]  eta: 0:23:13  Lr: 0.010000  Loss: 0.5591  Acc@1: 68.7500 (71.9813)  Acc@5: 93.7500 (96.1876)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5190  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 450/3125]  eta: 0:23:08  Lr: 0.010000  Loss: 0.6116  Acc@1: 75.0000 (72.0898)  Acc@5: 93.7500 (96.1613)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 460/3125]  eta: 0:23:03  Lr: 0.010000  Loss: 0.8008  Acc@1: 75.0000 (72.0987)  Acc@5: 93.7500 (96.1497)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 470/3125]  eta: 0:22:57  Lr: 0.010000  Loss: 0.6148  Acc@1: 68.7500 (72.0541)  Acc@5: 93.7500 (96.1783)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5192  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 480/3125]  eta: 0:22:52  Lr: 0.010000  Loss: 0.6638  Acc@1: 68.7500 (72.0634)  Acc@5: 100.0000 (96.1668)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 490/3125]  eta: 0:22:47  Lr: 0.010000  Loss: 0.7768  Acc@1: 75.0000 (72.1614)  Acc@5: 93.7500 (96.1558)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 500/3125]  eta: 0:22:42  Lr: 0.010000  Loss: 0.5812  Acc@1: 75.0000 (72.1806)  Acc@5: 100.0000 (96.1951)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 510/3125]  eta: 0:22:36  Lr: 0.010000  Loss: 0.7630  Acc@1: 68.7500 (72.1991)  Acc@5: 100.0000 (96.1840)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 520/3125]  eta: 0:22:31  Lr: 0.010000  Loss: 0.4337  Acc@1: 75.0000 (72.2409)  Acc@5: 93.7500 (96.1732)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 530/3125]  eta: 0:22:26  Lr: 0.010000  Loss: 1.0039  Acc@1: 75.0000 (72.2928)  Acc@5: 93.7500 (96.1747)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 540/3125]  eta: 0:22:21  Lr: 0.010000  Loss: 1.3710  Acc@1: 75.0000 (72.2274)  Acc@5: 100.0000 (96.1761)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5190  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 550/3125]  eta: 0:22:16  Lr: 0.010000  Loss: 0.4278  Acc@1: 75.0000 (72.3457)  Acc@5: 100.0000 (96.2001)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5195  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 560/3125]  eta: 0:22:10  Lr: 0.010000  Loss: 1.1192  Acc@1: 75.0000 (72.3039)  Acc@5: 100.0000 (96.1787)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 570/3125]  eta: 0:22:05  Lr: 0.010000  Loss: 0.8340  Acc@1: 68.7500 (72.2745)  Acc@5: 93.7500 (96.1799)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 580/3125]  eta: 0:22:00  Lr: 0.010000  Loss: 1.2789  Acc@1: 68.7500 (72.2031)  Acc@5: 93.7500 (96.1489)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 590/3125]  eta: 0:21:55  Lr: 0.010000  Loss: 0.9948  Acc@1: 68.7500 (72.1447)  Acc@5: 93.7500 (96.1717)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0002  max mem: 6588
+Train: Epoch[  2/100]  [ 600/3125]  eta: 0:21:49  Lr: 0.010000  Loss: 0.8770  Acc@1: 75.0000 (72.1922)  Acc@5: 100.0000 (96.2042)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 610/3125]  eta: 0:21:44  Lr: 0.010000  Loss: 1.3286  Acc@1: 75.0000 (72.1563)  Acc@5: 100.0000 (96.2152)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 620/3125]  eta: 0:21:39  Lr: 0.010000  Loss: 0.9155  Acc@1: 68.7500 (72.1719)  Acc@5: 100.0000 (96.2460)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 630/3125]  eta: 0:21:34  Lr: 0.010000  Loss: 0.7275  Acc@1: 75.0000 (72.1474)  Acc@5: 100.0000 (96.2262)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 640/3125]  eta: 0:21:29  Lr: 0.010000  Loss: 0.6463  Acc@1: 75.0000 (72.2504)  Acc@5: 100.0000 (96.2363)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 650/3125]  eta: 0:21:23  Lr: 0.010000  Loss: 0.8213  Acc@1: 75.0000 (72.2638)  Acc@5: 93.7500 (96.1694)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 660/3125]  eta: 0:21:18  Lr: 0.010000  Loss: 0.8860  Acc@1: 75.0000 (72.1918)  Acc@5: 93.7500 (96.1611)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 670/3125]  eta: 0:21:13  Lr: 0.010000  Loss: 1.1738  Acc@1: 75.0000 (72.2336)  Acc@5: 100.0000 (96.1624)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 680/3125]  eta: 0:21:08  Lr: 0.010000  Loss: 1.1425  Acc@1: 68.7500 (72.1549)  Acc@5: 93.7500 (96.1454)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 690/3125]  eta: 0:21:02  Lr: 0.010000  Loss: 1.4055  Acc@1: 62.5000 (72.1690)  Acc@5: 100.0000 (96.1559)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 700/3125]  eta: 0:20:57  Lr: 0.010000  Loss: 0.3684  Acc@1: 75.0000 (72.2004)  Acc@5: 100.0000 (96.1573)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 710/3125]  eta: 0:20:52  Lr: 0.010000  Loss: 0.6016  Acc@1: 75.0000 (72.2222)  Acc@5: 100.0000 (96.1674)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5192  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 720/3125]  eta: 0:20:47  Lr: 0.010000  Loss: 0.4531  Acc@1: 68.7500 (72.1741)  Acc@5: 100.0000 (96.1512)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5225  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [ 730/3125]  eta: 0:20:42  Lr: 0.010000  Loss: 0.7683  Acc@1: 75.0000 (72.2127)  Acc@5: 100.0000 (96.1611)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5260  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [ 740/3125]  eta: 0:20:37  Lr: 0.010000  Loss: 0.8670  Acc@1: 75.0000 (72.3094)  Acc@5: 100.0000 (96.1791)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5223  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 750/3125]  eta: 0:20:32  Lr: 0.010000  Loss: 1.1690  Acc@1: 75.0000 (72.3702)  Acc@5: 100.0000 (96.1967)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 760/3125]  eta: 0:20:27  Lr: 0.010000  Loss: 0.4448  Acc@1: 75.0000 (72.4294)  Acc@5: 100.0000 (96.2139)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 770/3125]  eta: 0:20:21  Lr: 0.010000  Loss: 0.9209  Acc@1: 75.0000 (72.3898)  Acc@5: 100.0000 (96.2387)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 780/3125]  eta: 0:20:16  Lr: 0.010000  Loss: 0.6892  Acc@1: 68.7500 (72.3431)  Acc@5: 100.0000 (96.2708)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 790/3125]  eta: 0:20:11  Lr: 0.010000  Loss: 0.8408  Acc@1: 68.7500 (72.3293)  Acc@5: 100.0000 (96.2863)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 800/3125]  eta: 0:20:06  Lr: 0.010000  Loss: 0.7696  Acc@1: 75.0000 (72.3471)  Acc@5: 100.0000 (96.2703)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 810/3125]  eta: 0:20:00  Lr: 0.010000  Loss: 0.9749  Acc@1: 75.0000 (72.3644)  Acc@5: 100.0000 (96.2855)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 820/3125]  eta: 0:19:55  Lr: 0.010000  Loss: 0.6338  Acc@1: 75.0000 (72.3812)  Acc@5: 100.0000 (96.3002)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5167  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 830/3125]  eta: 0:19:50  Lr: 0.010000  Loss: 0.1662  Acc@1: 75.0000 (72.4353)  Acc@5: 100.0000 (96.2921)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 840/3125]  eta: 0:19:45  Lr: 0.010000  Loss: 0.7570  Acc@1: 75.0000 (72.4361)  Acc@5: 93.7500 (96.2916)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 850/3125]  eta: 0:19:40  Lr: 0.010000  Loss: 0.5377  Acc@1: 75.0000 (72.4148)  Acc@5: 93.7500 (96.2985)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 860/3125]  eta: 0:19:34  Lr: 0.010000  Loss: 0.7286  Acc@1: 68.7500 (72.4303)  Acc@5: 93.7500 (96.2834)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 870/3125]  eta: 0:19:29  Lr: 0.010000  Loss: 0.7661  Acc@1: 68.7500 (72.4239)  Acc@5: 93.7500 (96.2471)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 880/3125]  eta: 0:19:24  Lr: 0.010000  Loss: 0.9012  Acc@1: 75.0000 (72.4603)  Acc@5: 93.7500 (96.2543)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 890/3125]  eta: 0:19:19  Lr: 0.010000  Loss: 0.3437  Acc@1: 75.0000 (72.4958)  Acc@5: 93.7500 (96.2472)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 900/3125]  eta: 0:19:13  Lr: 0.010000  Loss: 0.6991  Acc@1: 75.0000 (72.4681)  Acc@5: 93.7500 (96.2403)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5163  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 910/3125]  eta: 0:19:08  Lr: 0.010000  Loss: 0.4281  Acc@1: 75.0000 (72.5508)  Acc@5: 100.0000 (96.2335)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 920/3125]  eta: 0:19:03  Lr: 0.010000  Loss: 0.4512  Acc@1: 81.2500 (72.5977)  Acc@5: 100.0000 (96.2405)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 930/3125]  eta: 0:18:58  Lr: 0.010000  Loss: 1.0511  Acc@1: 75.0000 (72.6168)  Acc@5: 100.0000 (96.2473)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 940/3125]  eta: 0:18:53  Lr: 0.010000  Loss: 0.7831  Acc@1: 68.7500 (72.6355)  Acc@5: 93.7500 (96.2208)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 950/3125]  eta: 0:18:47  Lr: 0.010000  Loss: 0.8138  Acc@1: 81.2500 (72.7458)  Acc@5: 93.7500 (96.2277)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5195  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 960/3125]  eta: 0:18:42  Lr: 0.010000  Loss: 0.3978  Acc@1: 81.2500 (72.7888)  Acc@5: 100.0000 (96.2474)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5195  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 970/3125]  eta: 0:18:37  Lr: 0.010000  Loss: 1.0859  Acc@1: 68.7500 (72.7987)  Acc@5: 100.0000 (96.2474)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [ 980/3125]  eta: 0:18:32  Lr: 0.010000  Loss: 0.9138  Acc@1: 68.7500 (72.8084)  Acc@5: 93.7500 (96.2475)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [ 990/3125]  eta: 0:18:27  Lr: 0.010000  Loss: 0.3200  Acc@1: 75.0000 (72.8305)  Acc@5: 100.0000 (96.2538)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1000/3125]  eta: 0:18:21  Lr: 0.010000  Loss: 0.4125  Acc@1: 75.0000 (72.7897)  Acc@5: 100.0000 (96.2600)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1010/3125]  eta: 0:18:16  Lr: 0.010000  Loss: 0.6851  Acc@1: 75.0000 (72.8301)  Acc@5: 100.0000 (96.2661)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1020/3125]  eta: 0:18:11  Lr: 0.010000  Loss: 1.2937  Acc@1: 68.7500 (72.8024)  Acc@5: 93.7500 (96.2598)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1030/3125]  eta: 0:18:06  Lr: 0.010000  Loss: 1.4763  Acc@1: 75.0000 (72.8419)  Acc@5: 93.7500 (96.2658)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1040/3125]  eta: 0:18:01  Lr: 0.010000  Loss: 0.7676  Acc@1: 75.0000 (72.8266)  Acc@5: 100.0000 (96.2716)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1050/3125]  eta: 0:17:56  Lr: 0.010000  Loss: 1.0520  Acc@1: 75.0000 (72.7938)  Acc@5: 100.0000 (96.2833)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5230  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1060/3125]  eta: 0:17:51  Lr: 0.010000  Loss: 1.3294  Acc@1: 75.0000 (72.8440)  Acc@5: 100.0000 (96.2830)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5273  data: 0.0006  max mem: 6588
+Train: Epoch[  2/100]  [1070/3125]  eta: 0:17:45  Lr: 0.010000  Loss: 0.5101  Acc@1: 75.0000 (72.8233)  Acc@5: 100.0000 (96.2768)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5237  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [1080/3125]  eta: 0:17:40  Lr: 0.010000  Loss: 0.5936  Acc@1: 75.0000 (72.8723)  Acc@5: 100.0000 (96.2824)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5196  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [1090/3125]  eta: 0:17:35  Lr: 0.010000  Loss: 1.1901  Acc@1: 75.0000 (72.9148)  Acc@5: 100.0000 (96.2935)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1100/3125]  eta: 0:17:30  Lr: 0.010000  Loss: 0.5792  Acc@1: 75.0000 (72.9223)  Acc@5: 93.7500 (96.2648)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1110/3125]  eta: 0:17:25  Lr: 0.010000  Loss: 0.5872  Acc@1: 75.0000 (72.9467)  Acc@5: 100.0000 (96.2759)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1120/3125]  eta: 0:17:20  Lr: 0.010000  Loss: 0.8776  Acc@1: 75.0000 (72.9371)  Acc@5: 100.0000 (96.2645)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5192  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1130/3125]  eta: 0:17:14  Lr: 0.010000  Loss: 0.6113  Acc@1: 75.0000 (72.8946)  Acc@5: 93.7500 (96.2644)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1140/3125]  eta: 0:17:09  Lr: 0.010000  Loss: 0.4898  Acc@1: 75.0000 (72.9130)  Acc@5: 93.7500 (96.2642)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1150/3125]  eta: 0:17:04  Lr: 0.010000  Loss: 0.4106  Acc@1: 75.0000 (72.9203)  Acc@5: 93.7500 (96.2533)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5190  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1160/3125]  eta: 0:16:59  Lr: 0.010000  Loss: 0.6724  Acc@1: 75.0000 (72.9274)  Acc@5: 93.7500 (96.2263)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5189  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1170/3125]  eta: 0:16:54  Lr: 0.010000  Loss: 1.4027  Acc@1: 68.7500 (72.8704)  Acc@5: 93.7500 (96.2425)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1180/3125]  eta: 0:16:48  Lr: 0.010000  Loss: 0.7317  Acc@1: 68.7500 (72.8144)  Acc@5: 93.7500 (96.2108)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1190/3125]  eta: 0:16:43  Lr: 0.010000  Loss: 0.4132  Acc@1: 68.7500 (72.8222)  Acc@5: 93.7500 (96.2059)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1200/3125]  eta: 0:16:38  Lr: 0.010000  Loss: 0.5768  Acc@1: 75.0000 (72.8403)  Acc@5: 100.0000 (96.2219)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1210/3125]  eta: 0:16:33  Lr: 0.010000  Loss: 0.5208  Acc@1: 75.0000 (72.8324)  Acc@5: 100.0000 (96.2170)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1220/3125]  eta: 0:16:28  Lr: 0.010000  Loss: 0.6048  Acc@1: 81.2500 (72.8860)  Acc@5: 93.7500 (96.2224)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1230/3125]  eta: 0:16:22  Lr: 0.010000  Loss: 1.6106  Acc@1: 75.0000 (72.8524)  Acc@5: 100.0000 (96.2074)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1240/3125]  eta: 0:16:17  Lr: 0.010000  Loss: 0.6087  Acc@1: 68.7500 (72.8243)  Acc@5: 93.7500 (96.2077)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1250/3125]  eta: 0:16:12  Lr: 0.010000  Loss: 0.7054  Acc@1: 68.7500 (72.8217)  Acc@5: 100.0000 (96.2130)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1260/3125]  eta: 0:16:07  Lr: 0.010000  Loss: 0.9238  Acc@1: 75.0000 (72.8341)  Acc@5: 100.0000 (96.2133)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1270/3125]  eta: 0:16:02  Lr: 0.010000  Loss: 1.1870  Acc@1: 75.0000 (72.8363)  Acc@5: 93.7500 (96.2136)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1280/3125]  eta: 0:15:56  Lr: 0.010000  Loss: 1.3704  Acc@1: 68.7500 (72.8044)  Acc@5: 100.0000 (96.2139)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1290/3125]  eta: 0:15:51  Lr: 0.010000  Loss: 0.8131  Acc@1: 75.0000 (72.8311)  Acc@5: 100.0000 (96.2239)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1300/3125]  eta: 0:15:46  Lr: 0.010000  Loss: 0.5120  Acc@1: 81.2500 (72.8334)  Acc@5: 100.0000 (96.2337)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1310/3125]  eta: 0:15:41  Lr: 0.010000  Loss: 0.7180  Acc@1: 81.2500 (72.8452)  Acc@5: 100.0000 (96.2195)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1320/3125]  eta: 0:15:36  Lr: 0.010000  Loss: 0.5101  Acc@1: 75.0000 (72.8378)  Acc@5: 100.0000 (96.2197)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1330/3125]  eta: 0:15:30  Lr: 0.010000  Loss: 0.6046  Acc@1: 75.0000 (72.8447)  Acc@5: 100.0000 (96.2199)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [1340/3125]  eta: 0:15:25  Lr: 0.010000  Loss: 0.9046  Acc@1: 68.7500 (72.7955)  Acc@5: 93.7500 (96.2015)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1350/3125]  eta: 0:15:20  Lr: 0.010000  Loss: 0.3594  Acc@1: 75.0000 (72.8488)  Acc@5: 93.7500 (96.2111)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1360/3125]  eta: 0:15:15  Lr: 0.010000  Loss: 0.9563  Acc@1: 75.0000 (72.8463)  Acc@5: 100.0000 (96.2206)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1370/3125]  eta: 0:15:10  Lr: 0.010000  Loss: 0.8032  Acc@1: 68.7500 (72.8574)  Acc@5: 100.0000 (96.2208)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5182  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1380/3125]  eta: 0:15:04  Lr: 0.010000  Loss: 0.4301  Acc@1: 75.0000 (72.8774)  Acc@5: 100.0000 (96.2301)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1390/3125]  eta: 0:14:59  Lr: 0.010000  Loss: 0.5213  Acc@1: 75.0000 (72.9017)  Acc@5: 100.0000 (96.2347)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5229  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1400/3125]  eta: 0:14:54  Lr: 0.010000  Loss: 0.6769  Acc@1: 68.7500 (72.8854)  Acc@5: 100.0000 (96.2348)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5306  data: 0.0009  max mem: 6588
+Train: Epoch[  2/100]  [1410/3125]  eta: 0:14:49  Lr: 0.010000  Loss: 0.9377  Acc@1: 68.7500 (72.8606)  Acc@5: 93.7500 (96.2305)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5250  data: 0.0009  max mem: 6588
+Train: Epoch[  2/100]  [1420/3125]  eta: 0:14:44  Lr: 0.010000  Loss: 1.3482  Acc@1: 68.7500 (72.8492)  Acc@5: 93.7500 (96.2219)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1430/3125]  eta: 0:14:39  Lr: 0.010000  Loss: 0.4007  Acc@1: 68.7500 (72.8599)  Acc@5: 93.7500 (96.2220)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1440/3125]  eta: 0:14:34  Lr: 0.010000  Loss: 0.8773  Acc@1: 68.7500 (72.8531)  Acc@5: 93.7500 (96.2136)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1450/3125]  eta: 0:14:28  Lr: 0.010000  Loss: 0.6475  Acc@1: 68.7500 (72.8463)  Acc@5: 93.7500 (96.2095)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1460/3125]  eta: 0:14:23  Lr: 0.010000  Loss: 0.5076  Acc@1: 68.7500 (72.7926)  Acc@5: 93.7500 (96.2012)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1470/3125]  eta: 0:14:18  Lr: 0.010000  Loss: 0.7333  Acc@1: 68.7500 (72.7779)  Acc@5: 93.7500 (96.2016)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1480/3125]  eta: 0:14:13  Lr: 0.010000  Loss: 0.7796  Acc@1: 68.7500 (72.8055)  Acc@5: 100.0000 (96.2061)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1490/3125]  eta: 0:14:08  Lr: 0.010000  Loss: 0.4409  Acc@1: 75.0000 (72.7951)  Acc@5: 100.0000 (96.2148)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5174  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1500/3125]  eta: 0:14:02  Lr: 0.010000  Loss: 0.7021  Acc@1: 68.7500 (72.7765)  Acc@5: 93.7500 (96.2109)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5168  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1510/3125]  eta: 0:13:57  Lr: 0.010000  Loss: 1.1760  Acc@1: 68.7500 (72.7788)  Acc@5: 93.7500 (96.1863)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1520/3125]  eta: 0:13:52  Lr: 0.010000  Loss: 0.9221  Acc@1: 75.0000 (72.8057)  Acc@5: 93.7500 (96.1744)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1530/3125]  eta: 0:13:47  Lr: 0.010000  Loss: 0.5263  Acc@1: 75.0000 (72.7996)  Acc@5: 93.7500 (96.1749)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1540/3125]  eta: 0:13:42  Lr: 0.010000  Loss: 0.5761  Acc@1: 75.0000 (72.8261)  Acc@5: 100.0000 (96.1835)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1550/3125]  eta: 0:13:36  Lr: 0.010000  Loss: 0.4574  Acc@1: 75.0000 (72.8280)  Acc@5: 100.0000 (96.1839)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1560/3125]  eta: 0:13:31  Lr: 0.010000  Loss: 1.0484  Acc@1: 75.0000 (72.8339)  Acc@5: 100.0000 (96.1963)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1570/3125]  eta: 0:13:26  Lr: 0.010000  Loss: 0.4746  Acc@1: 75.0000 (72.8358)  Acc@5: 100.0000 (96.2126)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1580/3125]  eta: 0:13:21  Lr: 0.010000  Loss: 1.1904  Acc@1: 75.0000 (72.8297)  Acc@5: 100.0000 (96.2207)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1590/3125]  eta: 0:13:16  Lr: 0.010000  Loss: 0.3370  Acc@1: 68.7500 (72.8041)  Acc@5: 100.0000 (96.2131)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1600/3125]  eta: 0:13:10  Lr: 0.010000  Loss: 0.6307  Acc@1: 75.0000 (72.7943)  Acc@5: 100.0000 (96.2133)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5170  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1610/3125]  eta: 0:13:05  Lr: 0.010000  Loss: 0.7089  Acc@1: 75.0000 (72.8003)  Acc@5: 93.7500 (96.2135)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5171  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1620/3125]  eta: 0:13:00  Lr: 0.010000  Loss: 0.4858  Acc@1: 75.0000 (72.8138)  Acc@5: 93.7500 (96.2138)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1630/3125]  eta: 0:12:55  Lr: 0.010000  Loss: 0.4676  Acc@1: 68.7500 (72.7928)  Acc@5: 93.7500 (96.2025)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1640/3125]  eta: 0:12:50  Lr: 0.010000  Loss: 1.5961  Acc@1: 68.7500 (72.7491)  Acc@5: 93.7500 (96.1723)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1650/3125]  eta: 0:12:44  Lr: 0.010000  Loss: 0.7590  Acc@1: 68.7500 (72.7551)  Acc@5: 93.7500 (96.1728)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1660/3125]  eta: 0:12:39  Lr: 0.010000  Loss: 1.0528  Acc@1: 75.0000 (72.7724)  Acc@5: 93.7500 (96.1732)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1670/3125]  eta: 0:12:34  Lr: 0.010000  Loss: 0.6137  Acc@1: 75.0000 (72.7671)  Acc@5: 93.7500 (96.1625)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1680/3125]  eta: 0:12:29  Lr: 0.010000  Loss: 0.4757  Acc@1: 75.0000 (72.7580)  Acc@5: 93.7500 (96.1630)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1690/3125]  eta: 0:12:24  Lr: 0.010000  Loss: 0.8915  Acc@1: 75.0000 (72.7972)  Acc@5: 100.0000 (96.1783)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5175  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1700/3125]  eta: 0:12:19  Lr: 0.010000  Loss: 1.5278  Acc@1: 75.0000 (72.8064)  Acc@5: 93.7500 (96.1603)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5180  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1710/3125]  eta: 0:12:13  Lr: 0.010000  Loss: 0.5644  Acc@1: 75.0000 (72.8083)  Acc@5: 93.7500 (96.1645)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1720/3125]  eta: 0:12:08  Lr: 0.010000  Loss: 0.3159  Acc@1: 68.7500 (72.8101)  Acc@5: 100.0000 (96.1505)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5225  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1730/3125]  eta: 0:12:03  Lr: 0.010000  Loss: 1.3003  Acc@1: 75.0000 (72.8481)  Acc@5: 93.7500 (96.1475)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5245  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [1740/3125]  eta: 0:11:58  Lr: 0.010000  Loss: 0.6967  Acc@1: 75.0000 (72.8317)  Acc@5: 100.0000 (96.1588)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5227  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1750/3125]  eta: 0:11:53  Lr: 0.010000  Loss: 0.6308  Acc@1: 68.7500 (72.8084)  Acc@5: 100.0000 (96.1486)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5202  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1760/3125]  eta: 0:11:47  Lr: 0.010000  Loss: 1.2947  Acc@1: 68.7500 (72.7783)  Acc@5: 93.7500 (96.1386)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1770/3125]  eta: 0:11:42  Lr: 0.010000  Loss: 1.1510  Acc@1: 68.7500 (72.7379)  Acc@5: 93.7500 (96.1321)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1780/3125]  eta: 0:11:37  Lr: 0.010000  Loss: 0.6206  Acc@1: 68.7500 (72.7435)  Acc@5: 93.7500 (96.1363)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1790/3125]  eta: 0:11:32  Lr: 0.010000  Loss: 0.4336  Acc@1: 75.0000 (72.7387)  Acc@5: 93.7500 (96.1230)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5176  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1800/3125]  eta: 0:11:27  Lr: 0.010000  Loss: 0.7347  Acc@1: 75.0000 (72.7617)  Acc@5: 93.7500 (96.1272)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5188  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1810/3125]  eta: 0:11:22  Lr: 0.010000  Loss: 0.9411  Acc@1: 75.0000 (72.7464)  Acc@5: 93.7500 (96.1244)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5214  data: 0.0005  max mem: 6588
+Train: Epoch[  2/100]  [1820/3125]  eta: 0:11:16  Lr: 0.010000  Loss: 1.2676  Acc@1: 68.7500 (72.7588)  Acc@5: 93.7500 (96.1285)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5204  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1830/3125]  eta: 0:11:11  Lr: 0.010000  Loss: 1.2292  Acc@1: 68.7500 (72.7540)  Acc@5: 93.7500 (96.1292)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1840/3125]  eta: 0:11:06  Lr: 0.010000  Loss: 0.9191  Acc@1: 75.0000 (72.7933)  Acc@5: 93.7500 (96.1332)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1850/3125]  eta: 0:11:01  Lr: 0.010000  Loss: 1.2291  Acc@1: 75.0000 (72.7715)  Acc@5: 93.7500 (96.1271)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5187  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1860/3125]  eta: 0:10:56  Lr: 0.010000  Loss: 1.4186  Acc@1: 68.7500 (72.7834)  Acc@5: 93.7500 (96.1244)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1870/3125]  eta: 0:10:50  Lr: 0.010000  Loss: 0.9734  Acc@1: 75.0000 (72.7753)  Acc@5: 93.7500 (96.1184)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5181  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1880/3125]  eta: 0:10:45  Lr: 0.010000  Loss: 0.3287  Acc@1: 75.0000 (72.7804)  Acc@5: 93.7500 (96.1257)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1890/3125]  eta: 0:10:40  Lr: 0.010000  Loss: 1.1022  Acc@1: 75.0000 (72.7823)  Acc@5: 93.7500 (96.1264)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5186  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1900/3125]  eta: 0:10:35  Lr: 0.010000  Loss: 0.7732  Acc@1: 68.7500 (72.7545)  Acc@5: 93.7500 (96.1205)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5177  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1910/3125]  eta: 0:10:30  Lr: 0.010000  Loss: 1.0840  Acc@1: 68.7500 (72.7466)  Acc@5: 93.7500 (96.1211)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5173  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1920/3125]  eta: 0:10:24  Lr: 0.010000  Loss: 0.3366  Acc@1: 75.0000 (72.7616)  Acc@5: 100.0000 (96.1218)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1930/3125]  eta: 0:10:19  Lr: 0.010000  Loss: 0.9188  Acc@1: 75.0000 (72.7279)  Acc@5: 100.0000 (96.1192)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5183  data: 0.0004  max mem: 6588
+Train: Epoch[  2/100]  [1940/3125]  eta: 0:10:14  Lr: 0.010000  Loss: 2.0363  Acc@1: 62.5000 (72.6848)  Acc@5: 93.7500 (96.0974)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5179  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1950/3125]  eta: 0:10:09  Lr: 0.010000  Loss: 0.4325  Acc@1: 68.7500 (72.6839)  Acc@5: 93.7500 (96.1078)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5184  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1960/3125]  eta: 0:10:04  Lr: 0.010000  Loss: 0.5264  Acc@1: 75.0000 (72.6638)  Acc@5: 100.0000 (96.1212)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5185  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1970/3125]  eta: 0:09:59  Lr: 0.010000  Loss: 0.8844  Acc@1: 75.0000 (72.6884)  Acc@5: 100.0000 (96.1346)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5172  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1980/3125]  eta: 0:09:53  Lr: 0.010000  Loss: 0.7046  Acc@1: 75.0000 (72.7032)  Acc@5: 100.0000 (96.1383)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5167  data: 0.0003  max mem: 6588
+Train: Epoch[  2/100]  [1990/3125]  eta: 0:09:48  Lr: 0.010000  Loss: 0.7389  Acc@1: 75.0000 (72.7053)  Acc@5: 100.0000 (96.1420)  Prompt_Loss: 0.0000 (0.0000)  time: 0.5178  data: 0.0004  max mem: 6588

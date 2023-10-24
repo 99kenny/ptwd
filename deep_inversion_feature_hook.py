@@ -1,5 +1,9 @@
+import logging
+
 import torch
 import numpy as np
+
+logger = logging.getLogger(__name__)
 
 class DeepInversionFeatureHooK():
     def __init__(self, module):
@@ -16,6 +20,11 @@ class DeepInversionFeatureHooK():
         
         r_feature = torch.norm(module.var - var, 2) + torch.norm(module.mean - mean, 2)
         self.r_feature = r_feature
-    
+        logger.debug(f'feature {feature.shape}')
+        logger.debug(f'nch : {nch}')
+        logger.debug(f'mean : {mean.shape}')
+        logger.debug(f'var : {var.shape}')
+        logger.debug(f'r_feature : {r_feature}')
+        
     def close(self):
         self.hook.remove()

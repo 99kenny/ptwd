@@ -20,8 +20,7 @@ from continual_datasets.continual_datasets import *
 
 import utils
 
-logging.basicConfig(level=logging.DEBUG, datefmt='%H:%M:%S', format='[%(levelname)s %(asctime)s : %(funcName)s] %(message)s')
-device = 4
+logger = logging.getLogger(__name__)
 
 class Lambda(transforms.Lambda):
     def __init__(self, lambd, nb_classes):
@@ -35,11 +34,19 @@ def target_transform(x, nb_classes):
     return x + nb_classes
 
 def build_dataloader(args):
+    
     train_transform = build_transform(True, args)
     val_transform = build_transform(False, args)
     dataset_train, dataset_val = get_dataset(args.dataset, train_transform, val_transform, args.data_path)
     args.nb_classes = len(dataset_val.classes)
     
+    logger.debug('----------build_dataloader----------')
+    logger.debug(f'train_transform : {train_transform}')
+    logger.debug(f'val_transfrom : {val_transform}')
+    logger.debug(f'dataset_trian_len : {len(dataset_train)}')
+    logger.debug(f'dataset_val_len : {len(dataset_val)}')
+    logger.debug(f'num classes : {args.nb_classes}')
+    logger.debug('------------------------------------')
     dataloader = list()
 
     sampler_train = torch.utils.data.RandomSampler(dataset_train)
@@ -62,7 +69,6 @@ def build_dataloader(args):
     dataloader.append({'train': data_loader_train, 'val': data_loader_val})
     class_mask = None
     return dataloader, class_mask 
-
 
 def build_continual_dataloader(args):
     """build dataloader for continual learning from args.dataset 
@@ -244,6 +250,8 @@ def split_single_dataset(dataset_train, dataset_val, args):
     return split_datasets, mask
 
 def get_images(num, name='CIFAR10', data_path='./local_datasets'):
+
+    device = torch.device(0)
     transform = transforms.Compose([
         transforms.ToTensor()
     ])
@@ -251,11 +259,10 @@ def get_images(num, name='CIFAR10', data_path='./local_datasets'):
     idx = torch.randint(0,len(dataset_train),(num,))
     c,h,w = dataset_train.__getitem__(0)[0].shape
     imgs = torch.empty((0,c,h,w))
-    logging.debug(f'imgs shape : {imgs.shape}')
     for i in idx:
         imgs = torch.cat([torch.unsqueeze(dataset_train.__getitem__(i)[0],0), imgs],dim=0)
-    imgs.to(device)
-    
+    imgs = imgs.to(device)
+    logger.debug(f'initial imgs shape : {imgs.shape}')
     return imgs
     
     

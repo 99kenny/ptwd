@@ -44,8 +44,7 @@ from prompt import Prompt
 from image_prompt import ImagePrompt
 from pre_norm import PreNorm
 
-_logger = logging.getLogger(__name__)
-
+logger = logging.getLogger(__name__)
 
 def _cfg(url='', **kwargs):
     return {
@@ -238,7 +237,8 @@ class Block(nn.Module):
             drop_path=0., act_layer=nn.GELU, norm_layer=nn.LayerNorm):
         super().__init__()
         self.norm1 = norm_layer(dim)
-        self.pre_norm = PreNorm(patch_num=patch_num)
+        self.pre_norm1 = PreNorm(patch_num=patch_num)
+        self.pre_norm2 = PreNorm(patch_num=patch_num)
         self.attn = Attention(dim, num_heads=num_heads, qkv_bias=qkv_bias, attn_drop=attn_drop, proj_drop=drop)
         self.ls1 = LayerScale(dim, init_values=init_values) if init_values else nn.Identity()
         
@@ -251,8 +251,8 @@ class Block(nn.Module):
         self.drop_path2 = DropPath(drop_path) if drop_path > 0. else nn.Identity()
         
     def forward(self, x, is_pre):
-        x = x + self.drop_path1(self.ls1(self.attn(self.pre_norm(self.norm1(x), is_pre=is_pre))))
-        x = x + self.drop_path2(self.ls2(self.mlp(self.pre_norm(self.norm2(x), is_pre=is_pre))))
+        x = x + self.drop_path1(self.ls1(self.attn(self.pre_norm1(self.norm1(x), is_pre=is_pre))))
+        x = x + self.drop_path2(self.ls2(self.mlp(self.pre_norm2(self.norm2(x), is_pre=is_pre))))
         return x
 
 
@@ -364,12 +364,13 @@ class VisionTransformer(nn.Module):
             prompt_pool (bool): use prompt pool or not (False)
         """
         super().__init__()
+        logger.debug('----------------------------Initialize Vision Transformer-----------------------------')
         assert global_pool in ('', 'avg', 'token')
         assert class_token or global_pool != 'token'
         use_fc_norm = global_pool == 'avg' if fc_norm is None else fc_norm
         norm_layer = norm_layer or partial(nn.LayerNorm, eps=1e-6)
         act_layer = act_layer or nn.GELU
-
+        
         self.img_size = img_size
         self.num_classes = num_classes
         self.global_pool = global_pool
@@ -382,15 +383,25 @@ class VisionTransformer(nn.Module):
         self.patch_embed = embed_layer(
             img_size=img_size, patch_size=patch_size, in_chans=in_chans, embed_dim=embed_dim)
         num_patches = self.patch_embed.num_patches # 4
-
+        logger.debug(f'num patches : {self.patch_embed.num_patches}')
         self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim)) if class_token else None
+        logger.debug(f'cls token shape : {self.cls_token.shape}')
         embed_len = num_patches if no_embed_class else num_patches + self.num_prefix_tokens # for class token
+        
         if prompt_length is not None and pool_size is not None and prompt_pool: # add for prompt 
             if prompt_type == 'ImagePrompt':
                 # TODO : 224 should be changed to img_size
                 embed_len += (224 // patch_size) ** 2
             else:
                 embed_len += prompt_length * top_k
+        logger.debug(f'num_patches : {self.patch_embed.num_patches}')
+        logger.debug(f'num_prefic_tokens : {self.num_prefix_tokens}')
+        logger.debug(f'prompt_length : {prompt_length}')
+        logger.debug(f'pool_size : {pool_size}')
+        logger.debug(f'prompt_pool : {prompt_pool}')
+        logger.debug(f'num_patches : {(224//patch_size)**2}')
+        logger.debug(f'embed_len : {embed_len}')
+        
         self.pos_embed = nn.Parameter(torch.randn(1, embed_len, embed_dim) * .02)
         self.pos_drop = nn.Dropout(p=drop_rate)
 
@@ -421,10 +432,10 @@ class VisionTransformer(nn.Module):
         # Classifier Head
         self.fc_norm = norm_layer(embed_dim) if use_fc_norm else nn.Identity()
         self.head = nn.Linear(self.embed_dim, num_classes) if num_classes > 0 else nn.Identity()
-        
+            
         if weight_init != 'skip':
             self.init_weights(weight_init)
- 
+        logger.debug('---------------------------------------------------------------------------')
     def init_weights(self, mode=''):
         assert mode in ('jax', 'jax_nlhb', 'moco', '')
         head_bias = -math.log(self.num_classes) if 'nlhb' in mode else 0.
@@ -469,7 +480,9 @@ class VisionTransformer(nn.Module):
 
     def forward_features(self, x, task_id=-1, cls_features=None, train=False, is_pre=False):
         # (128,3,32,32) -> (128,4,768)
+        logger.debug('----------------------------------vision transformer forward----------------------------------')
         x = self.patch_embed(x)
+        logger.debug(f'image patch embed {x.shape}')
         # if use prompt
         if hasattr(self, 'prompt'):
             # if use prompt mask (select prompt)
@@ -480,20 +493,28 @@ class VisionTransformer(nn.Module):
                 prompt_mask = single_prompt_mask.unsqueeze(0).expand(x.shape[0], -1)
                 if end > self.prompt.pool_size:
                     prompt_mask = None
+                logger.debug(f'use prompt mask : {prompt_mask}')
             else:
                 prompt_mask = None
             # prompt_embed + x_embed
+            
             res = self.prompt(x, prompt_mask=prompt_mask, cls_features=cls_features)
             self.total_prompt_len = res['total_prompt_len']
+            logger.debug(f'total prompt len : {self.total_prompt_len}')
             # prompt + embedding
+            #if prompt_cat_type == 'concat':
+            #elif prompt_cat_type == 'prepend':
             x = res['prompted_embedding']
+            logger.debug(f'prompt_ebedding : {x.shape}')
         else:
+            logger.debug('not using prmopt')
             res=dict()
         if self.cls_token is not None:
             x = torch.cat((self.cls_token.expand(x.shape[0], -1, -1), x), dim=1)
+            logger.debug(f'prompt_embed + cls_token : {x.shape}')
         
         x = self.pos_drop(x + self.pos_embed)
-
+        
         if self.grad_checkpointing and not torch.jit.is_scripting():
             x = checkpoint_seq(self.blocks, x)
         else:
@@ -522,11 +543,10 @@ class VisionTransformer(nn.Module):
             raise ValueError(f'Invalid classifier={self.classifier}')
         
         res['pre_logits'] = x
-
         x = self.fc_norm(x)
         
         res['logits'] = self.head(x)
-        
+            
         return res
 
     def forward(self, x, task_id=-1, cls_features=None, train=False, is_pre=False):
@@ -625,7 +645,7 @@ def _load_weights(model: VisionTransformer, checkpoint_path: str, prefix: str = 
                         getattr(block, f'conv{r + 1}').weight.copy_(_n2p(w[f'{bp}conv{r + 1}/kernel']))
                         getattr(block, f'norm{r + 1}').weight.copy_(_n2p(w[f'{bp}gn{r + 1}/scale']))
                         getattr(block, f'norm{r + 1}').bias.copy_(_n2p(w[f'{bp}gn{r + 1}/bias']))
-                    if block.downsample is not None:
+                    if bock.downsample is not None:
                         block.downsample.conv.weight.copy_(_n2p(w[f'{bp}conv_proj/kernel']))
                         block.downsample.norm.weight.copy_(_n2p(w[f'{bp}gn_proj/scale']))
                         block.downsample.norm.bias.copy_(_n2p(w[f'{bp}gn_proj/bias']))
@@ -676,7 +696,6 @@ def resize_pos_embed(posemb, posemb_new, num_prefix_tokens=1, gs_new=()):
     # Rescale the grid of position embeddings when loading from state_dict. Adapted from
     # https://github.com/google-research/vision_transformer/blob/00883dd691c63a6830751563748663526e811cee/vit_jax/checkpoint.py#L224
     # modify
-    _logger.info('Resized position embedding: %s to %s', posemb.shape, posemb_new.shape)
     ntok_new = posemb_new.shape[1]
     if num_prefix_tokens:
         posemb_prefix, posemb_grid = posemb[:, :num_prefix_tokens], posemb[0, num_prefix_tokens:]
@@ -691,7 +710,6 @@ def resize_pos_embed(posemb, posemb_new, num_prefix_tokens=1, gs_new=()):
     if not len(gs_new):  # backwards compatibility
         gs_new = [int(math.sqrt(ntok_new))] * 2
     assert len(gs_new) >= 2
-    _logger.info('Position embedding grid-size from %s to %s', [gs_old, gs_old], gs_new)
     posemb_grid = posemb_grid.reshape(1, gs_old, gs_old, -1).permute(0, 3, 1, 2)
     posemb_grid = F.interpolate(posemb_grid, size=gs_new, mode='bicubic', align_corners=False)
     posemb_grid = posemb_grid.permute(0, 2, 3, 1).reshape(1, gs_new[0] * gs_new[1], -1)

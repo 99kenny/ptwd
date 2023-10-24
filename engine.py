@@ -16,6 +16,7 @@ import datetime
 import json
 from typing import Iterable
 from pathlib import Path
+import logging
 
 import torch
 from torchvision.utils import save_image, make_grid
@@ -25,6 +26,8 @@ from timm.utils import accuracy
 from timm.optim import create_optimizer
 
 import utils
+
+logger = logging.getLogger(__name__)
 
 def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module, 
                     criterion, prompt_criterion, data_loader: Iterable, optimizer: torch.optim.Optimizer,
@@ -57,7 +60,7 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         
         output = model(input, task_id=task_id, cls_features=cls_features, train=set_training_mode)
         logits = output['logits']
-
+        
         # here is the trick to mask out classes of non-current tasks
         if args.train_mask and class_mask is not None:
             mask = class_mask[task_id]
@@ -66,13 +69,17 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
             logits = logits.index_fill(dim=1, index=not_mask, value=float('-inf'))
     
         loss = criterion(logits, target) # base criterion (CrossEntropyLoss)
-        if args.pull_constraint and 'reduce_sim' in output:
-            loss = loss - args.pull_constraint_coeff * output['reduce_sim']
+        #if args.pull_constraint and 'reduce_sim' in output:
+        #    loss = loss - args.pull_constraint_coeff * output['reduce_sim']
         if args.prompt_type == 'ImagePrompt':
-            image_prompt_loss = prompt_criterion(model.prompt.prompt)
-            
+            #print(f"output : {output['prompt_idx'].flatten()}")
+            # prompt idx 기록
+            logger.debug(f'prompt idxs : {output["prompt_idx"].flatten()}')
+            logger.debug(f'prompt : {model.prompt.prompt.shape}')
+            image_prompt_loss = prompt_criterion(model.prompt.prompt[output['prompt_idx'].flatten()])
+            logger.debug(f'target idxs : {target}')
         acc1, acc5 = accuracy(logits, target, topk=(1, 5))
-
+        
         if not math.isfinite(loss.item()):
             print("Loss is {}, stopping training".format(loss.item()))
             sys.exit(1)
@@ -93,10 +100,10 @@ def train_one_epoch(model: torch.nn.Module, original_model: torch.nn.Module,
         metric_logger.meters['Acc@5'].update(acc5.item(), n=input.shape[0])
         if args.prompt_type == 'ImagePrompt':
             metric_logger.update(Prompt_Loss= image_prompt_loss.item())
-        
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
     print("Averaged stats:", metric_logger)
+    
     return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
 
 @torch.no_grad()
@@ -146,7 +153,7 @@ def evaluate(model: torch.nn.Module, original_model: torch.nn.Module, data_loade
             if args.prompt_type == 'ImagePrompt':
                 metric_logger.meters['Prompt_Loss'].update(prompt_loss.item())
     # gather the stats from all processes
-    metric_logger.synchronize_between_processes()
+    #metric_logger.synchronize_between_processes()
     print('* Acc@1 {top1.global_avg:.3f} Acc@5 {top5.global_avg:.3f} loss {losses.global_avg:.3f}'
           .format(top1=metric_logger.meters['Acc@1'], top5=metric_logger.meters['Acc@5'], losses=metric_logger.meters['Loss']))
 

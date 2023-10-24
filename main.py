@@ -20,7 +20,7 @@ from torch.utils.data import DataLoader
 import torch.backends.cudnn as cudnn
 from torchvision.utils import make_grid, save_image
 from torch.optim.lr_scheduler import CosineAnnealingLR
-
+from torchsummary import summary
 from pathlib import Path
 
 from timm.models import create_model
@@ -37,15 +37,14 @@ from deep_inversion_feature_hook import DeepInversionFeatureHooK
 
 import warnings
 warnings.filterwarnings('ignore', 'Argument interpolation should be of type InterpolationMode instead of int')
-
+logging.basicConfig(level=logging.INFO, datefmt='%H:%M:%S', format='%(levelname)s %(asctime)s : [%(name)s - %(funcName)s] %(message)s')
+logger = logging.getLogger(__name__)
 
 def main(args):
-    logging.basicConfig(level=logging.DEBUG, datefmt='%H:%M:%S', format='[%(levelname)s %(asctime)s : %(funcName)s] %(message)s')
     # utils.init_distributed_mode(args)
-    
     device = torch.device(args.device)
-    logging.debug(f'using device {args.device}:{device}')
-    logging.debug(f'args : {args}')
+    logger.debug(f'using device {args.device}:{device}')
+    logger.debug(f'args : {args}')
     # fix the seed for reproducibility
     seed = args.seed
     torch.manual_seed(seed)
@@ -56,8 +55,8 @@ def main(args):
         
     #data_loader, class_mask = build_continual_dataloader(args)
     data_loader, class_mask = build_dataloader(args)
-    # normal dataloader for prompt tuning 
-         
+    # nor
+    
     print(f"Creating original model: {args.model}")
     original_model = create_model(
         args.model,
@@ -67,7 +66,7 @@ def main(args):
         drop_path_rate=args.drop_path,
         drop_block_rate=None,
     )
-
+    
     print(f"Creating model: {args.model}")
     model = create_model(
         args.model,
@@ -91,8 +90,9 @@ def main(args):
     original_model.to(device)
     model.to(device)  
     
+    # save initial images 
     if args.initializer == 'train' and args.prompt_type == 'ImagePrompt':
-        logging.info('save initial prompt imgs...')
+        logger.info('save initial prompt imgs...')
         save_image(make_grid(model.prompt.prompt, nrow=args.size), f'{args.output_dir}/{args.exp_name}/initial_prompts.jpg')
     
     if args.freeze:
@@ -104,40 +104,43 @@ def main(args):
         for n, p in model.named_parameters():
             if n.startswith(tuple(args.freeze)):
                 p.requires_grad = False
-    logging.debug(args)
+
+#    logger.debug(f'original_model : {summary(original_model)}')
+    logger.debug(f'model : {summary(model)}')
+    
     for n, p in model.named_parameters():
         if p.requires_grad == True:
-            logging.debug(f'{n} : {p.shape}')
+            logger.debug(f'{n} : {p.shape}')
 
     if args.eval:
-        logging.info('eval mode')
+        logger.info('eval mode')
         if args.continual:
-            logging.info('continual')
+            logger.info('continual')
             acc_matrix = np.zeros((args.num_tasks, args.num_tasks))
             # validate for each task
             for task_id in range(args.num_tasks):
                 checkpoint_path = os.path.join(args.output_dir, 'checkpoint/task{}_checkpoint.pth'.format(task_id+1))
                 if os.path.exists(checkpoint_path):
-                    logging.info('Loading checkpoint from: %s', checkpoint_path)
+                    logger.info('Loading checkpoint from: %s', checkpoint_path)
                     checkpoint = torch.load(checkpoint_path)
                     model.load_state_dict(checkpoint['model'])
                 else:
-                    logging.info('No checkpoint found at: %s', checkpoint_path)
+                    logger.info('No checkpoint found at: %s', checkpoint_path)
                     return
                 _ = evaluate_till_now(model, original_model, data_loader, device, 
                                                 task_id, class_mask, acc_matrix, args,)
                 
             return
         else:
-            logging.info('single task')
+            logger.info('single task')
             acc_matrix = np.zeros(1)
             checkpoint_path = os.path.join(args.output_dir, 'checkpoint/checkpoint.pth')
             if os.path.exists(checkpoint_path):
-                logging.info('Loading checkpoint from: %s', checkpoint_path)
+                logger.info('Loading checkpoint from: %s', checkpoint_path)
                 checkpoint = torch.load(checkpoint_path)
                 model.load_state_dict(checkpoint['model'])
             else:
-                logging.info('No checkpoint found at: %s', checkpoint_path)
+                logger.info('No checkpoint found at: %s', checkpoint_path)
                 return
             _ = evaluate(model, original_model, data_loader, device, acc_matrix, args,)
     
@@ -147,7 +150,7 @@ def main(args):
     #     model_without_ddp = model.module
     
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    logging.info('number of params: %s', n_parameters)
+    logger.debug('number of params: %s', n_parameters)
     
     # if args.unscale_lr:
     #     global_batch_size = args.batch_size
@@ -174,7 +177,7 @@ def main(args):
         sample_loader = data_loader[0]['train']
         sample_size = 100
         sample = torch.empty(0,3,224,224)
-        logging.info('load sample %d images for prenorm', sample_size)
+        logger.info('load sample %d images for prenorm', sample_size)
         # todo: fix this (memory issue)
         for input, target in sample_loader:
             batch_size = input.shape[0]
@@ -184,28 +187,31 @@ def main(args):
             else:
                 sample = torch.cat([sample, input], dim=0)
                 sample_size -= batch_size
-        logging.info('sample shape for mean, var: %s', sample.shape) 
-       
+        logger.info('sample shape for mean, var: %s', sample.shape) 
+        
         sample = sample.to(device)
         # save mean, var
         original_model.eval()
+        logger.debug('start prenorm')
         original_model(sample, is_pre=True)
+        logger.debug('end prenorm')
+        
         prenorm_values = list()
         for module in original_model.modules():
             if isinstance(module, PreNorm):
                 prenorm_values.append({'mean' : module.mean, 'var' : module.var})
-                #logging.debug(f'original model running : {module.mean} , {module.var}')
+                #logger.debug(f'original model running : {module.mean} , {module.var}')
         # prompt loss
         r_feature_layers = list()
         idx = 0
         for module in model.modules():
             if isinstance(module, PreNorm):            
                 module.set_mean_var(mean=prenorm_values[idx]['mean'], var=prenorm_values[idx]['var'])
-                #logging.debug(f'model running: {module.mean}, {module.var}')
+                #logger.debug(f'model running: {module.mean}, {module.var}')
                 r_feature_layers.append(DeepInversionFeatureHooK(module))
                 idx += 1
     
-        prompt_criterion = ImagePromptLoss(r_feature_layers=r_feature_layers)
+        prompt_criterion = ImagePromptLoss(r_feature_layers=r_feature_layers, alpha_main=args.alpha_main, alpha_tv_l1=args.alpha_tv_l1, alpha_tv_l2=args.alpha_tv_l2, alpha_l2=args.alpha_l2, alpha_f=args.alpha_f)
     
     print(f"Start training for {args.epochs} epochs")
     start_time = time.time()

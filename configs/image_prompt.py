@@ -54,7 +54,7 @@ def get_args_parser(subparsers):
     subparsers.add_argument('--dataset', default='CIFAR10', type=str, help='dataset name')
     subparsers.add_argument('--shuffle', default=False, help='shuffle the data order')
     subparsers.add_argument('--output_dir', default='./output', help='path where to save, empty for no saving')
-    subparsers.add_argument('--device', default=4, help='device to use for training / testing')
+    subparsers.add_argument('--device', default=0, help='device to use for training / testing')
     subparsers.add_argument('--seed', default=42, type=int)
     subparsers.add_argument('--eval', action='store_true', help='Perform evaluation only')
     subparsers.add_argument('--num_workers', default=4, type=int)
@@ -93,7 +93,7 @@ def get_args_parser(subparsers):
 
     # ViT parameters
     subparsers.add_argument('--global_pool', default='token', choices=['token', 'avg'], type=str, help='type of global pooling for final sequence')
-    subparsers.add_argument('--head_type', default='prompt', choices=['token', 'gap', 'prompt', 'token+prompt'], type=str, help='input type of classification head')
+    subparsers.add_argument('--head_type', default='token', choices=['token', 'gap', 'prompt', 'token+prompt'], type=str, help='input type of classification head')
     subparsers.add_argument('--freeze', default=['blocks', 'patch_embed', 'cls_token', 'norm', 'pos_embed'], nargs='*', type=list, help='freeze part in backbone model')
     
     subparsers.add_argument('--alpha_main', default=0.1, type=float)
